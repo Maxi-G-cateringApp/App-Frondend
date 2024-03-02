@@ -1,7 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomePageComponent } from './components/home/home-page/home-page.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { UserHomeComponent } from './components/home/user-home/user-home.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', component: HomePageComponent},
+  {path:'user_home', component: UserHomeComponent},
+  {
+    path: 'auth',
+    loadChildren: ()=> import('./auth/auth.module').then((m) => m.AuthModule)
+  }
+  
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

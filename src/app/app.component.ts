@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app-frondend';
+
+  // constructor(private spinnerService: LoadingSpinnerComponent){}
 }
