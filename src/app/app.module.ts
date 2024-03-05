@@ -14,6 +14,9 @@ import { UserHomeComponent } from './components/home/user-home/user-home.compone
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FooterComponent } from './components/footer/footer.component';
+import { appReducer } from './shared/app.state';
+import { AuthEffects } from './auth/state/auth.effects';
+import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +28,14 @@ import { FooterComponent } from './components/footer/footer.component';
     LoadingSpinnerComponent,
     UserHomeComponent,
     FooterComponent,
+    AdminHomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreModule.forRoot(appReducer),
     HttpClientModule,
   ],
   providers: [

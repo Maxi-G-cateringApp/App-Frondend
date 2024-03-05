@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router, private fb: FormBuilder){}
  
   registerForm!: FormGroup
+  email: string="";
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit{
       lastName: ['',Validators.required],
       username: ['',Validators.required],
       phoneNumber: ['',Validators.required],
-      email: ['',Validators.required,Validators.email],
+      email: ['',[Validators.required,Validators.email]],
       password: ['',Validators.required],
     })
    
@@ -30,8 +31,9 @@ export class RegisterComponent implements OnInit{
   onRegisteruser(){
    this.authService.register(this.registerForm.value).subscribe(
     (response)=>{
+      this.email = response.email;
       if(response!=null){
-          this.router.navigateByUrl("/login")
+          this.router.navigate(['/auth/verify-account',this.email])
       }
     }
    );
