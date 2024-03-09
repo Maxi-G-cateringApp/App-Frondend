@@ -1,7 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { LoginData } from "../../model/loginReq.model";
-import { User } from "../../model/user.model";
-import { AuthResponse } from "../../model/authResponse.model";
 import { AuthenticatedUser } from "../../model/authUser.model";
 
 

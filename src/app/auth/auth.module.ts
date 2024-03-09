@@ -4,31 +4,30 @@ import { LoginComponent } from "./login/login.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterComponent } from "./register/register.component";
 import { CommonModule } from "@angular/common";
-import { StoreModule } from "@ngrx/store";
-import { AUTH_STATE_NAME } from "./state/auth.selector";
-import { AuthReducer } from "./state/auth.reducer";
 import { EffectsModule } from "@ngrx/effects";
-import { AuthEffects } from "./state/auth.effects";
 import { OtpComponent } from './otp/otp.component';
 import { UserHomeComponent } from "../components/home/user-home/user-home.component";
 import { AdminHomeComponent } from "../components/admin/admin-home/admin-home.component";
+import { loginGuard } from "./guards/login.guard";
+import { adminGuard } from "./guards/admin.guard";
+
 
 const routes: Routes = [
     {path:'',children:[
         {path:'',redirectTo: 'login',pathMatch: "full"},
-        {path: 'login',component: LoginComponent},
-        {path: 'register', component: RegisterComponent},
-        {path:'user_home', component: UserHomeComponent},
-        {path: 'verify-account/:email', component: OtpComponent},
-        {path: 'admin_home', component: AdminHomeComponent}
+        {path: 'login',component: LoginComponent,canActivate:[loginGuard]},
+        {path: 'register', component: RegisterComponent,canActivate:[loginGuard]},
+        {path:'user_home', component: UserHomeComponent,canActivate:[adminGuard]},
+        {path: 'verify-account/:email', component: OtpComponent,canActivate:[loginGuard]},
     ]}
 ]
-
 @NgModule({
 
-    declarations: [LoginComponent,
+    declarations: 
+    [LoginComponent,
     RegisterComponent,
-    OtpComponent],
+    OtpComponent,
+    UserHomeComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

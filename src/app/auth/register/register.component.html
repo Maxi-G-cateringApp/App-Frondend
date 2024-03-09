@@ -1,26 +1,22 @@
-<div class="bg-gray-100 flex h-screen items-center justify-center sm:px-6 lg:px-8">
+<!-- <div class="bg-gray-100 flex h-screen items-center justify-center sm:px-6 lg:px-8">
     <div class="w-full max-w-md ">
         <div class="bg-white shadow-md rounded-md p-6">
-
-            <!-- <img class="mx-auto h-12 w-auto" src="https://www.svgrepo.com/show/499664/user-happy.svg" alt="" /> -->
-
             <h2 class=" text-center text-2xl font-bold tracking-tight text-gray-900">
                 Sign up for an account
             </h2>
-
 
             <form [formGroup]="registerForm" (ngSubmit)="onRegisteruser()">
                 <div>
                     <label for="new-password" class=" text-sm font-medium text-gray-700">Firstname</label>
                     <div>
-                        <input name="username" type="username" required formControlName="firstName"
+                        <input name="username" type="username" formControlName="firstName"
                             class="  w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
                     </div>
                 </div>
                 <div>
                     <label for="new-password" class=" text-sm font-medium text-gray-700">Lastname</label>
                     <div >
-                        <input name="username" type="username" required formControlName="lastName"
+                        <input name="username" type="username" formControlName="lastName"
                             class=" w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
                     </div>
                 </div>
@@ -28,14 +24,15 @@
                 <div>
                     <label for="new-password" class=" text-sm font-medium text-gray-700">Username</label>
                     <div >
-                        <input name="username" type="username" required formControlName="username"
+                        <input name="username" type="username" formControlName="username"
                             class="  w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
                     </div>
+                    <small *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-red-600"> * Username required</small>
                 </div>
                 <div>
                     <label for="password" class=" text-sm font-medium text-gray-700">Phonenumber</label>
                     <div >
-                        <input name="email" type="email-address" autocomplete="email-address" required formControlName="phoneNumber"
+                        <input name="email" type="email-address" autocomplete="email-address" formControlName="phoneNumber"
                             class="  w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
                     </div>
                 </div>
@@ -43,21 +40,22 @@
                 <div>
                     <label for="password" class=" text-sm font-medium text-gray-700">Email</label>
                     <div >
-                        <input name="email" type="email-address" autocomplete="email-address" required formControlName="email"
+                        <input name="email" type="email-address" autocomplete="email-address" formControlName="email"
                             class="  w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
                     </div>
+                    <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-600"> * Email required</small>
                 </div>
 
                 <div>
                     <label for="password" class=" text-sm font-medium text-gray-700">Password</label>
                     <div >
-                        <input name="password" type="password" autocomplete="password" required formControlName="password"
+                        <input name="password" type="password" autocomplete="password" formControlName="password"
                             class=" w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit"
+                    <button type="submit" [disabled]="registerForm.invalid"
                         class="flex w-full justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2
                          focus:ring-sky-400 focus:ring-offset-2">Register
                         Account
@@ -65,5 +63,87 @@
                 </div>
             </form>
         </div>
+    </div>
+</div> -->
+
+<div class="flex justify-center items-center min-h-screen bg-yellow-400">
+  <div class=" bg-red-950 w-2/5 min-h-screen flex justify-center items-center rounded-r-[3rem]">
+    <div class="flex flex-col shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
+      <div class="font-medium self-center text-xl sm:text-2xl uppercase text-yellow-400">Signup</div>
+  
+      <div class="mt-10">
+        <form [formGroup]="registerForm" (ngSubmit)="onRegisteruser()">
+
+          <div class="flex flex-col mb-6">
+            
+            <div class="relative">
+              <input formControlName="username" 
+                class="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="username" />
+            </div>
+            <small *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-red-500"> * Username required</small>
+          </div>
+
+          <div class="flex flex-col mb-6">
+            <div class="relative">
+              <input formControlName="email" 
+                class="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="Email" />
+            </div>
+            <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500"> * Email Required</small>
+          </div>
+
+          <div class="flex flex-col mb-6">
+            <div class="relative">
+              <input formControlName="phoneNumber" 
+                class="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="PhoneNumber" />
+            </div>
+            <small *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched" class="text-red-500"> * PhoneNumber Required</small>
+          </div>
+
+          <div class="flex flex-col mb-6">
+            <div class="relative">
+              <input formControlName="password" 
+                class="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="Password" />
+            </div>
+            <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500">* Password Required</small>
+
+          </div>
+
+          <div class="flex flex-col mb-6">
+            <div class="relative">
+              <input 
+                class="text-sm sm:text-base placeholder-gray-300 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                placeholder="Confirm Password" />
+            </div>
+          </div>
+          <div class="flex w-full">
+            <button type="submit" [disabled]="registerForm.invalid"
+              class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
+              <span class="mr-2 uppercase">Signup</span>
+              <span>
+                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="flex justify-center items-center mt-6">
+        <a [routerLink]="['/auth']"
+          class="inline-flex items-center font-bold text-gray-600 hover:text-gray-400 text-xs text-center">
+          <span class="ml-2">Already have an account?</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-3/5 min-h-screen  ">
+      <img [src]="imgPath" class="rounded-s-[3rem]">
+  
     </div>
 </div>

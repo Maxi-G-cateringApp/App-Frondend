@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<app-admin-navbar *ngIf="role === 'ADMIN' "></app-admin-navbar>
 <!-- <app-loading-spinner></app-loading-spinner> -->
 <router-outlet />
 <app-footer></app-footer>

@@ -1,6 +1,16 @@
-<div class="h-screen w-screen mt-80">
+<div class="h-screen w-screen m-40">
     <form action="" [formGroup]="otpForm" (ngSubmit)="onVerify()">
-    <input type="text" formControlName = "otp">
-    <button>Verify</button>
-</form>
+
+        <div class="flex flex-col mb-6">
+            <label for="text" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Username</label>
+            <div class="relative">
+                <input formControlName="otp"
+                    class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+                    placeholder="Enter OTP" />
+            </div>
+        </div>
+        <button
+            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Enter
+            Otp</button>
+    </form>
 </div>

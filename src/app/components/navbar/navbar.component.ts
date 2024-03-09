@@ -12,6 +12,8 @@ import { logout } from '../../auth/state/auth.action';
 })
 export class NavbarComponent implements OnInit{
 
+  logo: string = "/assets/logo2.png";
+
   isAuthenticated: Observable<boolean> | undefined;
   constructor(private store: Store<AuthState>){}
 

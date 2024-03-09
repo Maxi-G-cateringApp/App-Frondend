@@ -1,0 +1,63 @@
+<!-- <div class="h-screen w-screen flex justify-center items-center">
+    <div class="h-[30rem] w-[30rem] bg-yellow-200">
+    <table class="table-auto">
+        <thead>
+          <tr>
+            <th>Combo Name</th>
+            <th>Combo Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of foodCombos">
+            <td>{{ item.foodComboName }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.comboPrice }}</td>
+          </tr>
+        </tbody>
+        
+      </table>
+      <button><a href="" [routerLink]="['/add_combo']">Add Items</a></button>
+    </div>
+</div> -->
+
+
+<div class="h-screen w-screen">
+    <button type="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-yellow-900">
+        <a href="" [routerLink]="['/add_combo']">Add Item</a>
+    </button>
+
+<div class="relative overflow-x-auto h-screen m-1">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr >
+                <th scope="col" class="px-6 py-3">
+                    Combo name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Combo Description
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Combo price
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let item of foodCombos">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ item.foodComboName }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ item.description }}
+                </td>
+                <td class="px-6 py-4">
+                    <span>₹</span>{{ item.comboPrice }}
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+

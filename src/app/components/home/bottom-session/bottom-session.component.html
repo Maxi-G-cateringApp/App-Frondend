@@ -1,7 +1,38 @@
-<div class="w-screen h-screen md:h-3/6 bg-red-950 flex flex-wrap  justify-evenly">
-    
-    <app-session></app-session>
-    <app-session></app-session>
-    <app-session></app-session>
+<div class="w-screen h-screen bg-yellow-100 mt-1 flex flex-wrap  justify-evenly items-center">
 
+    <!-- section -->
+    <app-session>
+        <div class="flex flex-col items-center justify-evenly mt-16 hola">
+            <h2>Beyond the Plate</h2>
+            <ng-container *ngFor="let para of paras">
+                <li class= "list-none text-gray-900 font-extrabold p-3">{{ para }}</li>
+            </ng-container>
+        </div>
+    </app-session>
+    <!-- section -->
+
+    <!-- section -->
+    <app-session>
+        <div class="flex justify-evenly text-red-950 font-extrabold hoi">
+            <li>Serving</li>
+            <li>Event Management</li>
+            <li>Decoration</li>
+        </div>
+        <div class="flex flex-col items-center hii">
+            <ng-container *ngFor="let service of servicesList">
+                <li class="list-none text-gray-900 font-extrabold p-1">{{ service }}</li>
+            </ng-container>
+        </div>
+    </app-session>
+    <!-- section -->
+
+
+    <!-- section -->
+    <app-session>
+       <div class="text-black flex flex-col items-center hello m-16">
+        <h2>Savor unforgettable flavors.</h2>
+        <h2>Celebrate with MAXi -G Catering</h2>
+       </div>
+    </app-session>
+    <!-- section -->
 </div>
