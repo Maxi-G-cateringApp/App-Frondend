@@ -1,5 +1,12 @@
-<app-navbar></app-navbar>
-<app-admin-navbar *ngIf="role === 'ADMIN' "></app-admin-navbar>
-<!-- <app-loading-spinner></app-loading-spinner> -->
+<!-- <app-navbar *ngIf="role === 'USER' "></app-navbar>
+<app-navbar *ngIf="isAuthenticated"></app-navbar>
+<app-admin-navbar *ngIf="role === 'ADMIN' "></app-admin-navbar> -->
+<ng-container *ngIf="isAuthenticated">
+    <app-navbar *ngIf="role === 'USER'"></app-navbar>
+    <!-- <app-admin-navbar *ngIf="role === 'ADMIN'"></app-admin-navbar> -->
+  </ng-container>
+  <app-navbar *ngIf="!isAuthenticated && role === 'USER'"></app-navbar>
+  
+<app-loading-spinner *ngIf="showLoading | async"></app-loading-spinner>
 <router-outlet />
-<app-footer></app-footer>
+<app-footer *ngIf="role === 'USER'"></app-footer>

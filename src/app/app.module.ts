@@ -6,26 +6,24 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomePageComponent } from './components/home/home-page/home-page.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { BottomSessionComponent } from './components/home/bottom-session/bottom-session.component';
-import { SessionComponent } from './components/home/bottom-session/session/session.component';
+import { HomePageComponent } from './shared/components/home-page/home-page.component';
+import { NavbarComponent } from './pages/user/components/navbar/navbar.component';
+import { BottomSessionComponent } from './shared/components/bottom-session/bottom-session.component';
+import { SessionComponent } from './shared/components/bottom-session/session/session.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 import { appReducer } from './shared/app.state';
-import { AuthEffects } from './auth/state/auth.effects';
-import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
-import { AddFoodComboComponent } from './components/admin/add-food-combo/add-food-combo.component';
-import { HttpInterceptorService } from './intercepter/http-interceptor.service';
+import { AuthEffects } from './pages/auth/state/auth.effects';
+import { HttpInterceptorService } from './core/interceptors/http-interceptor.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ComboItemsComponent } from './components/admin/combo-items/combo-items.component';
-import { AdminNavbarComponent } from './components/admin/admin-navbar/admin-navbar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { MaterialModule } from './shared/material/material.module';
 
 @NgModule({
   declarations: [
@@ -36,10 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SessionComponent,
     LoadingSpinnerComponent,
     FooterComponent,
-    AdminHomeComponent,
-    AddFoodComboComponent,
-    ComboItemsComponent,
-    AdminNavbarComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StoreModule.forRoot(appReducer),
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MaterialModule,
   ],
   providers: [
     provideClientHydration(),
@@ -58,11 +54,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useClass: HttpInterceptorService,
       multi: true,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpInterceptorService,
-    //   multi: true,
-    // },
     provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent],

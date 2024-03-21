@@ -1,0 +1,40 @@
+
+<div class="flex bg-red-950">
+    <app-user-side-bar></app-user-side-bar>
+    <div class="flex h-full w-1/2  bg-red-950 mt-20">
+        <form [formGroup]="orderForm">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field>
+                    <mat-label>SelectDate</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date">
+                    <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
+                    <!-- <mat-hint>dd/MM/yyyy</mat-hint> -->
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="mat-50">
+                    <mat-label>Select Combo</mat-label>
+                    <mat-select formControlName="combo">
+                        <mat-option [value]="item" *ngFor="let item of comboItemList ">{{item.comboName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mat-50">
+                    <mat-label>Select Combo</mat-label>
+                    <mat-select formControlName="combo">
+                        <mat-option [value]="item" *ngFor="let item of itemList ">{{item.itemName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-footer>
+            </mat-card-footer>
+        </mat-card>
+    </form>
+    </div>
+
+    <div class="bg-red-300 w-1/2 h-full">
+
+    </div>
+</div>
+
