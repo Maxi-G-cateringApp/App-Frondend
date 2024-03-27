@@ -1,0 +1,10 @@
+button {
+    margin: 0.5rem;
+}
+mat-card {
+    margin: 1rem;
+}
+th{
+    background-color: black !important;
+    color: white;
+}

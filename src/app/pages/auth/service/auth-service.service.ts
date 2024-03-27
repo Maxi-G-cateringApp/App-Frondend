@@ -43,6 +43,10 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  setRefreshTokenInLocalStorage(refreshToken: string) {
+    localStorage.setItem('refreshToken', refreshToken);
+  }
+
   getTokenFromLocalStorage() {
     const token = localStorage.getItem('token');
     return token;

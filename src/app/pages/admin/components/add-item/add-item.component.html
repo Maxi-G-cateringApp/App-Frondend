@@ -4,13 +4,14 @@
     <h1 mat-dialog-title>{{ inputData.title }}</h1>
     <div mat-dialog-content>
 
-      <mat-form-field class="mat-50">
+      <mat-form-field class="mat-50" *ngIf="!inputData.isEdit">
         <mat-label>Select category</mat-label>
         <!-- <input matInput> -->
-        <mat-select formControlName="category">
-            <mat-option [value]="item" *ngFor="let item of items ">{{item}}</mat-option>
+        <mat-select formControlName="categoryId">
+          <mat-option [value]="categories.id"
+            *ngFor="let categories of categoryList ">{{categories.categoriesName}}</mat-option>
         </mat-select>
-    </mat-form-field>
+      </mat-form-field>
       <mat-form-field>
         <mat-label>Item Name</mat-label>
           <input formControlName="itemName" matInput>
@@ -26,7 +27,6 @@
     </div>
     <div mat-dialog-actions>
       <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
-      <button mat-raised-button color="primary" type="submit">save</button>
-  
+      <button mat-raised-button color="primary" type="submit">save</button>  
     </div>
     </form>

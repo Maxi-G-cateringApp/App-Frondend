@@ -8,6 +8,7 @@ import { AppState } from '../../../../shared/app.state';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddFoodComboComponent } from '../add-food-combo/add-food-combo.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormControl, FormGroup } from '@angular/forms';
 2;
 @Component({
   selector: 'app-combo-items',
@@ -22,9 +23,16 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
     'description',
     'comboPrice',
     'action',
+    'image',
   ];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  uploadComboPic!: FormGroup;
+  selectedFile!: File;
+  comboPictureUrls: { [key: number]: string } = {};
+  changeComboBtn: boolean = true;
+  formField: boolean = false;
+  id!: number;
 
   constructor(
     private masterService: MasterService,
@@ -33,6 +41,9 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
+    this.uploadComboPic = new FormGroup({
+      file: new FormControl(null),
+    });
     this.loadFoodComboItems();
   }
 
@@ -45,6 +56,7 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
       this.foodCombos = response;
       this.foodCombos.forEach((combo) => {
         this.comboId = combo.id;
+        this.loadComboPicture(this.comboId);
       });
       this.dataSource = new MatTableDataSource<FoodCombo>(this.foodCombos);
       this.dataSource.paginator = this.paginator;
@@ -79,5 +91,49 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
     } else {
       console.error();
     }
+  }
+
+  submitComboPic() {
+    if (this.id) {
+      this.masterService
+        .updateComboPicture(this.selectedFile, this.id)
+        .subscribe((response) => {
+          this.loadComboPicture(this.id);
+          this.formField = false;
+          this.changeComboBtn = true;
+        });
+    }
+  }
+
+  handleFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.uploadComboPic.patchValue(this.selectedFile);
+  }
+
+  changeComboPicClicked(id: number) {
+    this.id = id;
+    console.log(id, 'selected id for image');
+
+    this.formField = true;
+    this.changeComboBtn = false;
+  }
+
+  loadComboPicture(imgId: number) {
+    this.masterService.getComboImage(imgId).subscribe({
+      next: (data: Blob) => {
+        if (data.size !== 0) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.comboPictureUrls[imgId] = reader.result as string;
+          };
+          reader.readAsDataURL(data);
+        } else {
+          console.log('No picture data received');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching profile image:', error);
+      },
+    });
   }
 }

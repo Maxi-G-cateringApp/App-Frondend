@@ -80,8 +80,7 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
       if (data.size !== 0) {
         const reader = new FileReader();
         reader.onload = () => {
-          this.profilePictureUrl = reader.result as string; 
-                   
+          this.profilePictureUrl = reader.result as string;                   
         };
         reader.readAsDataURL(data);
       } else {

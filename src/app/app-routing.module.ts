@@ -9,7 +9,7 @@ import { AdminComponent } from './pages/admin/components.component';
 
 
 const routes: Routes = [
-  {path: '',component:HomePageComponent,canActivate: [loginGuard]},
+  {path: '',component:HomePageComponent},
 
 
   {

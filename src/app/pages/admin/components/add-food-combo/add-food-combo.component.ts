@@ -6,6 +6,7 @@ import { FoodCombo } from '../../models/combo.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
+import { Categories } from '../../models/category.model';
 
 @Component({
   selector: 'app-add-food-combo',
@@ -18,7 +19,9 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
   inputData: any;
   editData!: FoodCombo;
   editId: number = 0;
-  items: string[] = ["VEG","NON_VEG"];
+  categoryList!: Categories[];
+  category!: string;
+  uploadProfilePic!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -31,16 +34,17 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.inputData = this.data;
 
-    if(this.inputData.isEdit){
+    if (this.inputData.isEdit) {
       this.setPopupdata(this.inputData.id);
     }
- 
+    this.loadCategories();
+
     this.foodComboForm = this.fb.group({
       comboName: ['', Validators.required],
       description: ['', Validators.required],
       comboPrice: ['', Validators.required],
-      category: ['',Validators.required],
-      
+      categoryId: ['', Validators.required],
+      // file: [null],
     });
   }
 
@@ -48,45 +52,55 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     this.store.dispatch(setLoadingSpinner({ status: false }));
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    this.foodComboForm.patchValue(this.selectedFile);
-  }
+  // onFileSelected(event: any) {
+  //   this.selectedFile = event.target.files[0];
+  //   this.foodComboForm.patchValue(this.selectedFile);
+  // }
 
   onaddCombos() {
-    if (this.foodComboForm.valid) {
-      if(this.inputData.isEdit){
-        this.onEdit(this.inputData.id)
-      }else{
-      this.masterService
-        .addFoodCombo(this.foodComboForm.value)
-        .subscribe((response) => {
-          console.log(response);
-          
-          this.closePopup(); 
-        });
-      }
+    console.log(this.foodComboForm.value);
+    if (this.inputData.isEdit) {
+      this.onEdit(this.inputData.id);
     } else {
-      console.error();
+      if (this.foodComboForm.valid) {
+        
+        const comboData: FoodCombo = {
+          comboName: this.foodComboForm.value.comboName,
+          description: this.foodComboForm.value.description,
+          comboPrice: this.foodComboForm.value.comboPrice,
+          categoryId: this.foodComboForm.value.categoryId,
+        }
+        
+
+        this.masterService.addFoodCombo(comboData,this.selectedFile).subscribe((response) => {
+          this.closePopup();
+        });
+      } else {
+        console.error();
+      }
     }
   }
 
-  onEdit(id: number) {    
-    this.masterService
-      .editFoodCombo(id, this.foodComboForm.value)
-      .subscribe((response) => {
-        this.closePopup(); 
+  loadCategories() {
+    this.masterService.getAllcategories().subscribe((response) => {
+      this.categoryList = response;
+    });
+  }
+  onEdit(id: number) {
+    this.masterService.editFoodCombo(id, this.foodComboForm.value).subscribe(
+      (response) => {
+        this.closePopup();
       },
-      (error)=>{console.log(error);
+      (error) => {
+        console.log(error);
       }
-      );
+    );
   }
 
   setPopupdata(id: number) {
     this.masterService.getComboItem(id).subscribe((data) => {
       this.editData = data;
-      this.foodComboForm.setValue({
-        category: this.editData.category,
+      this.foodComboForm.patchValue({
         comboName: this.editData.comboName,
         description: this.editData.description,
         comboPrice: this.editData.comboPrice,
@@ -96,5 +110,10 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
 
   closePopup() {
     this.ref.close();
+  }
+
+  handleFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.foodComboForm.patchValue(this.selectedFile);
   }
 }

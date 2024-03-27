@@ -12,6 +12,10 @@ import { FoodItemsComponent } from './components/food-items/food-items.component
 import { MaterialModule } from '../../shared/material/material.module';
 import { AdminMenubarComponent } from './components/admin-menubar/admin-menubar.component';
 import { AdminComponent } from './components.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { AddCategoriesComponent } from './components/add-categories/add-categories.component';
+import { EventsComponent } from './components/events/events.component';
+import { AddEventComponent } from './components/add-event/add-event.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,10 @@ import { AdminComponent } from './components.component';
     FoodItemsComponent,
     AdminMenubarComponent,
     AdminComponent,
+    CategoriesComponent,
+    AddCategoriesComponent,
+    EventsComponent,
+    AddEventComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,],
 })

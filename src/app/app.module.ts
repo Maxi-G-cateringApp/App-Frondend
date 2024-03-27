@@ -24,6 +24,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { MaterialModule } from './shared/material/material.module';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MaterialModule } from './shared/material/material.module';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MaterialModule,
+    GoogleMapsModule
   ],
   providers: [
     provideClientHydration(),

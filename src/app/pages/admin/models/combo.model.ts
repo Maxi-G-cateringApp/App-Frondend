@@ -1,11 +1,11 @@
 export interface FoodCombo{
 
-    id: number;
+    id?: number;
     comboName: string;
     description: string;
     comboPrice: number;
-    category: string;
-    // imageFile: File;
+    categoryId: number;
+    // file: File;
   
 
 }

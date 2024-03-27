@@ -6,17 +6,18 @@ import { FoodItems } from '../../models/foodItems.model';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
+import { Categories } from '../../models/category.model';
 
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.css',
 })
-export class AddItemComponent implements OnInit,AfterViewInit{
+export class AddItemComponent implements OnInit, AfterViewInit {
   addItemForm!: FormGroup;
   inputData: any;
   editData!: FoodItems;
-  items: string[] = ['VEG', 'NON_VEG'];
+  categoryList!: Categories[];
 
   constructor(
     private fb: FormBuilder,
@@ -29,14 +30,14 @@ export class AddItemComponent implements OnInit,AfterViewInit{
   ngOnInit(): void {
     this.inputData = this.data;
 
-    if(this.inputData.isEdit){
+    if (this.inputData.isEdit) {
       this.setPopupdata(this.inputData.id);
     }
+    this.loadCategories();
     this.addItemForm = this.fb.group({
-      category: ['', Validators.required],
       itemName: ['', Validators.required],
       itemPrice: ['', Validators.required],
-      
+      categoryId: ['', Validators.required],
     });
   }
 
@@ -44,27 +45,33 @@ export class AddItemComponent implements OnInit,AfterViewInit{
     this.store.dispatch(setLoadingSpinner({ status: false }));
   }
   onaddItem() {
-    if (this.addItemForm.valid) {
+    
       console.log(this.addItemForm.value);
-      
-      if(this.inputData.isEdit){
-        this.onEdit(this.inputData.id)
-      }else{
-      this.masterService
-        .addFoodItem(this.addItemForm.value)
-        .subscribe((response) => {
-          console.log(response);
 
-          this.closePopup();
-        });
+      if (this.inputData.isEdit) {
+        this.onEdit(this.inputData.id);
+      } else {
+        if (this.addItemForm.valid) {
+        this.masterService
+          .addFoodItem(this.addItemForm.value)
+          .subscribe((response) => {
+            this.closePopup();
+          });
+      } else {
+        console.error();
       }
-    } else {
-      console.error();
     }
+   
   }
 
   closePopup() {
     this.ref.close();
+  }
+
+  loadCategories() {
+    this.masterService.getAllcategories().subscribe((response) => {
+      this.categoryList = response;
+    });
   }
 
   onEdit(id: number) {
@@ -78,8 +85,8 @@ export class AddItemComponent implements OnInit,AfterViewInit{
   setPopupdata(id: number) {
     this.masterService.getItem(id).subscribe((data) => {
       this.editData = data;
-      this.addItemForm.setValue({
-        category: this.editData.category,
+      this.addItemForm.patchValue({
+        categoryId: this.editData.categoryId,
         itemName: this.editData.itemName,
         itemPrice: this.editData.itemPrice,
       });

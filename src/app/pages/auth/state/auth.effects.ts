@@ -27,7 +27,6 @@ export class AuthEffects {
         return this.masterService.login(action.username, action.password).pipe(
           map((data) => {
             console.log(data)
-            // this.store.dispatch(setLoadingSpinner({status: false}))
             if (data.user.role === 'USER') {
               this.tost.success(data.user.username, 'loggedIn');
               this.router.navigateByUrl('user');

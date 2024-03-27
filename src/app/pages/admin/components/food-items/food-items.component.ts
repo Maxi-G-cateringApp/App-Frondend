@@ -42,6 +42,7 @@ export class FoodItemsComponent implements OnInit, AfterContentInit {
         this.itemId = item.id;
       });
       this.dataSource = new MatTableDataSource<FoodItems>(this.foodItems);
+      this.dataSource.paginator = this.paginator
     });
   }
 

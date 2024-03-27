@@ -1,40 +1,66 @@
-
-<div class="flex bg-red-950">
+<div class="flex">
     <app-user-side-bar></app-user-side-bar>
-    <div class="flex h-full w-1/2  bg-red-950 mt-20">
-        <form [formGroup]="orderForm">
-        <mat-card>
-            <mat-card-content>
-                <mat-form-field>
-                    <mat-label>SelectDate</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="date">
-                    <mat-datepicker-toggle matIconSuffix  [for]="picker"></mat-datepicker-toggle>
-                    <!-- <mat-hint>dd/MM/yyyy</mat-hint> -->
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
+    <div class="flex h-full w-1/2 mt-20">
+        <form [formGroup]="orderForm"  (ngSubmit)="onSaveOrder()">
+            <mat-card>
+                <mat-card-content>
+                    <mat-form-field>
+                        <mat-label>SelectDate</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
 
-                <mat-form-field class="mat-50">
-                    <mat-label>Select Combo</mat-label>
-                    <mat-select formControlName="combo">
-                        <mat-option [value]="item" *ngFor="let item of comboItemList ">{{item.comboName}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                    <mat-form-field class="mat-50">
+                        <mat-label>Select Category</mat-label>
+                        <mat-select formControlName="categoryControl"
+                            (selectionChange)="onCategoryChange($event.value)">
+                            <mat-option [value]="category.id"
+                                *ngFor="let category of categories ">{{category.categoriesName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-                <mat-form-field class="mat-50">
-                    <mat-label>Select Combo</mat-label>
-                    <mat-select formControlName="combo">
-                        <mat-option [value]="item" *ngFor="let item of itemList ">{{item.itemName}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </mat-card-content>
-            <mat-card-footer>
-            </mat-card-footer>
-        </mat-card>
-    </form>
-    </div>
+                    <mat-form-field class="mat-50">
+                        <mat-label>Select Combo</mat-label>
+                        <mat-select formArrayName="foodCombos" multiple (selectionChange)="onComboChange($event.value)" >
+                            <mat-option [value]="foodCombo"
+                                *ngFor="let foodCombo of comboItemList ">{{foodCombo.comboName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-    <div class="bg-red-300 w-1/2 h-full">
+                    <mat-form-field class="mat-50">
+                        <mat-label>Add Extra Item</mat-label>
+                        <mat-select formArrayName="foodItems" multiple (selectionChange)="onItemChange($event.value)">
+                            <mat-option [value]="foodItem"
+                                *ngFor="let foodItem of itemList ">{{foodItem.itemName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+`
+                    <mat-form-field class="mat-50">
+                        <mat-label>Select Event</mat-label>
+                        <mat-select formControlName="event">
+                            <mat-option [value]="event"
+                                *ngFor="let event of eventList ">{{event.eventName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
+                    <mat-form-field class="mat-50">
+                        <mat-label>Select Venue</mat-label>
+                        <mat-select formControlName="venue">
+                            <mat-option [value]="venue" *ngFor="let venue of venueList ">{{venue}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>People count</mat-label>
+                        <input formControlName="peopleCount" matInput>
+                    </mat-form-field>
+
+                </mat-card-content>
+                <mat-card-footer>
+                    <button mat-raised-button color="primary" type="submit">save</button>  
+                </mat-card-footer>
+            </mat-card>
+        </form>
     </div>
 </div>
-

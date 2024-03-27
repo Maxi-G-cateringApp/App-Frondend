@@ -6,6 +6,10 @@ import { ComboItemsComponent } from "./components/combo-items/combo-items.compon
 import { AddItemComponent } from "./components/add-item/add-item.component";
 import { FoodItemsComponent } from "./components/food-items/food-items.component";
 import { AdminComponent } from "./components.component";
+import { AddCategoriesComponent } from "./components/add-categories/add-categories.component";
+import { CategoriesComponent } from "./components/categories/categories.component";
+import { EventsComponent } from "./components/events/events.component";
+import { AddEventComponent } from "./components/add-event/add-event.component";
 
 
 
@@ -18,7 +22,11 @@ const routes: Routes = [
         {path: 'all_combos', component: ComboItemsComponent},
         { path: 'add_combo', component: AddFoodComboComponent },
         {path: 'food-items',component: FoodItemsComponent},
-        {path: 'add_item',component: AddItemComponent}
+        {path: 'add_item',component: AddItemComponent},
+        {path: 'categories',component: CategoriesComponent},
+        {path: 'add_category',component: AddCategoriesComponent},
+        {path: 'events',component: EventsComponent},
+        {path: 'add-events',component: AddEventComponent},
       ],
     },
   ];

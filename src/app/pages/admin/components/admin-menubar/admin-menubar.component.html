@@ -2,25 +2,35 @@
 	<button (click)="drawer.toggle()">
 		<mat-icon>menu</mat-icon>
 	</button>
-	<span class="example-spacer"> Maxi- G Admin</span>
+	<span class="example-spacer">Maxi- G Admin</span>
 	<button mat-button [routerLink]="['/admin/home']"> Home</button>
 	<button mat-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
 </mat-toolbar>
 <mat-drawer-container autosize>
 	<mat-drawer #drawer opened="true" mode="side">
 		<mat-nav-list>
+
 			<mat-list-item>
 				<button  mat-button [routerLink]="['/admin/home']" ><mat-icon>dashboard</mat-icon> Dashboard</button>
 			</mat-list-item>
 
 			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/all_combos']" >Combo</button>
+				<button mat-button [routerLink]="['/admin/all_combos']">Food Combos</button>
 			</mat-list-item>
 
 			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/food-items']"> Items</button>
+				<button mat-button [routerLink]="['/admin/food-items']">Food Items</button>
 			</mat-list-item>
-		</mat-nav-list>
+
+			<mat-list-item>
+				<button mat-button [routerLink]="['/admin/categories']">Food Categories</button>
+			</mat-list-item>
+
+			<mat-list-item>
+				<button mat-button [routerLink]="['/admin/events']">Event</button>
+			</mat-list-item>
+
+		</mat-nav-list>		
 	</mat-drawer>
 	<mat-drawer-content>
 		<div style="text-align: center;min-height: 600px;">
