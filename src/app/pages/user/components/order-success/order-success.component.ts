@@ -18,12 +18,12 @@ export class OrderSuccessComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.masterService.getTotalAmount(this.orderId).subscribe((response)=>{
-      console.log(response,'may be amount');
+    // this.masterService.getTotalAmount(this.orderId).subscribe((response)=>{
+    //   console.log(response,'may be amount');
       
-      const amount = response.amount;
-      this.advanceAmount = amount * 10 /100;
-    })
+    //   const amount = response.amount;
+    //   this.advanceAmount = amount * 10 /100;
+    // })
       
   }
 

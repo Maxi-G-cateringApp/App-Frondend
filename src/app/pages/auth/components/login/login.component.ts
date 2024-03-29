@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store<AuthState>,
-  ) {}
+  ) {
+    console.log("login component");
+    
+  }
 
   loginForm!: FormGroup;
 

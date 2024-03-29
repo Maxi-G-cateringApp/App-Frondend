@@ -4,12 +4,12 @@ import { FoodItemService } from "../../admin/service/food-item.service"
 
 export type OrderDetails = {
 
-    id: string,
+    id?: string,
     userId: string,
-    date: Date,
+    // date: Date,
     foodCombos: FoodCombo[],
     foodItems: FoodItems[],
-    event:string,
+    eventId:number,
     orderDate:Date,
     peopleCount:number,
     venue: string

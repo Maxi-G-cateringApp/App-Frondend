@@ -1,13 +1,22 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, computed, signal } from '@angular/core';
 import { AppState } from '../../../../shared/app.state';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { AuthenticatedUser } from '../../../auth/models/authUser.model';
 import { Observable, Subscription } from 'rxjs';
-import { getEmailFromState, getuserId } from '../../../auth/state/auth.selector';
+import { getEmailFromState, getuserId, getuserNameFromState } from '../../../auth/state/auth.selector';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
+import { AuthService } from '../../../auth/service/auth-service.service';
 
+
+export type MenuItem = {
+  icon: string;
+  label: string;
+  route: string;
+
+
+}
 @Component({
   selector: 'app-user-side-bar',
   templateUrl: './user-side-bar.component.html',
@@ -25,21 +34,52 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
   selectedFile!: File;
   uploadProfilePic!: FormGroup;
   profilePictureUrl!: string;
+  userName: string|undefined;
 
+
+  menuItem = signal<MenuItem[]>([
+    {
+      icon: 'home',
+      label: 'Home',
+      route:'/user'
+    },
+    {icon: 'dashboard',label: 'Order',route:'/user/user-order'},
+    {icon: 'person',label: 'Profile',route:'/user/user-profile'},
+  ]);
+
+  sideNavCollapsed = signal(false)
+  @Input() set collapsed(val: boolean){
+    this.sideNavCollapsed.set(val)
+  }
+
+  profilePictureSize = computed(()=>this.sideNavCollapsed() ? '32' : '150');
+  
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private masterService: MasterService
-  ) {}
+    private masterService: MasterService,
+  ) {
+
+
+   
+  }
 
   ngOnInit(): void {
+
     this.store.select(getEmailFromState).subscribe((data) => {
       this.email = data;
     });
     this.store.select(getuserId).subscribe((data) => {
       this.userId = data;
     });
+    this.store.select(getuserNameFromState).subscribe((data) => {
+      this.userName = data;
+      console.log(this.userName);
+      
+    });
     this.loadProfilePicture();
+
+   
     
     this.uploadProfilePic = this.fb.group({
       file: [null],

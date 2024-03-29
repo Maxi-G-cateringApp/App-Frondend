@@ -6,19 +6,15 @@ import { RegisterComponent } from "./components/register/register.component";
 
 
 const routes: Routes = [
-    {
-      path: '',
-      children: [
-        { path: '', redirectTo: 'login', pathMatch: 'full' },
+    
         { path: '', component: LoginComponent, canActivate: [loginGuard] },
         {
           path: 'register',
           component: RegisterComponent,
           canActivate: [loginGuard],
         },
-      ],
-    },
-  ];
+      ]
+  
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

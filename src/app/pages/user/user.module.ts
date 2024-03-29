@@ -9,6 +9,8 @@ import { UserSideBarComponent } from './components/user-side-bar/user-side-bar.c
 import { UserOrderComponent } from './components/user-order/user-order.component';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
+import { UserMenubarComponent } from './components/user-menubar/user-menubar.component';
+import { UserComponent } from '../../layouts/user/user.component';
 
 
 
@@ -18,7 +20,9 @@ import { OrderSuccessComponent } from './components/order-success/order-success.
     UserSideBarComponent,
     UserOrderComponent,
     OrderConfirmationComponent,
-    OrderSuccessComponent
+    OrderSuccessComponent,
+    UserMenubarComponent,
+    UserComponent
 
  
   ],

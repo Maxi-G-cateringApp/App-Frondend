@@ -1,7 +1,7 @@
 export class AuthenticatedUser {
   constructor(
     private id: string,
-    private username: string,
+    private userName: string,
     private token: string,
     private role: string,
     private email: string,
@@ -19,7 +19,8 @@ export class AuthenticatedUser {
   public get userId(): string {
     return this.id;
   }
-  public get userName(): string {
+  
+  public get username(): string {
     return this.userName;
   }
 }

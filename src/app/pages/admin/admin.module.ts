@@ -11,11 +11,12 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 import { FoodItemsComponent } from './components/food-items/food-items.component';
 import { MaterialModule } from '../../shared/material/material.module';
 import { AdminMenubarComponent } from './components/admin-menubar/admin-menubar.component';
-import { AdminComponent } from './components.component';
+import { AdminComponent } from '../../layouts/admin/components.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { AddCategoriesComponent } from './components/add-categories/add-categories.component';
 import { EventsComponent } from './components/events/events.component';
 import { AddEventComponent } from './components/add-event/add-event.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AddEventComponent } from './components/add-event/add-event.component';
     AddCategoriesComponent,
     EventsComponent,
     AddEventComponent,
+    OrderComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,],
 })

@@ -26,7 +26,7 @@ export class UserOrderComponent implements OnInit {
   selectedItems: any[] = [];
   categoryId!: number;
   venueList: string[] = ['HOUSE', 'AUDITORIUM'];
-  userId!: string | undefined;
+  userId!: string;
   orderId!: string;
 
   constructor(
@@ -50,14 +50,25 @@ export class UserOrderComponent implements OnInit {
     this.getAllEvents();
     this.getAllCategory();
     this.store.select(getuserId).subscribe((data) => {
-      this.userId = data;
+      this.userId = data || '';
     });
   }
 
   onSaveOrder() {
-    const formData = { ...this.orderForm.value, userId: this.userId };
-    console.log(formData);
-    this.masterService.saveOrder(formData).subscribe((response) => {
+   
+    const data: OrderDetails = {
+      orderDate: this.orderForm.value.date,
+      foodCombos: this.orderForm.value.foodCombos,
+      // categoryControl: this.orderForm.value.categoryControl,
+      foodItems: this.orderForm.value.foodItems,
+      eventId: this.orderForm.value.event,
+      peopleCount: this.orderForm.value.peopleCount,
+      venue: this.orderForm.value.venue,
+      userId: this.userId
+    }
+    // const formData = { ...this.orderForm.value, userId: this.userId };
+    console.log(data);
+    this.masterService.saveOrder(data).subscribe((response) => {
       console.log(response);
       const orderId = response.orderId;
       if (orderId) {

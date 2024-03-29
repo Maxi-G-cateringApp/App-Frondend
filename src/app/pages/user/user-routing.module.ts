@@ -10,8 +10,8 @@ import { OrderSuccessComponent } from './components/order-success/order-success.
 const routes: Routes = [
   { path: '', component: UserHomeComponent },
   { path: 'user-order', component: UserOrderComponent },
-  { path: 'user-order', component: OrderConfirmationComponent },
-  { path: 'order-confirmation/:orderId', component: OrderSuccessComponent },
+  { path: 'order-confirmation/:orderId', component: OrderConfirmationComponent },
+  { path: 'order-success', component: OrderSuccessComponent },
 ];
 
 @NgModule({

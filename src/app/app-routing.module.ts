@@ -4,7 +4,11 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { HomePageComponent } from './shared/components/home-page/home-page.component';
 import { loginGuard } from './guards/login.guard';
 import { AdminMenubarComponent } from './pages/admin/components/admin-menubar/admin-menubar.component';
-import { AdminComponent } from './pages/admin/components.component';
+import { AdminComponent } from './layouts/admin/components.component';
+import { UserMenubarComponent } from './pages/user/components/user-menubar/user-menubar.component';
+import { UserComponent } from './layouts/user/user.component';
+import { LoginComponent } from './pages/auth/components/login/login.component';
+import { AuthComponent } from './layouts/auth/auth.component';
 
 
 
@@ -14,6 +18,7 @@ const routes: Routes = [
 
   {
     path: 'auth',
+    component: AuthComponent,
     loadChildren: ()=> import('./pages/auth/auth.module').then((m) => m.AuthModule)
   },
   {
@@ -23,6 +28,7 @@ const routes: Routes = [
   },
   { 
     path: 'user', 
+    component: UserComponent,
     loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule) 
   },
   

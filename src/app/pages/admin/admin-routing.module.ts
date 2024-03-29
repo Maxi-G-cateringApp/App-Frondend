@@ -5,11 +5,11 @@ import { AddFoodComboComponent } from "./components/add-food-combo/add-food-comb
 import { ComboItemsComponent } from "./components/combo-items/combo-items.component";
 import { AddItemComponent } from "./components/add-item/add-item.component";
 import { FoodItemsComponent } from "./components/food-items/food-items.component";
-import { AdminComponent } from "./components.component";
 import { AddCategoriesComponent } from "./components/add-categories/add-categories.component";
 import { CategoriesComponent } from "./components/categories/categories.component";
 import { EventsComponent } from "./components/events/events.component";
 import { AddEventComponent } from "./components/add-event/add-event.component";
+import { OrderComponent } from "./components/order/order.component";
 
 
 
@@ -27,6 +27,7 @@ const routes: Routes = [
         {path: 'add_category',component: AddCategoriesComponent},
         {path: 'events',component: EventsComponent},
         {path: 'add-events',component: AddEventComponent},
+        {path: 'orders',component: OrderComponent},
       ],
     },
   ];

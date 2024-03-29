@@ -7,7 +7,6 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './shared/components/home-page/home-page.component';
-import { NavbarComponent } from './pages/user/components/navbar/navbar.component';
 import { BottomSessionComponent } from './shared/components/bottom-session/bottom-session.component';
 import { SessionComponent } from './shared/components/bottom-session/session/session.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { MaterialModule } from './shared/material/material.module';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { NavbarComponent } from './pages/user/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [

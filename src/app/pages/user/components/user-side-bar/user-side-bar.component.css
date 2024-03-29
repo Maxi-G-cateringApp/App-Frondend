@@ -1,5 +1,11 @@
-.custom{
+/* .sidenav {
+    padding-top: 24px;
+    text-align: center;
+} */
 
-    background-image: linear-gradient(37deg, rgb(32, 218, 233),rgb(40, 21, 236));
+.sidenav img {
 
+    border-radius: 100%;
+    object-fit: cover;
+    
 }

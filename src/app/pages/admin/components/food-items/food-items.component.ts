@@ -15,6 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrl: './food-items.component.css',
 })
 export class FoodItemsComponent implements OnInit, AfterContentInit {
+  
   foodItems!: FoodItems[];
   displayedColumns: string[] = ['itemName', 'itemPrice', 'action'];
   dataSource: any;

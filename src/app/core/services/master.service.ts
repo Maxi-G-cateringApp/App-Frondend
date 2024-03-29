@@ -142,8 +142,8 @@ export class MasterService {
 
 
 
-  saveOrder(formData: FormData):Observable<any>{
-    return this.http.post<any>('/save-order',formData);
+  saveOrder(orderData: OrderDetails):Observable<any>{
+    return this.http.post<any>('/save-order',orderData);
   }
 
   getTotalAmount(orderId: string):Observable<any>{
@@ -153,4 +153,9 @@ export class MasterService {
   addLocation(data: LocationDetails):Observable<any>{
     return this.http.post<any>('/add/location',data);
   }
+
+  getAllOrders():Observable<any>{
+    return this.http.get<any>('/get-orders')
+  }
 }
+
