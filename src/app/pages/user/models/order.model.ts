@@ -6,13 +6,16 @@ export type OrderDetails = {
 
     id?: string,
     userId: string,
-    // date: Date,
+    date: Date,
     foodCombos: FoodCombo[],
     foodItems: FoodItems[],
     eventId:number,
-    orderDate:Date,
+    // orderDate:Date,
     peopleCount:number,
-    venue: string
+    venue: string,
+    timeFrom: string,
+    timeTo: string,
+    decorationOption: string
 
 }
 

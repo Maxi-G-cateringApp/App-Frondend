@@ -26,6 +26,7 @@ export class UserOrderComponent implements OnInit {
   selectedItems: any[] = [];
   categoryId!: number;
   venueList: string[] = ['HOUSE', 'AUDITORIUM'];
+  decorationOptionList:string[]=['YES','NO'];
   userId!: string;
   orderId!: string;
 
@@ -45,6 +46,11 @@ export class UserOrderComponent implements OnInit {
       event: ['', Validators.required],
       peopleCount: ['', Validators.required],
       venue: ['', Validators.required],
+      timeFrom: ['',Validators.required],
+      timeTo: ['',Validators.required],
+      decorationOption: ['',Validators.required]
+
+
     });
 
     this.getAllEvents();
@@ -55,19 +61,22 @@ export class UserOrderComponent implements OnInit {
   }
 
   onSaveOrder() {
+    console.log(this.orderForm.value);
+    
    
     const data: OrderDetails = {
-      orderDate: this.orderForm.value.date,
+      date: this.orderForm.value.date,
       foodCombos: this.orderForm.value.foodCombos,
-      // categoryControl: this.orderForm.value.categoryControl,
+      decorationOption: this.orderForm.value.decorationOption,
       foodItems: this.orderForm.value.foodItems,
       eventId: this.orderForm.value.event,
       peopleCount: this.orderForm.value.peopleCount,
       venue: this.orderForm.value.venue,
+      timeFrom: this.orderForm.value.timeFrom,
+      timeTo: this.orderForm.value.timeTo,
       userId: this.userId
+
     }
-    // const formData = { ...this.orderForm.value, userId: this.userId };
-    console.log(data);
     this.masterService.saveOrder(data).subscribe((response) => {
       console.log(response);
       const orderId = response.orderId;
@@ -98,12 +107,12 @@ export class UserOrderComponent implements OnInit {
   }
 
   onCategoryChange(category: number) {
+    console.log(category);
     this.masterService
       .getAllCombosByCategory(category)
       .subscribe((response) => {
         this.comboItemList = response;
       });
-
     this.masterService.getAllItemByCategory(category).subscribe((response) => {
       this.itemList = response;
     });

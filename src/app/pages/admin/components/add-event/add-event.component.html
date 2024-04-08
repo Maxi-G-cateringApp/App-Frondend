@@ -8,6 +8,7 @@
         <mat-form-field>
           <mat-label>Event Name</mat-label>
             <input formControlName="eventName" matInput>
+            <mat-error *ngIf="addEventForm.controls['eventName'].errors?.['whitespace']">*Enter valid Eventname</mat-error>
         </mat-form-field>
     
   

@@ -16,16 +16,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-
-
-
-
-
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 
 
 
 @NgModule({
+  providers:[
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
+  ],
   exports: [
     MatButtonModule,
     MatMenuModule,
@@ -43,6 +41,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSidenavModule,
     MatListModule,
     MatPaginatorModule,
+    MatFormFieldModule,
   ],
   declarations: [],
   imports: [CommonModule],

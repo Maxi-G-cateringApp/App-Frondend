@@ -60,7 +60,6 @@ export class HttpInterceptorService implements HttpInterceptor {
             const { token, refreshToken } = event.body;
     
             if (token) {
-              console.log(token, 'interceptor');
               this.authService.setTokenInLocalStorage(token);
               apiRequest = apiRequest.clone({
                 setHeaders: {

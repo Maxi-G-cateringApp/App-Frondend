@@ -24,5 +24,21 @@
  input.ng-invalid.ng-touched{
     border: red 1px solid;
 }
+mat-card {
+    background:rgb(47, 2, 2);
+    height: 25rem;
+    width: 25rem;
+    padding: 3rem;
+}
+button {
+    margin: 4%;
+}
+
+
+
+
+
+
+
 
  

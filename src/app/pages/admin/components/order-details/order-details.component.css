@@ -1,0 +1,8 @@
+mat-card {
+    margin: 1%;
+    background-color:wheat
+}
+.acceptBtn {
+    align-items: end;
+    color: rgb(99, 3, 3);
+}

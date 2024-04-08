@@ -1,0 +1,23 @@
+<form [formGroup]="kitchenCrewEmployeeForm" (ngSubmit)="onAddKitchenCrewEmployees()">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-label>Employee Name</mat-label>
+        <input formControlName="kitchenCrewEmpName" matInput>
+        <mat-error *ngIf="kitchenCrewEmployeeForm.controls['kitchenCrewEmpName'].errors?.['whitespace']">*Enter valid EmplName</mat-error>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Select Team</mat-label>
+        <mat-select formControlName="kitchenCrewTeamId">
+          <mat-option [value]="team.id"
+            *ngFor="let team of kitchenCrewTeam ">{{ team.teamName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+      <button mat-raised-button color="primary" type="submit">save</button>
+  
+    </div>
+  </form>

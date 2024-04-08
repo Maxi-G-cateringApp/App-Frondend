@@ -1,10 +1,10 @@
-<mat-toolbar color="primary" class="mat-elevation-z6">
+<mat-toolbar  class="mat-elevation-z8">
 	<button (click)="drawer.toggle()">
 		<mat-icon>menu</mat-icon>
 	</button>
 	<span class="example-spacer">Maxi- G Admin</span>
-	<button mat-button [routerLink]="['/admin/home']"> Home</button>
-	<button mat-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
+	<button mat-raised-button [routerLink]="['/admin/home']"> Home</button>
+	<button mat-raised-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
 </mat-toolbar>
 <mat-drawer-container autosize>
 	<mat-drawer #drawer opened="true" mode="side">
@@ -32,6 +32,18 @@
 
 			<mat-list-item>
 				<button mat-button [routerLink]="['/admin/orders']">Orders</button>
+			</mat-list-item>
+
+			<mat-list-item>
+				<button mat-button [routerLink]="['/admin/serve-team']">ServeTeam</button>
+			</mat-list-item>
+
+			<mat-list-item>
+				<button mat-button [routerLink]="['/admin/decor-team']">DecorationTeam</button>
+			</mat-list-item>
+
+			<mat-list-item>
+				<button mat-button [routerLink]="['/admin/kitchenCrew-team']">KitchenCrewTeam</button>
 			</mat-list-item>
 
 		</mat-nav-list>		

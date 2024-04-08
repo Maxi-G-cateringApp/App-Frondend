@@ -1,0 +1,15 @@
+<div class="min-h-screen">
+    <h1>My Orders</h1>
+
+    <mat-card *ngFor="let order of orders">      
+        <mat-card-content>
+            <p>{{ order.events.eventName }}</p>
+            <p [ngStyle]="{'color': order.status === 'CANCELLED' ? 'red' : 'inherit'}">{{ order.status }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button *ngIf="order.status ==='ACCEPTED' && !order.isPaymentComplete" (click)="onPayment(order.id)" mat-raised-button >Pay Advance</button>
+            <button *ngIf="order.status !=='CANCELLED'" (click)="onCancelOrder(order.id)" mat-raised-button >Cancel Order</button>
+        </mat-card-actions>
+    
+    </mat-card>
+</div>

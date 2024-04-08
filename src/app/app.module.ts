@@ -24,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { MaterialModule } from './shared/material/material.module';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { NavbarComponent } from './pages/user/components/navbar/navbar.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 @NgModule({
   declarations: [

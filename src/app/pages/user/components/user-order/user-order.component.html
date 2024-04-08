@@ -1,6 +1,5 @@
-<div class="flex justify-evenly">
-    
-    <div class="flex h-full w-1/2 ">
+<!-- <div class="flex justify-evenly"> -->
+    <!-- <div class="flex h-full w-1/2 "> -->
         <form [formGroup]="orderForm" (ngSubmit)="onSaveOrder()">
             <mat-card>
                 <h1>Book Your Order</h1>
@@ -33,7 +32,7 @@
                         <mat-label>Add Extra Item</mat-label>
                         <mat-select formArrayName="foodItems" multiple (selectionChange)="onItemChange($event.value)">
                             <mat-option [value]="foodItem"
-                                *ngFor="let foodItem of itemList ">{{foodItem.itemName}}</mat-option>
+                                *ngFor="let foodItem of itemList ">{{ foodItem.itemName }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     `
@@ -41,14 +40,14 @@
                         <mat-label>Select Event</mat-label>
                         <mat-select formControlName="event">
                             <mat-option [value]="event.id"
-                                *ngFor="let event of eventList ">{{event.eventName}}</mat-option>
+                                *ngFor="let event of eventList ">{{ event.eventName }}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-form-field class="mat-50">
                         <mat-label>Select Venue</mat-label>
                         <mat-select formControlName="venue">
-                            <mat-option [value]="venue" *ngFor="let venue of venueList ">{{venue}}</mat-option>
+                            <mat-option [value]="venue" *ngFor="let venue of venueList ">{{ venue }}</mat-option>
                         </mat-select>
                     </mat-form-field>
 
@@ -56,17 +55,42 @@
                         <mat-label>People count</mat-label>
                         <input formControlName="peopleCount" matInput>
                     </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Decoration</mat-label>
+                        <mat-select formControlName="decorationOption" >
+                            <mat-option [value]="decorationOption" *ngFor="let decorationOption of decorationOptionList">{{ decorationOption }}</mat-option>     
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="time-input-container">
+                        <mat-form-field>
+                          <mat-label>Time From</mat-label>
+                          <input formControlName="timeFrom" matInput type="time">
+                        </mat-form-field>
+                      
+                        <mat-form-field>
+                          <mat-label>Time To</mat-label>
+                          <input formControlName="timeTo" matInput type="time">
+                        </mat-form-field>
+
+                      </div>
+                      
+                      
 
                 </mat-card-content>
-                <mat-card-footer>
-                    <button mat-raised-button color="primary" type="submit">save</button>
-                </mat-card-footer>
+                <mat-card-actions align="end">
+                <button mat-raised-button color="primary" type="submit">Save & Next</button>
+                </mat-card-actions>
             </mat-card>
         </form>
-    </div>
+    <!-- </div> -->
 
-    <div class="h-full w-1/2 bg-slate-600 m-4">
-        <h1>selected items</h1>
+    <!-- <div class=" relative h-screen w-1/2 m-2">
+        <img src="/assets/menu-1197654_1920 2.jpg">
 
-    </div>
-</div>
+        <div class="absolute itemList">
+            <h1>Item Selected</h1>
+
+        </div>
+    </div> -->
+<!-- </div> -->

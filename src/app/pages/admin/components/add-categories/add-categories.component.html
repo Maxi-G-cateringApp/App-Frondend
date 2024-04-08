@@ -8,6 +8,7 @@
       <mat-form-field>
         <mat-label>Category Name</mat-label>
           <input formControlName="categoriesName" matInput>
+          <mat-error *ngIf="addCategoryForm.controls['categoriesName'].errors?.['whitespace']">*Enter valid Categoryname</mat-error>
       </mat-form-field>
   
 

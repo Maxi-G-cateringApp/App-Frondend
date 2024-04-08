@@ -40,7 +40,7 @@
 				</li>
 
 				<li *ngIf="(isAuthenticated | async)">
-					<button [routerLink]="['/user']"
+					<button [routerLink]="['/user/home']"
 						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:bg-red-950 hover:outline focus:ring-white px-5 rounded-lg">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							stroke="currentColor" class="w-6 h-6">
@@ -54,35 +54,3 @@
 	</div>
 </nav>
 
-
-<!-- <mat-toolbar color="primary" class="mat-elevation-z6">
-	<button (click)="drawer.toggle()">
-		<mat-icon>menu</mat-icon>
-	</button>
-	<span class="example-spacer"> Maxi- G Admin</span>
-	<button mat-button [routerLink]="['/admin']"> Home</button>
-	<button mat-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
-
-</mat-toolbar>
-
-<mat-drawer-container autosize>
-	<mat-drawer #drawer opened="true" mode="side">
-		<mat-nav-list>
-			<mat-list-item>
-				<button  mat-button ><mat-icon>dashboard</mat-icon> Dashboard</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/all_combos']" >Combo</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/food-items']"> Items</button>
-			</mat-list-item>
-		</mat-nav-list>
-	</mat-drawer>
-
-	<mat-drawer-content>
-		 <router-outlet /> 
-	</mat-drawer-content>
-</mat-drawer-container> -->

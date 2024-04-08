@@ -1,5 +1,10 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FoodCombo } from '../../models/combo.model';
@@ -7,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 import { Categories } from '../../models/category.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-food-combo',
@@ -27,6 +33,7 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private masterService: MasterService,
     private store: Store<AppState>,
+    private tost: ToastrService,
     private ref: MatDialogRef<AddFoodComboComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
@@ -40,9 +47,9 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     this.loadCategories();
 
     this.foodComboForm = this.fb.group({
-      comboName: ['', Validators.required],
-      description: ['', Validators.required],
-      comboPrice: ['', Validators.required],
+      comboName: ['', [Validators.required, this.whiteSpaceValidator]],
+      description: ['', [Validators.required, this.whiteSpaceValidator]],
+      comboPrice: ['', [Validators.required]],
       categoryId: ['', Validators.required],
       // file: [null],
     });
@@ -63,20 +70,19 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
       this.onEdit(this.inputData.id);
     } else {
       if (this.foodComboForm.valid) {
-        
         const comboData: FoodCombo = {
           comboName: this.foodComboForm.value.comboName,
           description: this.foodComboForm.value.description,
           comboPrice: this.foodComboForm.value.comboPrice,
           categoryId: this.foodComboForm.value.categoryId,
-        }
-        
-
-        this.masterService.addFoodCombo(comboData,this.selectedFile).subscribe((response) => {
-          this.closePopup();
-        });
+        };
+        this.masterService
+          .addFoodCombo(comboData, this.selectedFile)
+          .subscribe((response) => {
+            this.closePopup();
+          });
       } else {
-        console.error();
+        this.tost.error('Enter valid Data','Invalid')
       }
     }
   }
@@ -115,5 +121,9 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
   handleFileChange(event: any) {
     this.selectedFile = event.target.files[0];
     this.foodComboForm.patchValue(this.selectedFile);
+  }
+
+  public whiteSpaceValidator(control: FormControl) {
+    return (control.value || '').trim().length ? null : { whitespace: true };
   }
 }

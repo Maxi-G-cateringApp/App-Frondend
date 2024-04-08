@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-event',
@@ -12,11 +13,11 @@ export class AddEventComponent implements OnInit{
 
   addEventForm!: FormGroup;
 
-  constructor(private masterService: MasterService,private ref: MatDialogRef<AddEventComponent>,){}
+  constructor(private masterService: MasterService,private ref: MatDialogRef<AddEventComponent>,private fb: FormBuilder,private tost: ToastrService,){}
 
   ngOnInit(): void {
-    this.addEventForm = new FormGroup({
-      eventName: new FormControl('', Validators.required)
+    this.addEventForm = this.fb.group({
+      eventName: ['', [Validators.required,this.whiteSpaceValidator]]
     })
 }
 
@@ -28,6 +29,8 @@ export class AddEventComponent implements OnInit{
         console.log(response);
         this.closePopup();
       })
+    }else{
+      this.tost.error('Enter valid Data','Invalid')
     }
 
   }
@@ -35,5 +38,10 @@ export class AddEventComponent implements OnInit{
   closePopup(){
     this.ref.close();
   }
+
+
+  public whiteSpaceValidator(control: FormControl) {
+    return (control.value || '').trim().length? null : { 'whitespace': true };       
+}
 
 }

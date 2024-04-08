@@ -5,3 +5,11 @@ input.ng-invalid.ng-touched{
 img{
     min-height: inherit;
  }
+ mat-card {
+    background:rgb(255 203 50);
+    height: 40rem;
+    width: 25rem;
+    padding: 2rem;
+
+}
+

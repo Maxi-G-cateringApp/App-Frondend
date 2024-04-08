@@ -1,0 +1,18 @@
+<form [formGroup]="servingTeamForm" (ngSubmit)="onAddServingTeam()">
+    <div mat-dialog-content>
+  
+     
+      <mat-form-field>
+        <mat-label>Team Name</mat-label>
+        <input formControlName="teamName" matInput>
+        <mat-error *ngIf="servingTeamForm.controls['teamName'].errors?.['whitespace']">*Enter valid TeamName</mat-error>
+      </mat-form-field>
+  
+  
+    </div>
+    <div mat-dialog-actions>
+      <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+      <button mat-raised-button color="primary" type="submit">save</button>
+  
+    </div>
+  </form>

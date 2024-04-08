@@ -1,0 +1,37 @@
+
+
+<form [formGroup]="orderProcessingForm" (ngSubmit)="onOrderProcessingForm()">
+    <div mat-dialog-content>
+    
+
+      <mat-form-field >
+        <mat-label>Select Team</mat-label>
+        <mat-select formControlName="kitchenCrewId">
+          <mat-option [value]="team.id"
+            *ngFor="let team of kitchenCrew ">{{ team.teamName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Select Team</mat-label>
+        <mat-select formControlName="servingTeamId">
+          <mat-option [value]="team.id"
+            *ngFor="let team of servingTeam ">{{ team.teamName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Select Team</mat-label>
+        <mat-select formControlName="decorationTeamId">
+          <mat-option [value]="team.id"
+            *ngFor="let team of decorationTeam ">{{ team.teamName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+      <button mat-raised-button color="primary" type="submit">save</button>
+  
+    </div>
+  </form>

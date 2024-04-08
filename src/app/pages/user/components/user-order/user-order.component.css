@@ -2,6 +2,16 @@
 mat-card{
     margin: 2%;
     text-align: left;
+    border-radius: 3%;
+    background-color: rgb(236, 208, 95);
+   
+}
+h1 {
+    font-weight: 900;
+    text-align: center;
+}
+img{
+    border-radius: 3%;
 }
 
 .mat-mdc-card{
@@ -20,4 +30,19 @@ mat-card{
 
 button{
     margin: 2px;
+}
+.time-input-container {
+    display: flex;
+  }
+  
+.mat-form-field {
+    margin-right: 10px; 
+  }
+.itemList {
+    top: 10rem;
+    left: 10.5rem;
+}
+.itemList h1 {  
+font-weight: 900;
+
 }

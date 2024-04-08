@@ -15,11 +15,13 @@
       <mat-form-field>
         <mat-label>Item Name</mat-label>
           <input formControlName="itemName" matInput>
+          <mat-error *ngIf="addItemForm.controls['itemName'].errors?.['whitespace']">*Enter valid ItemName</mat-error>
       </mat-form-field>
   
       <mat-form-field>
         <mat-label>Item Price</mat-label>
-          <input formControlName="itemPrice" matInput>
+          <input formControlName="itemPrice" matInput type="number">
+          <mat-error *ngIf="addItemForm.controls['itemPrice'].errors?.['whitespace']">*Enter valid Price</mat-error>
       </mat-form-field>
   
       

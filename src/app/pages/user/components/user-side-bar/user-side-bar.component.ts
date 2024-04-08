@@ -38,12 +38,8 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
 
 
   menuItem = signal<MenuItem[]>([
-    {
-      icon: 'home',
-      label: 'Home',
-      route:'/user'
-    },
-    {icon: 'dashboard',label: 'Order',route:'/user/user-order'},
+    {icon: 'home',label: 'Home',route:'/user/home'},
+    {icon: 'dashboard',label: 'Orders',route:'/user/orders'},
     {icon: 'person',label: 'Profile',route:'/user/user-profile'},
   ]);
 
@@ -52,7 +48,7 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
     this.sideNavCollapsed.set(val)
   }
 
-  profilePictureSize = computed(()=>this.sideNavCollapsed() ? '32' : '150');
+  profilePictureSize = computed(()=>this.sideNavCollapsed() ? '30' : '150');
   
   constructor(
     private store: Store<AppState>,
@@ -66,10 +62,13 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
 
   ngOnInit(): void {
 
+    // this.masterService.getPrivate("/message").subscribe((data: string)=>{console.log(data);
+    // })
+
     this.store.select(getEmailFromState).subscribe((data) => {
       this.email = data;
     });
-    this.store.select(getuserId).subscribe((data) => {
+    this.store.select(getuserId).subscribe((data) => {      
       this.userId = data;
     });
     this.store.select(getuserNameFromState).subscribe((data) => {

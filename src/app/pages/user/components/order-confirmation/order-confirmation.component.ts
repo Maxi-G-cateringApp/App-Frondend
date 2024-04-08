@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SearchPlaceResult } from '../../models/search-place.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MasterService } from '../../../../core/services/master.service';
@@ -26,8 +26,10 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
   @Input() placeholder = '';
   orderId!: string;
   advanceAmount!: number;
+  amount!: number;
   result!: SearchPlaceResult;
   userId!: any;
+ 
 
   autoComplete: google.maps.places.Autocomplete | undefined;
 
@@ -48,19 +50,34 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
       this.orderId = params['orderId'];
       console.log('Order ID:', this.orderId);
     });
+    this.getAmount();
 
     this.addressForm = this.fb.group({
-      address: ['', Validators.required],
-      place: ['', Validators.required],
-      district: ['', Validators.required],
+      address: ['',[ Validators.required,this.whiteSpaceValidator]],
+      place: ['', [Validators.required,this.whiteSpaceValidator]],
+      district: ['', [Validators.required,this.whiteSpaceValidator]],
+      
     });
+  }
+
+  
+  public whiteSpaceValidator(control: FormControl) {
+    return (control.value || '').trim().length? null : { 'whitespace': true };       
+}
+
+  getAmount(){
+    this.masterService.getTotalAmount(this.orderId).subscribe((response)=>{
+      console.log(response,'may be amount');
+      
+      this.amount = response.amount;
+      this.advanceAmount = this.amount * 25 /100;
+    })
   }
 
   ngAfterViewInit(): void {
     this.autoComplete = new google.maps.places.Autocomplete(
       this.inputField.nativeElement
     );
-
     this.autoComplete.addListener('place_changed', () => {
       const place = this.autoComplete?.getPlace();
       console.log(place);
@@ -73,6 +90,7 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
     });
   }
 
+
   onConfirmOrder() {
     const data = {
       address: this.addressForm.value.address,
@@ -83,16 +101,19 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
       name: this.result.name,
       userId: this.userId,
       orderId: this.orderId,
+      
+  
     };
-
     this.masterService.addLocation(data).subscribe({
       next: (response) => {
         console.log(response);
-        this.router.navigate(['/user/order-success']);
+        this.router.navigate(['/user/orders'],{ queryParams: { amount: this.amount,advanceAmount:this.advanceAmount }});
       },
       error: (error) => {
         console.error('Something wrong:', error);
       },
     });
   }
+
+  
 }

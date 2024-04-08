@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -13,6 +14,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../../state/auth.state';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 
+const phonePattern = /^\d{10}$/;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,7 +28,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private tost: ToastrService,
-    private store: Store<AuthState>,
+    private store: Store<AuthState>
   ) {}
 
   registerForm!: FormGroup;
@@ -34,13 +36,20 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.min(10)]],
+      userName: ['', [Validators.required, this.whiteSpaceValidator]],
+      phoneNumber: [
+        '',
+        [Validators.required, Validators.pattern(phonePattern)],
+      ],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      password: ['', [Validators.required, this.whiteSpaceValidator]],
+      confirmPassword: ['', [Validators.required, this.whiteSpaceValidator]],
       otp: [''],
     });
+  }
+
+  public whiteSpaceValidator(control: FormControl) {
+    return (control.value || '').trim().length ? null : { whitespace: true };
   }
 
   onRegisteruser() {
@@ -51,7 +60,10 @@ export class RegisterComponent implements OnInit {
           .subscribe((response) => {
             this.email = response.email;
             if (response !== null) {
-              this.tost.success('Otp sent to your registered email', 'Otp sent');
+              this.tost.success(
+                'Otp sent to your registered email',
+                'Otp sent'
+              );
               this.otpField = true;
             } else {
               console.log('response null');
@@ -75,7 +87,10 @@ export class RegisterComponent implements OnInit {
             this.tost.success('Registered Success', 'sucesssss');
             this.router.navigateByUrl('/auth');
           } else {
-            this.tost.error('Verification failed please try again','otp failed')
+            this.tost.error(
+              'Verification failed please try again',
+              'otp failed'
+            );
             console.error('Verification failed:', response.message);
           }
         },

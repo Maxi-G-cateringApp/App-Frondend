@@ -4,7 +4,6 @@
 
     <mat-form-field class="mat-50" *ngIf="!inputData.isEdit">
       <mat-label>Select category</mat-label>
-      <!-- <input matInput> -->
       <mat-select formControlName="categoryId">
         <mat-option [value]="categories.id"
           *ngFor="let categories of categoryList ">{{categories.categoriesName}}</mat-option>
@@ -13,16 +12,19 @@
     <mat-form-field>
       <mat-label>ComboName</mat-label>
       <input formControlName="comboName" matInput>
+      <mat-error *ngIf="foodComboForm.controls['comboName'].errors?.['whitespace']">*Enter valid ComboName</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Description</mat-label>
       <input formControlName="description" matInput>
+      <mat-error *ngIf="foodComboForm.controls['description'].errors?.['whitespace']">*Enter valid Description</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Combo Price</mat-label>
-      <input formControlName="comboPrice" matInput>
+      <input formControlName="comboPrice" matInput type="number">
+      <mat-error *ngIf="foodComboForm.controls['comboPrice'].errors?.['whitespace']">*Enter valid ComboPrice</mat-error>
     </mat-form-field>
 
     <div class="col">

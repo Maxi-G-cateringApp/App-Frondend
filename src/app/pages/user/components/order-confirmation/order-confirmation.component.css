@@ -1,0 +1,23 @@
+mat-form-field {
+    margin-left: 0.5rem;
+    
+}
+mat-card {
+    background-color: rgb(236, 208, 95);
+}
+h1{
+    margin: 2%;
+}
+
+
+.amoutInfo {
+    margin: 1%;
+    background-color: rgb(241, 224, 142);
+}
+
+.amoutInfo p{
+    color: black;
+    font-weight: 900;
+    margin: 1%;
+}
+

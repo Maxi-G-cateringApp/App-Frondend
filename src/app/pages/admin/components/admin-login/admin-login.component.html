@@ -1,0 +1,39 @@
+<form [formGroup]="adminLoginForm" (ngSubmit)="onAdminLogin()">
+    <mat-card>
+      <h1 class="text-white font-extrabold">Login</h1>
+      <mat-card-content>
+        <p>
+          <mat-form-field >
+            <mat-label>Enter Your Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="adminLoginForm.get('email')?.invalid && adminLoginForm.get('email')?.touched">
+             * Email Required</mat-error>
+             <mat-icon matSuffix> email</mat-icon>
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <mat-label>Enter Your Password</mat-label>
+            <input matInput formControlName="password" type="password">
+            <mat-error *ngIf="adminLoginForm.get('password')?.invalid && adminLoginForm.get('password')?.touched">
+              * Password Required</mat-error>
+              <mat-icon matSuffix>fingerprint</mat-icon>
+          </mat-form-field>
+        </p>
+    
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button type="submit">Login</button>
+
+      </mat-card-actions>
+      <mat-card-footer>
+       
+        <a [routerLink]="['/auth/register']"
+        class="inline-flex items-center font-bold text-white hover:text-gray-400 text-xs text-center pb-4">
+        <span class="ml-2">You don't have an account?</span>
+      </a>
+      </mat-card-footer>
+      
+    </mat-card>
+  </form>

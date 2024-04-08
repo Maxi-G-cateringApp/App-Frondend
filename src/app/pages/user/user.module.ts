@@ -11,6 +11,7 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
 import { UserMenubarComponent } from './components/user-menubar/user-menubar.component';
 import { UserComponent } from '../../layouts/user/user.component';
+import { UserOrdersComponent } from './components/user-orders/user-orders.component';
 
 
 
@@ -22,7 +23,8 @@ import { UserComponent } from '../../layouts/user/user.component';
     OrderConfirmationComponent,
     OrderSuccessComponent,
     UserMenubarComponent,
-    UserComponent
+    UserComponent,
+    UserOrdersComponent
 
  
   ],

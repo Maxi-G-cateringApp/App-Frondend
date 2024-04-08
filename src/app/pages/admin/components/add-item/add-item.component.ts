@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FoodItems } from '../../models/foodItems.model';
@@ -7,6 +7,7 @@ import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { Categories } from '../../models/category.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-item',
@@ -23,6 +24,7 @@ export class AddItemComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private masterService: MasterService,
     private ref: MatDialogRef<AddItemComponent>,
+    private tost: ToastrService,
     private store: Store<AppState>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
@@ -35,7 +37,7 @@ export class AddItemComponent implements OnInit, AfterViewInit {
     }
     this.loadCategories();
     this.addItemForm = this.fb.group({
-      itemName: ['', Validators.required],
+      itemName: ['', [Validators.required,this.whiteSpaceValidator]],
       itemPrice: ['', Validators.required],
       categoryId: ['', Validators.required],
     });
@@ -58,7 +60,7 @@ export class AddItemComponent implements OnInit, AfterViewInit {
             this.closePopup();
           });
       } else {
-        console.error();
+        this.tost.error('Enter valid Data','Invalid')
       }
     }
    
@@ -91,5 +93,9 @@ export class AddItemComponent implements OnInit, AfterViewInit {
         itemPrice: this.editData.itemPrice,
       });
     });
+  }
+
+  public whiteSpaceValidator(control: FormControl) {
+    return (control.value || '').trim().length ? null : { whitespace: true };
   }
 }
