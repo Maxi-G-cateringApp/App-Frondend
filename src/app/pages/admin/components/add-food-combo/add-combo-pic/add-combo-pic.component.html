@@ -1,0 +1,15 @@
+<mat-card>
+    <form [formGroup]="uploadComboPic" (ngSubmit)="submitComboPic()" enctype="multipart/form-data">
+
+        <input type="file" (change)="handleFileChange($event)">
+
+       
+        <div mat-dialog-actions>
+            <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+            <button mat-raised-button color="primary" type="submit">save</button>
+          </div>
+        
+    </form>
+</mat-card>
+
+

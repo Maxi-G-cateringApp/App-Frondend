@@ -17,6 +17,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -42,6 +43,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/mat
     MatListModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    MatGridListModule
   ],
   declarations: [],
   imports: [CommonModule],

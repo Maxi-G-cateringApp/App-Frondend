@@ -1,22 +1,24 @@
-<div class="flex flex-col h-auto w-auto m-5">
-    <div>
+<div class="flex justify-evenly h-auto w-auto m-5">
+    <div class="w-1/3 h-full">
         <mat-card>
             <mat-card-title>Order Details</mat-card-title>
-            <mat-card-actions align = "end">
-                <button *ngIf="!orderAccepted && order?.status === 'PENDING'" (click)="acceptOrder()" mat-raised-button color="warn">Accept Order</button>
-                <button *ngIf="processBtn" (click)="processOrder(order.id)" mat-raised-button color="warn">Process Order</button>
-              </mat-card-actions>
+            <mat-card-actions>
+                <button *ngIf="!orderAccepted && order?.status === 'PENDING'" (click)="acceptOrder()"
+                    mat-raised-button>Accept
+                    Order</button>
+                <button (click)="processOrder(order.id)" mat-raised-button>Process Order</button>
+            </mat-card-actions>
             <mat-card-header>
                 <mat-card-subtitle *ngIf="order?.user">User : {{ order.user.userName | uppercase }}</mat-card-subtitle>
                 <mat-card-subtitle *ngIf="order?.user">Email : {{ order.user.email }}</mat-card-subtitle>
                 <mat-card-subtitle *ngIf="order?.user">Phone : {{ order.user.phoneNumber }}</mat-card-subtitle>
             </mat-card-header>
-                <p *ngIf="order?.orderDate">Order Received on : {{ order.orderDate|  date :'MMM d, y'}}</p>
-                <p *ngIf="order?.date">Order Date: {{ order.date |  date :'MMM d, y'}}</p>
+            <p *ngIf="order?.orderDate">Order Received on : {{ order.orderDate| date :'MMM d, y'}}</p>
+            <p *ngIf="order?.date">Order Date: {{ order.date | date :'MMM d, y'}}</p>
         </mat-card>
     </div>
 
-    <div>
+    <div class="w-1/3 h-full">
         <mat-card *ngIf="order">
             <mat-card-title>Ordered Menu</mat-card-title>
             <ng-container *ngFor="let combo of foodCombos">
@@ -30,22 +32,20 @@
                 </ul>
             </ng-container>
             <mat-card-title>Event Details</mat-card-title>
-            <div >
-               
             <p> People Count :{{ order.peopleCount }}</p>
             <p> Event :{{ order.events.eventName}}</p>
             <p> Venue :{{ order.venue }}</p>
+        </mat-card>
+    </div>
+    <div class="w-1/3 h-full">
+        <mat-card *ngIf="order">
+            <mat-card-title>Location</mat-card-title>
+            <div>
+                <p>{{ order.userLocation.name}}</p>
+                <p>{{ order.userLocation.place}}</p>
+                <p>{{ order.userLocation.address}}</p>
             </div>
         </mat-card>
-        <div>
-            <mat-card *ngIf="order">
-                <mat-card-title>Location</mat-card-title>
-                <div>
-                    <p>{{ order.userLocation.name}}</p>
-                    <p>{{ order.userLocation.place}}</p>
-                    <p>{{ order.userLocation.address}}</p>
-                </div>
-            </mat-card>
-        </div>
     </div>
+
 </div>

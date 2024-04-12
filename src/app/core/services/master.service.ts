@@ -23,6 +23,7 @@ import { KitchenCrewEmpl } from '../../pages/admin/components/team/teamModels/ki
 import { OrderProcessing } from '../../pages/admin/models/orderProcessing.model';
 import { Token } from '@angular/compiler';
 import { GToken } from '../../pages/auth/models/token.model';
+import { ReviewModel } from '../../pages/user/models/rating.model';
 
 @Injectable({
   providedIn: 'root',
@@ -110,7 +111,7 @@ export class MasterService {
   }
 
   getAllCombos(): Observable<FoodCombo[]> {
-    return this.http.get<FoodCombo[]>('/all-combos');
+    return this.http.get<FoodCombo[]>('/admin/all-combos');
   }
 
   getAllCombosByCategory(id: number): Observable<FoodCombo[]> {
@@ -257,37 +258,13 @@ export class MasterService {
     return this.http.get('/auth/url');
   }
 
-  // token: string = '';
-
-  // get(url: string): Observable<any> {
-  //   return this.http.get('' + url);
-  // }
-
-  // getToken(code: string): Observable<boolean> {
-  //   return this.http
-  //     .get<GToken>('/auth/callback?code=' + code, { observe: 'response' })
-  //     .pipe(
-  //       map((response: HttpResponse<GToken>) => {
-  //         if (response.status == 200 && response.body !== null) {
-  //           this.token = response.body.token;
-  //           console.log(this.token);
-            
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       })
-  //     );
-  // }
-
-  // getPrivate(url: string): any{
-  //   return this.http.get('http://localhost:8080'+url,
-  //   {headers: new HttpHeaders({'Authorization':'Bearer '+this.token})})
-  // }
-
-
   googleLogin(token: string):Observable<any>{
     return this.http.post<any>(`/google/login?token=${token}`,null)
+  }
+
+  giveReview(review: ReviewModel): Observable<any>{
+    return this.http.post<any>('/add-review',review)
+
   }
 
 

@@ -11,7 +11,7 @@ import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { MasterService } from '../services/master.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../shared/app.state';
-import { setLoadingSpinner } from '../../shared/store/shared.action';
+import { setErrorMessage, setLoadingSpinner } from '../../shared/store/shared.action';
 import { AuthService } from '../../pages/auth/service/auth-service.service';
 
 @Injectable({
@@ -51,6 +51,9 @@ export class HttpInterceptorService implements HttpInterceptor {
       catchError((error) => {
         if (error.status === 403) {
           console.log('unauthorized');
+        }
+        if (error.status === 409) {
+          this.store.dispatch(setErrorMessage({message:"Data already present"}))
         }
         return throwError(error); 
       }),

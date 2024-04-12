@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FoodCombo } from '../../models/combo.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
@@ -27,7 +27,7 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
   editId: number = 0;
   categoryList!: Categories[];
   category!: string;
-  uploadProfilePic!: FormGroup;
+  // uploadProfilePic!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +35,7 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     private store: Store<AppState>,
     private tost: ToastrService,
     private ref: MatDialogRef<AddFoodComboComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +51,6 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
       description: ['', [Validators.required, this.whiteSpaceValidator]],
       comboPrice: ['', [Validators.required]],
       categoryId: ['', Validators.required],
-      // file: [null],
     });
   }
 
@@ -65,7 +64,6 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
   // }
 
   onaddCombos() {
-    console.log(this.foodComboForm.value);
     if (this.inputData.isEdit) {
       this.onEdit(this.inputData.id);
     } else {
@@ -82,7 +80,7 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
             this.closePopup();
           });
       } else {
-        this.tost.error('Enter valid Data','Invalid')
+        this.tost.error('Enter valid Data', 'Invalid');
       }
     }
   }
@@ -93,14 +91,17 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     });
   }
   onEdit(id: number) {
-    this.masterService.editFoodCombo(id, this.foodComboForm.value).subscribe(
-      (response) => {
-        this.closePopup();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // if (this.foodComboForm.valid) {
+      const formData = { ...this.foodComboForm.value };
+      delete formData.file;
+      this.masterService.editFoodCombo(id, formData).subscribe({
+        next: (respose) => {
+          this.closePopup();
+        },
+      });
+    // } else {
+    //   this.tost.error('Enter valid Data', 'Invalid');
+    // }
   }
 
   setPopupdata(id: number) {

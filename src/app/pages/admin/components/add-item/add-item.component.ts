@@ -8,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { Categories } from '../../models/category.model';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { getErrorMessage } from '../../../../shared/store/shared.selector';
 
 @Component({
   selector: 'app-add-item',
@@ -19,6 +21,8 @@ export class AddItemComponent implements OnInit, AfterViewInit {
   inputData: any;
   editData!: FoodItems;
   categoryList!: Categories[];
+  showErrorMessage!: Observable<string>;
+
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +34,8 @@ export class AddItemComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    this.showErrorMessage = this.store.select(getErrorMessage);
+
     this.inputData = this.data;
 
     if (this.inputData.isEdit) {
@@ -48,8 +54,6 @@ export class AddItemComponent implements OnInit, AfterViewInit {
   }
   onaddItem() {
     
-      console.log(this.addItemForm.value);
-
       if (this.inputData.isEdit) {
         this.onEdit(this.inputData.id);
       } else {

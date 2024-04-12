@@ -23,7 +23,6 @@ export class OrderDetailsComponent implements OnInit {
   foodItems: FoodItems[] = [];
   orderAccepted: boolean = false;
   decorationOption!:string;
-  processBtn: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,7 +77,6 @@ export class OrderDetailsComponent implements OnInit {
       },
     });
     _popup.afterClosed().subscribe((data) => {
-      this.processBtn = false;
       
     });
   }

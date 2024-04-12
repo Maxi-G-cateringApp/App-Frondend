@@ -17,31 +17,31 @@
 				class="font-medium flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
 				<li>
 					<button [routerLink]="['/']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:bg-red-950 hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
 						Home</button>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
 					<button [routerLink]="['/auth/register']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:bg-red-950 hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
 						Signup</button>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
 					<button [routerLink]="['/auth']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:bg-red-950 hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
 						Login</button>
 
 				</li>
 				<li *ngIf="(isAuthenticated | async)">
 					<button (click)="onLogout($event)"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:bg-red-950 hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
 						Logout</button>
 				</li>
 
 				<li *ngIf="(isAuthenticated | async)">
 					<button [routerLink]="['/user/home']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:bg-red-950 hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							stroke="currentColor" class="w-6 h-6">
 							<path stroke-linecap="round" stroke-linejoin="round"

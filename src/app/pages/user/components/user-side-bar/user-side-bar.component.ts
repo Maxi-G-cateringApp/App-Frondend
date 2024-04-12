@@ -48,7 +48,7 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
     this.sideNavCollapsed.set(val)
   }
 
-  profilePictureSize = computed(()=>this.sideNavCollapsed() ? '30' : '150');
+  profilePictureSize = computed(()=>this.sideNavCollapsed() ? '30' : '160');
   
   constructor(
     private store: Store<AppState>,

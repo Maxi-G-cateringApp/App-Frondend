@@ -106,8 +106,7 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
     };
     this.masterService.addLocation(data).subscribe({
       next: (response) => {
-        console.log(response);
-        this.router.navigate(['/user/orders'],{ queryParams: { amount: this.amount,advanceAmount:this.advanceAmount }});
+        this.router.navigate(['/user/orders']);
       },
       error: (error) => {
         console.error('Something wrong:', error);

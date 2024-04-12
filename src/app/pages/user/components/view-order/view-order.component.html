@@ -1,0 +1,19 @@
+
+
+<ng-container *ngIf="order">
+    <mat-card>
+        <div>{{ order.events.eventName }}</div>
+        <div>{{ order.venue }}</div>
+        <div>{{ order.status }}</div>
+        <button *ngIf="order.status ==='ACCEPTED' && !order.isPaymentComplete" (click)="onPayment()"mat-raised-button>Pay Advance</button>
+        <button *ngIf="order.status !=='CANCELLED'" (click)="onCancelOrder()" mat-raised-button>Cancel Order</button>
+<ng-container *ngIf="order.status === 'COMPLETED'">
+    <app-review [orderId]="inputdata.orderId"></app-review>
+</ng-container>
+       
+
+        <div mat-dialog-actions>
+            <button (click)="closePopup()" mat-raised-button color="warn">Close</button>
+        </div>
+    </mat-card>
+</ng-container>

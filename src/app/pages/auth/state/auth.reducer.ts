@@ -8,7 +8,7 @@ const _authReducer = createReducer(
     return {
       ...state,
       user: action.user,
-    };
+    };   
   }),
   on(logout, (state) => {
     return {

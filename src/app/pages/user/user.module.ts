@@ -12,6 +12,9 @@ import { OrderSuccessComponent } from './components/order-success/order-success.
 import { UserMenubarComponent } from './components/user-menubar/user-menubar.component';
 import { UserComponent } from '../../layouts/user/user.component';
 import { UserOrdersComponent } from './components/user-orders/user-orders.component';
+import { ViewOrderComponent } from './components/view-order/view-order.component';
+import { ReviewComponent } from './components/view-order/review/review.component';
+import { RatingComponent } from './components/view-order/rating/rating.component';
 
 
 
@@ -24,7 +27,10 @@ import { UserOrdersComponent } from './components/user-orders/user-orders.compon
     OrderSuccessComponent,
     UserMenubarComponent,
     UserComponent,
-    UserOrdersComponent
+    UserOrdersComponent,
+    ViewOrderComponent,
+    ReviewComponent,
+    RatingComponent
 
  
   ],

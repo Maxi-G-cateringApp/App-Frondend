@@ -27,7 +27,7 @@
       <mat-error *ngIf="foodComboForm.controls['comboPrice'].errors?.['whitespace']">*Enter valid ComboPrice</mat-error>
     </mat-form-field>
 
-    <div class="col">
+    <div class="col" *ngIf="!inputData.isEdit">
       <input type="file" (change)="handleFileChange($event)" />
   </div>
 
@@ -35,6 +35,5 @@
   <div mat-dialog-actions>
     <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
     <button mat-raised-button color="primary" type="submit">save</button>
-
   </div>
 </form>

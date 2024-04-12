@@ -8,6 +8,10 @@ import {
 import { MasterService } from '../../../../core/services/master.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { getErrorMessage } from '../../../../shared/store/shared.selector';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../shared/app.state';
 
 @Component({
   selector: 'app-add-categories',
@@ -15,14 +19,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './add-categories.component.css',
 })
 export class AddCategoriesComponent implements OnInit {
+
+  showErrorMessage!: Observable<string>;
   constructor(
     private masterService: MasterService,
     private ref: MatDialogRef<AddCategoriesComponent>,
     private tost: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
+    this.showErrorMessage = this.store.select(getErrorMessage);
     this.addCategoryForm = this.fb.group({
       categoriesName: ['', [Validators.required, this.whiteSpaceValidator]],
     });

@@ -21,7 +21,6 @@ export const getuserId = createSelector(getAuthState,(state) => {
     return state.user?.userId
 })
 export const getuserNameFromState = createSelector(getAuthState,(state) => {
-    console.log(state.user?.username);
-    
-    return state.user?.username
+    console.log(state.user?.userName);
+    return state.user?.userName
 })

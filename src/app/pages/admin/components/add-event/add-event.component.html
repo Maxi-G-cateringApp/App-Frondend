@@ -3,6 +3,8 @@
 <form [formGroup]="addEventForm" enctype="multipart/form-data" (ngSubmit)="onaddEvent()">
     <h1 mat-dialog-title>Add Event</h1>
       <div mat-dialog-content>
+        <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
+     
   
        
         <mat-form-field>

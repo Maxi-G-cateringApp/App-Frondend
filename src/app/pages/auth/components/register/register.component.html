@@ -5,6 +5,8 @@
         <h1 class="text-black font-extrabold">Signup</h1>
         <mat-card-content>
 
+          <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
+
 
           <p>
             <mat-form-field>
@@ -72,7 +74,13 @@
           </div>
 
         </mat-card-content>
-        <mat-card-actions align="end">
+
+          
+
+
+        <mat-card-footer>
+          <div class="flex flex-col justify-center items-center">
+
           <button type="submit" *ngIf="!otpField; else otpBtn" [disabled]="!registerForm.valid" mat-raised-button>
             Signup
           </button>
@@ -82,13 +90,12 @@
             </button>
           </ng-template>
 
-        </mat-card-actions>
-        <mat-card-footer>
-
-          <a [routerLink]="['/auth']"
-            class="inline-flex items-center font-bold text-white hover:text-gray-400 text-xs text-center">
+          <a  *ngIf="!otpField" [routerLink]="['/auth']"
+            class="inline-flex items-center font-bold text-blue-700 hover:text-red-950 text-xs text-center">
             <span class="ml-2">Already have an account?</span>
           </a>
+
+        </div>
         </mat-card-footer>
 
       </mat-card>

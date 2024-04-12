@@ -27,6 +27,7 @@ import { AddKitchenCrewTeamComponent } from './components/team/kitchen-crew-team
 import { AddKitchenCrewEmployeesComponent } from './components/team/kitchen-crew-teams/add-kitchen-crew-employees/add-kitchen-crew-employees.component';
 import { OrderProcessingComponent } from './components/order-processing/order-processing.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { AddComboPicComponent } from './components/add-food-combo/add-combo-pic/add-combo-pic.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
     AddKitchenCrewEmployeesComponent,
     OrderProcessingComponent,
     AdminLoginComponent,
+    AddComboPicComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,],
 })

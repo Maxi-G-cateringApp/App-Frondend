@@ -13,6 +13,8 @@ import { VerificationResponse } from '../../models/verificationResponse.model';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../state/auth.state';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
+import { Observable } from 'rxjs';
+import { getErrorMessage } from '../../../../shared/store/shared.selector';
 
 const phonePattern = /^\d{10}$/;
 @Component({
@@ -23,6 +25,7 @@ const phonePattern = /^\d{10}$/;
 export class RegisterComponent implements OnInit {
   imgPath: string = '/assets/tablecloth-3336687_1920.jpg';
   otpField: boolean = false;
+  showErrorMessage!: Observable<string>;
   constructor(
     private masterService: MasterService,
     private router: Router,
@@ -35,6 +38,7 @@ export class RegisterComponent implements OnInit {
   email: string = '';
 
   ngOnInit(): void {
+    this.showErrorMessage = this.store.select(getErrorMessage);
     this.registerForm = this.fb.group({
       userName: ['', [Validators.required, this.whiteSpaceValidator]],
       phoneNumber: [
@@ -57,7 +61,7 @@ export class RegisterComponent implements OnInit {
       if (this.registerForm.valid && this.passwordMatch()) {
         this.masterService
           .register(this.registerForm.value)
-          .subscribe((response) => {
+          .subscribe((response) => {            
             this.email = response.email;
             if (response !== null) {
               this.tost.success(

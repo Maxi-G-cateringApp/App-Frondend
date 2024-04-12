@@ -32,8 +32,6 @@ export class OrderComponent implements OnInit {
     this.masterService.getAllOrders().subscribe({
       next: (response) => {
         this.orders = response;
-        console.log(this.orders);
-
         this.dataSource = new MatTableDataSource<OrderDetails>(this.orders);
         this.dataSource.paginator = this.paginator;
       },
@@ -41,8 +39,6 @@ export class OrderComponent implements OnInit {
   }
 
   viewOrder(orderId: string) {
-    console.log( orderId," selected order id");
-    
     this.router.navigate(['/admin/view-order', orderId]);
   }
 }

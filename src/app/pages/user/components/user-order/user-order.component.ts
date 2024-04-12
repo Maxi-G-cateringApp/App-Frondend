@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MasterService } from '../../../../core/services/master.service';
 import { FoodCombo } from '../../../admin/models/combo.model';
-import { Observable } from 'rxjs';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FoodItems } from '../../../admin/models/foodItems.model';
 import { Events } from '../../../admin/models/event.model';
@@ -10,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { getuserId } from '../../../auth/state/auth.selector';
 import { OrderDetails } from '../../models/order.model';
-import { Route, Router, Routes } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-order',

@@ -3,6 +3,7 @@
 <form [formGroup]="addItemForm" enctype="multipart/form-data" (ngSubmit)="onaddItem()">
     <h1 mat-dialog-title>{{ inputData.title }}</h1>
     <div mat-dialog-content>
+      <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
 
       <mat-form-field class="mat-50" *ngIf="!inputData.isEdit">
         <mat-label>Select category</mat-label>

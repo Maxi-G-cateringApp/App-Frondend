@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthenticatedUser } from '../models/authUser.model';
 import { AuthResponse } from '../models/authResponse.model';
-import { AuthReducer } from '../state/auth.reducer';
 
 @Injectable({
   providedIn: 'root',
@@ -70,7 +69,7 @@ export class AuthService {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
-    // localStorage.removeItem('role');
+    localStorage.removeItem('role');
   }
 
   setTokenInLocalStorage(token: string) {

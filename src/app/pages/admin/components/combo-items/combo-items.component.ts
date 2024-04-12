@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddFoodComboComponent } from '../add-food-combo/add-food-combo.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AddComboPicComponent } from '../add-food-combo/add-combo-pic/add-combo-pic.component';
 2;
 @Component({
   selector: 'app-combo-items',
@@ -33,6 +34,7 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   changeComboBtn: boolean = true;
   formField: boolean = false;
   id!: number;
+  selectedComboId: number | null = null;
 
   constructor(
     private masterService: MasterService,
@@ -41,9 +43,9 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    this.uploadComboPic = new FormGroup({
-      file: new FormControl(null),
-    });
+    // this.uploadComboPic = new FormGroup({
+    //   file: new FormControl(null),
+    // });
     this.loadFoodComboItems();
   }
 
@@ -93,7 +95,7 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
     }
   }
 
-  submitComboPic() {
+  submitComboPic(id: number) {
     if (this.id) {
       this.masterService
         .updateComboPicture(this.selectedFile, this.id)
@@ -111,12 +113,33 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   }
 
   changeComboPicClicked(id: number) {
+    this.selectedComboId = id;
     this.id = id;
     console.log(id, 'selected id for image');
 
     this.formField = true;
     this.changeComboBtn = false;
   }
+// refract add combi pic
+  changeComboPic(id: any) {
+    console.log(id,"clicked id");
+    
+    this.openCPPopup(id)
+  }
+
+  openCPPopup(id: any) {
+    var _popup = this.dialog.open(AddComboPicComponent, {
+      width: '40%',
+      height:'30%',
+      data: {
+        id: id,
+      },
+    });
+    _popup.afterClosed().subscribe((data) => {
+      this.loadFoodComboItems();
+    });
+  }
+// refract add combi pic
 
   loadComboPicture(imgId: number) {
     this.masterService.getComboImage(imgId).subscribe({
