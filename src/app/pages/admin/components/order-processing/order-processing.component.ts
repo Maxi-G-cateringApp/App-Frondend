@@ -49,7 +49,7 @@ export class OrderProcessingComponent implements OnInit{
     this.masterService.orderProcessing(data).subscribe({next: (response)=> {
       console.log(response);
       this.closePopup()
-      
+    
     },
   })
   }

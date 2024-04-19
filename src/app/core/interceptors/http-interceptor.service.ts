@@ -50,7 +50,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(apiRequest).pipe(
       catchError((error) => {
         if (error.status === 403) {
-          console.log('unauthorized');
+          this.store.dispatch(setErrorMessage({message:"Something Went Wrong"}))
         }
         if (error.status === 409) {
           this.store.dispatch(setErrorMessage({message:"Data already present"}))

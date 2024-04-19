@@ -6,8 +6,10 @@ import {
   loginStart,
   loginSuccess,
   logout,
+  updateUser,
+  updateUsersuccess,
 } from './auth.action';
-import { catchError, exhaustMap, map, mergeMap, of } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { MasterService } from '../../../core/services/master.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -62,11 +64,11 @@ export class AuthEffects {
         if (action.type === loginStart.type) {
           return this.masterService.login(action.email, action.password).pipe(
             map((data) => {
-              console.log(data);             
+              console.log(data, 'response data');
               const role = data.user.role;
-              this.authService.saveUserRoleInLocalStorage(role);
+              // this.authService.saveUserRoleInLocalStorage(role);
               if (data.user.role === 'USER') {
-                this.tost.success(data.user.userName, 'loggedIn');
+                this.tost.success(data.user.name, 'loggedIn');
                 this.router.navigateByUrl('user/home');
               } else {
                 this.router.navigateByUrl('admin');
@@ -111,9 +113,6 @@ export class AuthEffects {
     );
   });
 
-
-  
-
   autoLogin$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(autoLogin),
@@ -136,4 +135,26 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUser),
+      exhaustMap((action) =>
+        this.masterService.updateUser(action.user.id,action.user).pipe(
+          map(res => updateUsersuccess({ user: res })),
+        )
+      )
+    )
+  );
 }
+// _updateUser = createEffect(() =>
+//   this.action$.pipe(
+//     ofType(updateUser),
+//     exhaustMap((action) =>
+//       this.service
+//         .editUser(action.user.id, action.user)
+//         .pipe(map((res) => updateUsersuccess({ user: action.user })
+//         ))
+//     )
+//   )
+// );

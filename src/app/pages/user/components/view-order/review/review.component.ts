@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../shared/app.state';
 import { getuserId } from '../../../../auth/state/auth.selector';
 import { MasterService } from '../../../../../core/services/master.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -52,11 +53,19 @@ export class ReviewComponent implements OnInit{
     }
     
     this.masterService.giveReview(rating).subscribe({next:(response)=>{
+      console.log(response);
+      Swal.fire({
+        title: "Good job!",
+        text: "Your Rating is added!",
+        icon: "success"
+      });
       
     }})
 
 
   }
+
+  
 
   public whiteSpaceValidator(control: FormControl) {
     return (control.value || '').trim().length ? null : { whitespace: true };

@@ -11,7 +11,7 @@ export class AuthService {
   formatUser(data: AuthResponse): AuthenticatedUser {
     const user = new AuthenticatedUser(
       data.user.id,
-      data.user.userName,
+      data.user.name,
       data.token,
       data.user.role,
       data.user.email,
@@ -43,7 +43,7 @@ export class AuthService {
       const userData = JSON.parse(userDataString);
       const user = new AuthenticatedUser(
         userData.id,
-        userData.username,
+        userData.name,
         userData.token,
         userData.role,
         userData.email,

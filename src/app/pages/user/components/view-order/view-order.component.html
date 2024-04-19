@@ -1,19 +1,33 @@
-
-
 <ng-container *ngIf="order">
     <mat-card>
-        <div>{{ order.events.eventName }}</div>
-        <div>{{ order.venue }}</div>
-        <div>{{ order.status }}</div>
-        <button *ngIf="order.status ==='ACCEPTED' && !order.isPaymentComplete" (click)="onPayment()"mat-raised-button>Pay Advance</button>
-        <button *ngIf="order.status !=='CANCELLED'" (click)="onCancelOrder()" mat-raised-button>Cancel Order</button>
-<ng-container *ngIf="order.status === 'COMPLETED'">
-    <app-review [orderId]="inputdata.orderId"></app-review>
-</ng-container>
-       
+        <mat-card-header>
+            <h1>Order Details</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Event : <span>{{ order.events.eventName }}</span></p>
+            <p>Venue : <span>{{ order.venue }}</span></p>
+            <ng-container *ngFor="let combo of combos">
+                <p>Ordered Food Combos : <span>{{ combo.comboName }}</span></p>
+            </ng-container>
+            <ng-container *ngFor="let item of items">
+                <p>Ordered Food Items : <span>{{ item.itemName }}</span></p>
+            </ng-container>
+        </mat-card-content>
 
+        <ng-container *ngIf="order.status === 'COMPLETED' && !order.review">
+            <app-review [orderId]="inputdata.orderId"></app-review>
+        </ng-container>
+
+        <mat-card-actions>
+            <button *ngIf="order.status ==='ACCEPTED' && !order.isPaymentComplete" (click)="onPayment()"
+                mat-raised-button color="warn">Pay Advance</button>
+            <button *ngIf="order.status ==='PROCESSING' && !order.isPaymentComplete" (click)="onPayment()"
+                mat-raised-button color="warn">Pay Balance</button>
+            <button *ngIf="order.status !=='CANCELLED' && order.status !== 'COMPLETED'" (click)="onCancelOrder()" mat-raised-button
+                color="primary">Cancel Order</button>
+        </mat-card-actions>
         <div mat-dialog-actions>
-            <button (click)="closePopup()" mat-raised-button color="warn">Close</button>
+            <button (click)="closePopup()" mat-raised-button color="primary">Close</button>
         </div>
     </mat-card>
 </ng-container>

@@ -1,30 +1,23 @@
-import { AfterViewInit, Component, Input, OnInit, computed, signal } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AppState } from '../../../../shared/app.state';
 import { Store } from '@ngrx/store';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { AuthenticatedUser } from '../../../auth/models/authUser.model';
 import { Observable, Subscription } from 'rxjs';
-import { getEmailFromState, getuserId, getuserNameFromState } from '../../../auth/state/auth.selector';
-import { setLoadingSpinner } from '../../../../shared/store/shared.action';
-import { AuthService } from '../../../auth/service/auth-service.service';
+import { getEmailFromState, getUser, getuserId } from '../../../auth/state/auth.selector';
+import { getErrorMessage } from '../../../../shared/store/shared.selector';
+import { User } from '../../../auth/models/user.model';
+import { updateUser } from '../../../auth/state/auth.action';
+import { UpdateUser } from '../../models/update-user.model';
 
-
-export type MenuItem = {
-  icon: string;
-  label: string;
-  route: string;
-
-
-}
 @Component({
-  selector: 'app-user-side-bar',
-  templateUrl: './user-side-bar.component.html',
-  styleUrl: './user-side-bar.component.css'
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrl: './user-profile.component.css'
 })
-export class UserSideBarComponent implements OnInit,AfterViewInit{
+export class UserProfileComponent {
 
-  showLoading!: Observable<boolean | undefined>;
   user$: Subscription | undefined;
   user!: AuthenticatedUser | null;
   email!: string | undefined;
@@ -35,20 +28,14 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
   uploadProfilePic!: FormGroup;
   profilePictureUrl!: string;
   userName: string|undefined;
+  @ViewChild('fileInput') fileInput: any;
+  @ViewChild('profileForm') profileForm: any;
+  showErrorMessage!: Observable<string>;
+  updateForm!: FormGroup;
 
 
-  menuItem = signal<MenuItem[]>([
-    {icon: 'home',label: 'Home',route:'/user/home'},
-    {icon: 'dashboard',label: 'Orders',route:'/user/orders'},
-    {icon: 'person',label: 'Profile',route:'/user/user-profile'},
-  ]);
 
-  sideNavCollapsed = signal(false)
-  @Input() set collapsed(val: boolean){
-    this.sideNavCollapsed.set(val)
-  }
 
-  // profilePictureSize = computed(()=>this.sideNavCollapsed() ? '0' : '200');
   
   constructor(
     private store: Store<AppState>,
@@ -62,20 +49,26 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
 
   ngOnInit(): void {
 
-    // this.masterService.getPrivate("/message").subscribe((data: string)=>{console.log(data);
+    // this.updateForm = this.fb.group({
+    //   username: [this.user?.username,Validators.required],
+    //   phonenumber: [this.user?.phonenumber,Validators.required]
     // })
+    this.showErrorMessage = this.store.select(getErrorMessage);
+
 
     this.store.select(getEmailFromState).subscribe((data) => {
       this.email = data;
     });
     this.store.select(getuserId).subscribe((data) => {      
       this.userId = data;
+    
     });
-    // this.store.select(getuserNameFromState).subscribe((data) => {
-    //   this.userName = data;
-    //   console.log(this.userName);
+    this.store.select(getUser).subscribe((data) => {
+      this.user = data;
+      console.log(this.user?.username);
       
-    // });
+      
+    });
     this.loadProfilePicture();
 
    
@@ -85,14 +78,13 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
     });
   }
 
-  ngAfterViewInit(): void {
-    this.store.dispatch(setLoadingSpinner({status: false}))
-  }
+
 
   changeProfilePicClicked() {
     this.formField = true;
     this.changeProfileBtn = false;
   }
+ 
 
   handleFileChange(event: any) {
     this.selectedFile = event.target.files[0];
@@ -102,6 +94,8 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
 
   submitProPic() {
     if (this.userId) {
+      console.log(this.userId,' ',this.selectedFile);
+      
       this.masterService
         .changeProfilePicture(this.selectedFile, this.userId)
         .subscribe((response) => {
@@ -130,5 +124,17 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
       console.error('Error fetching profile image:', error);
     };
   }
+
+  // updateUser(){
+  //   if(this.updateForm.valid){
+  //     const user: UpdateUser = {
+  //       id: this.user?.userId as string,
+  //       name: this.updateForm.value.username,
+  //       phoneNumber: this.updateForm.value.phonenumber,
+  //     }
+  //     console.log(typeof(this.userId));
+  //     this.store.dispatch(updateUser({ user }))
+  //   }
+  // }
 
 }

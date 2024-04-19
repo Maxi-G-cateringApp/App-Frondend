@@ -15,6 +15,8 @@ import { UserOrdersComponent } from './components/user-orders/user-orders.compon
 import { ViewOrderComponent } from './components/view-order/view-order.component';
 import { ReviewComponent } from './components/view-order/review/review.component';
 import { RatingComponent } from './components/view-order/rating/rating.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 
@@ -30,7 +32,8 @@ import { RatingComponent } from './components/view-order/rating/rating.component
     UserOrdersComponent,
     ViewOrderComponent,
     ReviewComponent,
-    RatingComponent
+    RatingComponent,
+    UserProfileComponent
 
  
   ],

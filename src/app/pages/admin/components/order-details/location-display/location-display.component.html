@@ -1,0 +1,14 @@
+<div class="flex m-2 justify-between">
+   
+    <div class="m-1">
+        <span>From</span>
+        <app-place-auto-complete (placeChanges)="fromValue = $event"></app-place-auto-complete>
+    </div>
+    <div class="m-1">
+        <span>To</span>
+        <app-place-auto-complete (placeChanges)="toValue = $event"></app-place-auto-complete>
+    </div>
+</div>
+
+<app-map-display [from]="fromValue" [to]="toValue"></app-map-display>
+<a (click)="closePopup()" mat-raised-button color="primary">Close</a>

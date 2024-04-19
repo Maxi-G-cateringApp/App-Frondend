@@ -1,0 +1,6 @@
+<google-map #map [zoom]="zoom">
+    <map-directions-renderer *ngIf="directionResult"
+    [directions]="directionResult">
+</map-directions-renderer>
+<map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+</google-map>

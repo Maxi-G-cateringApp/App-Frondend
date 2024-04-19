@@ -1,61 +1,79 @@
 import { publishFacade } from '@angular/compiler';
 import { Component, Inject, OnInit, input } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MasterService } from '../../../../core/services/master.service';
 import { UserOrder } from '../../models/userOrder.model';
 import { ToastrService } from 'ngx-toastr';
 import { ReviewComponent } from './review/review.component';
 import { ReviewModel } from '../../models/rating.model';
+import { FoodCombo } from '../../../admin/models/combo.model';
+import { FoodItems } from '../../../admin/models/foodItems.model';
+import Swal from 'sweetalert2';
 
 declare var Razorpay: any;
 @Component({
   selector: 'app-view-order',
   templateUrl: './view-order.component.html',
-  styleUrl: './view-order.component.css'
+  styleUrl: './view-order.component.css',
 })
-export class ViewOrderComponent implements OnInit{
-
+export class ViewOrderComponent implements OnInit {
   inputdata!: any;
   order!: UserOrder;
-  orderId!:string;
+  orderId!: string;
   amount!: number;
   advanceAmount!: number;
   orderReview!: ReviewModel;
+  combos: FoodCombo[] = [];
+  items: FoodItems[] = [];
+  orderedCombos!: any[];
+  orderedItems!: any[];
 
-  constructor(private ref: MatDialogRef<ViewOrderComponent>,
-    @Inject (MAT_DIALOG_DATA) public data: any,
+  constructor(
+    private ref: MatDialogRef<ViewOrderComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private masterService: MasterService,
     private toster: ToastrService,
     private dialog: MatDialog
-  ){
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.inputdata = this.data;
     console.log(this.inputdata);
-    this.getAmount()
-    this.loadOrder()
-   
+    this.getAmount();
+    this.loadOrder();
   }
 
-  getAmount(){
-    this.masterService.getTotalAmount(this.inputdata.orderId).subscribe((response)=>{
-      console.log(response,'may be amount');
-      
-      this.amount = response.amount;
-      this.advanceAmount = this.amount * 25 /100;
-    })
+  getAmount() {
+    this.masterService
+      .getTotalAmount(this.inputdata.orderId)
+      .subscribe((response) => {
+        console.log(response, 'may be amount');
+
+        this.amount = response.amount;
+        this.advanceAmount = (this.amount * 25) / 100;
+      });
   }
 
   loadOrder() {
     this.masterService.getOrderById(this.inputdata.orderId).subscribe({
       next: (response) => {
-        console.log(response.review);
+        console.log(response, 'order details');
+
         this.orderReview = response.review;
         this.order = response;
-        console.log(this.order);
-        
+        this.orderedCombos = response.orderedCombos;
+        this.orderedItems = response.orderedItems;
+
+        for (const orderedCombo of this.orderedCombos) {
+          this.combos.push(orderedCombo.foodCombos);
+        }
+        for (const orderedItem of this.orderedItems) {
+          this.items.push(orderedItem.foodItems);
+        }
       },
     });
   }
@@ -73,12 +91,13 @@ export class ViewOrderComponent implements OnInit{
     });
   }
 
-
   onPayment() {
-    this.masterService.createTransaction(this.inputdata.orderId).subscribe((response) => {
-      console.log(response);
-      this.openTransactionModel(response);
-    }),
+    this.masterService
+      .createTransaction(this.inputdata.orderId)
+      .subscribe((response) => {
+        console.log(response);
+        this.openTransactionModel(response);
+      }),
       (error: any) => {
         console.log(error);
       };
@@ -128,39 +147,21 @@ export class ViewOrderComponent implements OnInit{
       advanceAmount: this.advanceAmount,
       transactionId: transactionId,
     };
-    console.log(data,'success data');
+    console.log(data, 'success data');
     this.masterService.orderSuccess(data).subscribe({
       next: (response) => {
+        Swal.fire({
+          title: "Good job!",
+          text: "Payment Success!",
+          icon: "success"
+        });
         this.closePopup();
-        this.loadOrder();
-
+       
       },
     });
   }
 
-
-  // addReview(orderId: string){
-  //   this.openReviewPopup(orderId)
-
-  // }
-  // openReviewPopup(orderId: string) {
-  //   var _popup = this.dialog.open(ReviewComponent, {
-  //     width: '40%',
-  //     data: {
-  //       orderId: orderId,
-  //     },
-  //   });
-  //   _popup.afterClosed().subscribe((data) => {
-
-  //   });
-  // }
-
-
   closePopup() {
     this.ref.close();
   }
-
-
-
-
 }

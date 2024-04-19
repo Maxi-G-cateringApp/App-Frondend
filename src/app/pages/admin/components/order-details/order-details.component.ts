@@ -7,6 +7,7 @@ import { FoodCombo } from '../../models/combo.model';
 import { FoodItems } from '../../models/foodItems.model';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderProcessingComponent } from '../order-processing/order-processing.component';
+import { LocationDisplayComponent } from './location-display/location-display.component';
 
 @Component({
   selector: 'app-order-details',
@@ -23,6 +24,8 @@ export class OrderDetailsComponent implements OnInit {
   foodItems: FoodItems[] = [];
   orderAccepted: boolean = false;
   decorationOption!:string;
+  lat: any;
+  lng: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +48,10 @@ export class OrderDetailsComponent implements OnInit {
         this.order = response;
         this.orderedCombos = response.orderedCombos;
         this.orderedItems = response.orderedItems;
+        this.lat = response.userLocation.latitude
+        this.lng = response.userLocation.longitude
+        console.log(this.lat,'  ',this.lng);
+        
         for (const orderedCombo of this.orderedCombos) {
           this.foodCombos.push(orderedCombo.foodCombos);
         }
@@ -71,7 +78,7 @@ export class OrderDetailsComponent implements OnInit {
 
   openPopup(orderId: any) {
     var _popup = this.dialog.open(OrderProcessingComponent, {
-      width: '60%',
+      width: '40%',
       data: {
         orderId: orderId,
       },
@@ -79,5 +86,22 @@ export class OrderDetailsComponent implements OnInit {
     _popup.afterClosed().subscribe((data) => {
       
     });
+  }
+  orderComplete(orderId: string){
+    this.masterService.orderComplete(orderId).subscribe({next: (response)=>{
+      console.log(response);
+      
+    }})
+    
+
+  }
+
+  getDirection(){
+    this.dialog.open(LocationDisplayComponent,{
+      
+      data: {
+
+      }
+    })
   }
 }

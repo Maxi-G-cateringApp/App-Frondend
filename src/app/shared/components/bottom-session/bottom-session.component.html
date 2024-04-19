@@ -1,38 +1,31 @@
-<div class="w-screen h-screen bg-red-950 mt-1 flex flex-wrap-reverse  justify-evenly items-center">
-
-    <!-- section -->
-    <app-session>
-        <div class="flex flex-col items-center justify-evenly mt-16 hola">
-            <h2 class="text-white">Beyond the Plate</h2>
-            <ng-container *ngFor="let para of paras">
-                <li class= "list-none font-extrabold p-3">{{ para }}</li>
-            </ng-container>
+<div class="mt-1 flex flex-wrap  justify-evenly items-center bg-red-950 rounded-lg">
+    <mat-card>
+        <div>
+            <span><mat-icon>group_work</mat-icon>Serving</span>
+            <span><mat-icon>group_work</mat-icon>EventManagement</span>
+            <span><mat-icon>group_work</mat-icon>Decoration</span>
         </div>
-    </app-session>
-    <!-- section -->
+        <p>Savor unforgettable flavors.</p>
+        <p>Celebrate with MAXi -G Catering</p>
+    </mat-card>
 
-    <!-- section -->
-    <app-session>
-        <div class="flex justify-evenly font-extrabold hoi">
-            <li>Serving</li>
-            <li>Event Management</li>
-            <li>Decoration</li>
-        </div>
-        <div class="flex flex-col items-center hii">
-            <ng-container *ngFor="let service of servicesList">
-                <li class="list-none font-extrabold p-1">{{ service }}</li>
-            </ng-container>
-        </div>
-    </app-session>
-    <!-- section -->
+    <mat-card>
+        <mat-card-title>Beyond the Plate</mat-card-title>
+        <span matListItemTitle>Event planning and coordination</span>
+        <mat-list-item>Let us handle the logistics, so you can relax and enjoy the occasion</mat-list-item>
+        <span matListItemTitle>Equipment rentals</span>
+        <mat-list-item>We have everything you need from tables and chairs to linens and tableware</mat-list-item>
+        <span matListItemTitle>Decor and floral arrangements</span>
+        <mat-list-item>Enhance the ambiance with stunning visual elements</mat-list-item>
+
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title>Our Services</mat-card-title>
+        <ng-container *ngFor="let service of servicesList">
+            <mat-list-item>{{ service }}</mat-list-item>
+        </ng-container>
+    </mat-card>
 
 
-    <!-- section -->
-    <app-session>
-       <div class="text-black flex flex-col items-center hello m-16">
-        <h2>Savor unforgettable flavors.</h2>
-        <h2>Celebrate with MAXi -G Catering</h2>
-       </div>
-    </app-session>
-    <!-- section -->
 </div>

@@ -13,6 +13,7 @@ import { MasterService } from '../../../../core/services/master.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { getuserId } from '../../../auth/state/auth.selector';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -29,6 +30,7 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
   amount!: number;
   result!: SearchPlaceResult;
   userId!: any;
+  loc:any;
  
 
   autoComplete: google.maps.places.Autocomplete | undefined;
@@ -78,6 +80,8 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
     this.autoComplete = new google.maps.places.Autocomplete(
       this.inputField.nativeElement
     );
+   
+    
     this.autoComplete.addListener('place_changed', () => {
       const place = this.autoComplete?.getPlace();
       console.log(place);
@@ -91,28 +95,43 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
   }
 
 
+
+
   onConfirmOrder() {
-    const data = {
-      address: this.addressForm.value.address,
-      place: this.addressForm.value.place,
-      district: this.addressForm.value.district,
-      latitude: this.result.latitude,
-      longitude: this.result.longitude,
-      name: this.result.name,
-      userId: this.userId,
-      orderId: this.orderId,
-      
-  
-    };
-    this.masterService.addLocation(data).subscribe({
-      next: (response) => {
-        this.router.navigate(['/user/orders']);
-      },
-      error: (error) => {
-        console.error('Something wrong:', error);
-      },
+    Swal.fire({
+      title: "Do you want to confirm the order?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Save Order",
+      denyButtonText: `Don't save`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Save the data
+        const data = {
+          address: this.addressForm.value.address,
+          place: this.addressForm.value.place,
+          district: this.addressForm.value.district,
+          latitude: this.result.latitude,
+          longitude: this.result.longitude,
+          name: this.result.name,
+          userId: this.userId,
+          orderId: this.orderId,
+        };
+        
+        this.masterService.addLocation(data).subscribe({
+          next: (response) => {
+            Swal.fire("Order Placed!", "", "success");
+            this.router.navigate(['/user/orders']);
+          },
+          error: (error) => {
+            console.error('Something wrong:', error);
+          },
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Order Not Placed", "", "info");
+      }
     });
   }
-
+  
   
 }

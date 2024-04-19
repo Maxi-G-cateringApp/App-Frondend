@@ -25,6 +25,8 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { MaterialModule } from './shared/material/material.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MaterialModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    [SweetAlert2Module.forRoot()]
   ],
   providers: [
     provideClientHydration(),

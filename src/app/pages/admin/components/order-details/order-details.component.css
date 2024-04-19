@@ -1,8 +1,33 @@
 mat-card {
     margin: 1%;
-    background-color:wheat
+    background-color: rgb(245, 225, 94);
+    color: white;
 }
 .acceptBtn {
     align-items: end;
     color: rgb(99, 3, 3);
+}
+button{
+    margin: 1%;
+}
+mat-card-subtitle {
+    color: black;
+}
+.display-location{
+    width: 30%;
+    height: inherit;
+}
+mat-card-title{
+    color: black;
+}
+p{
+    color: black;
+}
+h1 {
+    color: black;
+    font-size: x-large;
+    font-weight: 600
+}
+li {
+    color: black;
 }

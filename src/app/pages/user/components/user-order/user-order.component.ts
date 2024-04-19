@@ -28,6 +28,7 @@ export class UserOrderComponent implements OnInit {
   decorationOptionList:string[]=['YES','NO'];
   userId!: string;
   orderId!: string;
+  foodComboFormArray: FormArray | undefined;
 
   constructor(
     private masterService: MasterService,
@@ -88,9 +89,9 @@ export class UserOrderComponent implements OnInit {
   }
 
   onComboChange(event: any) {
-    const foodComboFormArray = this.orderForm.get('foodCombos') as FormArray;
-    console.log(foodComboFormArray);
-    
+    const foodComboFormArray = this.orderForm.get('foodCombos') as FormArray; 
+    this.foodComboFormArray = this.orderForm.get('foodCombos') as FormArray; 
+  
     foodComboFormArray.clear();
     event.forEach((foodCombos: FoodCombo) => {
       foodComboFormArray.push(this.fb.control(foodCombos));

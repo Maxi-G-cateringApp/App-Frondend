@@ -28,6 +28,10 @@ import { AddKitchenCrewEmployeesComponent } from './components/team/kitchen-crew
 import { OrderProcessingComponent } from './components/order-processing/order-processing.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AddComboPicComponent } from './components/add-food-combo/add-combo-pic/add-combo-pic.component';
+import { LocationDisplayComponent } from './components/order-details/location-display/location-display.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { PlaceAutoCompleteComponent } from './components/order-details/place-auto-complete/place-auto-complete.component';
+import { MapDisplayComponent } from './components/order-details/map-display/map-display.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +60,10 @@ import { AddComboPicComponent } from './components/add-food-combo/add-combo-pic/
     OrderProcessingComponent,
     AdminLoginComponent,
     AddComboPicComponent,
+    LocationDisplayComponent,
+    PlaceAutoCompleteComponent,
+    MapDisplayComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule],
 })
 export class AdminModule {}

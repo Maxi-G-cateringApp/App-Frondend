@@ -5,6 +5,7 @@ import { UserOrderComponent } from './components/user-order/user-order.component
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
 import { UserOrdersComponent } from './components/user-orders/user-orders.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: 'home', component: UserHomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   },
   { path: 'order-success', component: OrderSuccessComponent },
   { path: 'orders', component: UserOrdersComponent },
+  { path: 'user-profile',component: UserProfileComponent }
 ];
 
 @NgModule({

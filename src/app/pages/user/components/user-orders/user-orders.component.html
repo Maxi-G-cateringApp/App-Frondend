@@ -4,18 +4,21 @@
 
         <ng-container *ngFor="let order of orders">
             <div class="w-1/2 h-auto">
-                <mat-card class="hover:bg-slate-200">
+                <mat-card class="hover:bg-red-950">
                     <mat-card-content class="">
                         <p>{{ order.events.eventName }}</p>
+                        <h2>On : {{order.date | date :'MMM d, y' }}</h2>
                         <span class="p-1 rounded-full font-sans font-semibold" [ngClass]="{
         'bg-red-200 text-red-600': order.status === 'CANCELLED',
         'bg-green-200 text-green-600': order.status === 'CONFIRMED',
         'bg-yellow-200 text-yellow-600': order.status === 'PENDING',
-        'bg-green-900 text-white': order.status === 'COMPLETED'
+        'bg-green-500 text-white': order.status === 'ACCEPTED',
+        'bg-green-900 text-white': order.status === 'COMPLETED',
+        'bg-yellow-500 text-red-950': order.status === 'PROCESSING',
         }">{{ order.status }}</span>
                   <div class="mt-5">
                         <ng-container *ngIf="order.review && order.review.rating">
-                            <small>Your rating for this order</small><br>
+                            <small class="text-white">Your rating for this order</small><br>
                             <ng-container *ngFor="let _ of [].constructor(5); let i = index">
                                 <mat-icon
                                     [ngStyle]="{ 'color': i < order.review.rating ? '#f1b215' : 'gray' }">star</mat-icon>
