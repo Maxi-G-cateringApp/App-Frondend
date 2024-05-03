@@ -32,6 +32,9 @@ import { LocationDisplayComponent } from './components/order-details/location-di
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PlaceAutoCompleteComponent } from './components/order-details/place-auto-complete/place-auto-complete.component';
 import { MapDisplayComponent } from './components/order-details/map-display/map-display.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,9 @@ import { MapDisplayComponent } from './components/order-details/map-display/map-
     LocationDisplayComponent,
     PlaceAutoCompleteComponent,
     MapDisplayComponent,
+    UsersListComponent,
+    EmployeeListComponent,
+    AddEmployeeComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule],
 })

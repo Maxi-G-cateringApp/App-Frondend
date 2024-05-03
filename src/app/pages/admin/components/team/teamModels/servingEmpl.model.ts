@@ -5,4 +5,5 @@ export interface ServingEmpl {
     servingTeamId: number;
     servingEmpName: string;
     teamName?:string;
+    servingEmpNameId?: string;
 }

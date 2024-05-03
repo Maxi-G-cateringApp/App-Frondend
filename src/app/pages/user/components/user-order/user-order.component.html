@@ -7,7 +7,7 @@
                 <mat-card-content>
                     <mat-form-field>
                         <mat-label>SelectDate</mat-label>
-                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" [matDatepickerFilter]="filterDates">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>

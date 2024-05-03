@@ -1,6 +1,5 @@
 import { FoodCombo } from "../../admin/models/combo.model"
 import { FoodItems } from "../../admin/models/foodItems.model"
-import { FoodItemService } from "../../admin/service/food-item.service"
 
 export type OrderDetails = {
 

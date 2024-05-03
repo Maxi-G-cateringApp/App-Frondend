@@ -1,5 +1,5 @@
 <div class="flex justify-center items-center min-h-screen bg-red-950">
-  <div class="w-2/5 flex justify-center items-center">
+  <div class="w-2/5 flex justify-center items-center h-auto">
     <form [formGroup]="registerForm" (ngSubmit)="onRegisteruser()">
       <mat-card>
         <h1 class="text-black font-extrabold">Signup</h1>
@@ -81,7 +81,7 @@
         <mat-card-footer>
           <div class="flex flex-col justify-center items-center">
 
-          <button type="submit" *ngIf="!otpField; else otpBtn" [disabled]="!registerForm.valid" mat-raised-button>
+          <button type="submit" *ngIf="!otpField; else otpBtn" mat-raised-button>
             Signup
           </button>
           <ng-template #otpBtn>
@@ -100,100 +100,6 @@
 
       </mat-card>
     </form>
-
-    <!-- <div class="flex flex-col shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md">
-      <div class="font-medium self-center text-xl sm:text-2xl uppercase text-yellow-400">Signup</div>
-
-      <div class="mt-10">
-        <form [formGroup]="registerForm" (ngSubmit)="onRegisteruser()">
-
-          <div class="flex flex-col mb-6">
-
-            <div class="relative">
-              <input formControlName="userName"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="username" />
-            </div>
-            <small *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched"
-              class="text-red-500"> * Username required</small>
-          </div>
-
-          <div class="flex flex-col mb-6">
-            <div class="relative">
-              <input formControlName="email"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Email" />
-            </div>
-            <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
-              class="text-red-500"> * Email Required</small>
-          </div>
-
-          <div class="flex flex-col mb-6">
-            <div class="relative">
-              <input formControlName="phoneNumber"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="PhoneNumber" />
-            </div>
-            <small *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched"
-              class="text-red-500"> * PhoneNumber Required</small>
-          </div>
-
-          <div class="flex flex-col mb-6">
-            <div class="relative">
-              <input formControlName="password" type="password"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Password" />
-            </div>
-            <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-              class="text-red-500">* Password Required</small>
-          </div>
-
-          <div class="flex flex-col mb-6">
-            <div class="relative">
-              <input type="password" formControlName="confirmPassword"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Confirm Password" />
-            </div>
-            <small *ngIf="!registerForm.get('confirmPassword')?.value && registerForm.get('confirmPassword')?.touched"
-              class="text-red-500">*Confirm Password Required</small>
-            <small *ngIf="registerForm.get('confirmPassword')?.touched && !passwordMatch()" class="text-red-500">*
-              Password and confirm password should same</small>
-          </div>
-
-          <div class="flex flex-col mb-6" *ngIf="otpField">
-            <div class="relative">
-              <input formControlName="otp"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Enter Otp" />
-            </div>
-            <small *ngIf="!registerForm.get('otp')?.value && registerForm.get('otp')?.touched" class="text-red-500">
-              *otp Required</small>
-          </div>
-
-
-
-          <div class="flex w-full">
-            <button type="submit" *ngIf="!otpField; else otpBtn" [disabled]="!registerForm.valid"
-              class="flex items-center justify-center focus:outline-none text-black text-sm sm:text-base bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
-              <span class="mr-2 uppercase">Signup</span>
-            </button>
-
-            <ng-template #otpBtn>
-              <button type="submit"
-                class="flex items-center justify-center focus:outline-none text-black text-sm sm:text-base bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
-                <span class="mr-2 uppercase">Verify Otp</span>
-              </button>
-            </ng-template>
-          </div>
-        </form>
-      </div>
-      <div class="flex justify-center items-center mt-6">
-        <a [routerLink]="['/auth']"
-          class="inline-flex items-center font-bold text-gray-600 hover:text-gray-400 text-xs text-center">
-          <span class="ml-2">Already have an account?</span>
-        </a>
-      </div>
-    </div> -->
   </div>
 
   <div class="w-3/5 min-h-screen hidden md:block">

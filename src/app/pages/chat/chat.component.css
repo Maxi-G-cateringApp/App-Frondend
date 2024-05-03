@@ -1,0 +1,42 @@
+.chat-window {
+  height: 80vh;
+}
+
+.chat-messages {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-message {
+  max-width: 70%;
+  display: inline-block;
+  word-wrap: break-word;
+}
+
+.sender-message {
+  background-color: #2196F3;
+  color: white;
+}
+
+.receiver-message {
+  background-color: #E0E0E0;
+  color: black;
+}
+
+.chat-input input {
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.chat-input button {
+  border: 1px solid #ccc;
+  cursor: pointer;
+  outline: none;
+}
+
+.chat-body {
+  max-height: calc(100% - 50px);
+}
+
+
+

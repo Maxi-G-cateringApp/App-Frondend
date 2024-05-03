@@ -1,0 +1,21 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onAddEmployee()">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-label>Employee Name</mat-label>
+        <input formControlName="emp_name" matInput>
+        <mat-error *ngIf="employeeForm.controls['emp_name'].errors?.['whitespace']">*Enter valid EmplName</mat-error>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Expertise In</mat-label>
+        <input formControlName="expertise" matInput>
+        <mat-error *ngIf="employeeForm.controls['expertise'].errors?.['whitespace']">*Enter valid data</mat-error>
+
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+      <button mat-raised-button color="primary" type="submit">save</button>
+    </div>
+  </form>

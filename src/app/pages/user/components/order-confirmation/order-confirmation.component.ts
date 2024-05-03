@@ -106,7 +106,6 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
       denyButtonText: `Don't save`
     }).then((result) => {
       if (result.isConfirmed) {
-        // Save the data
         const data = {
           address: this.addressForm.value.address,
           place: this.addressForm.value.place,

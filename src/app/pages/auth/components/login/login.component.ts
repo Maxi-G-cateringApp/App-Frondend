@@ -3,8 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../state/auth.state';
-import { googleLogin, loginStart, loginSuccess } from '../../state/auth.action';
-import { setLoadingSpinner } from '../../../../shared/store/shared.action';
+import { googleLogin, loginStart } from '../../state/auth.action';
 import { AuthService } from '../../service/auth-service.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -24,9 +23,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store<AuthState>,
-    private auth: AuthService,
-    private masterService: MasterService,
-    private router: Router
   ) {
     console.log('login component');
   }
@@ -92,4 +88,7 @@ export class LoginComponent implements OnInit {
 
   // const user = this.decodeToken(response.credential)
   //     localStorage.setItem('user',JSON.stringify(user))
+
+
+
 }

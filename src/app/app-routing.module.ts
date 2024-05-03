@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { HomePageComponent } from './shared/components/home-page/home-page.component';
-import { AdminMenubarComponent } from './pages/admin/components/admin-menubar/admin-menubar.component';
 import { AdminComponent } from './layouts/admin/components.component';
-import { UserMenubarComponent } from './pages/user/components/user-menubar/user-menubar.component';
 import { UserComponent } from './layouts/user/user.component';
-import { LoginComponent } from './pages/auth/components/login/login.component';
 import { AuthComponent } from './layouts/auth/auth.component';
-import { AuthGuard, RoleGuard } from './guards/guard';
+import { AuthGuard } from './guards/guard';
+import { ChatLayoutComponent } from './layouts/chat-layout/chat-layout.component';
 
 
 
@@ -31,7 +29,7 @@ const routes: Routes = [
     component: UserComponent,
     loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule) 
   },
-  
+  { path: 'chat',component:ChatLayoutComponent, loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule) },
   {path: '**', component: NotFoundComponent}
   
 

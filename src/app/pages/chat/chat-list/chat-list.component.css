@@ -1,0 +1,56 @@
+.chat-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .chat-list button {
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .chat-list button:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .chat-list button:focus {
+    outline: none;
+  }
+  
+  .chat-window {
+    height: 80vh; 
+  }
+  
+  .chat-messages {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .chat-message {
+    max-width: 70%;
+  }
+  
+  .sender-message {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .receiver-message {
+    background-color: #E0E0E0;
+    color: black;
+  }
+  
+  .chat-input input {
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  
+  .chat-input button {
+    border: 1px solid #ccc;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .chat-body {
+    max-height: calc(100% - 50px);
+  }
+  
+  

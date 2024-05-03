@@ -9,6 +9,7 @@ import { MasterService } from '../../../../../../core/services/master.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import TeamModel from '../../teamModels/team.model';
 import { ServingEmpl } from '../../teamModels/servingEmpl.model';
+import { Employee } from '../../../../models/employee.model';
 
 @Component({
   selector: 'app-add-serving-employees',
@@ -17,6 +18,7 @@ import { ServingEmpl } from '../../teamModels/servingEmpl.model';
 })
 export class AddServingEmployeesComponent implements OnInit {
   servingTeam!: TeamModel[];
+  employees!: Employee[];
   servingEmployeeForm!: FormGroup;
 
   constructor(
@@ -28,10 +30,12 @@ export class AddServingEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadServingTeams();
+    this.getAllEmployees()
 
     this.servingEmployeeForm = this.fb.group({
       servingTeamId: ['', Validators.required],
       servingEmpName: ['', [Validators.required, this.whiteSpaceValidator]],
+      servingEmpNameId:['',Validators.required]
     });
   }
 
@@ -40,6 +44,7 @@ export class AddServingEmployeesComponent implements OnInit {
       const data: ServingEmpl = {
         servingTeamId: this.servingEmployeeForm.value.servingTeamId,
         servingEmpName: this.servingEmployeeForm.value.servingEmpName,
+        servingEmpNameId: this.servingEmployeeForm.value.servingEmpNameId
       };
       this.masterService.addServingEmpl(data).subscribe({
         next: (response) => {
@@ -56,6 +61,14 @@ export class AddServingEmployeesComponent implements OnInit {
       this.servingTeam = response;
     });
   }
+
+
+  getAllEmployees(){
+    this.masterService.getAllEmployees().subscribe((data)=>{
+      this.employees = data;
+    })
+  }
+
 
   closePopup() {
     this.ref.close();

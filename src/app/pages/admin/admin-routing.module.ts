@@ -18,6 +18,8 @@ import { DecorationTeamsComponent } from "./components/team/decoration-teams/dec
 import { KitchenCrewTeamsComponent } from "./components/team/kitchen-crew-teams/kitchen-crew-teams.component";
 import { RoleGuard } from "../../guards/guard";
 import { AdminLoginComponent } from "./components/admin-login/admin-login.component";
+import { UsersListComponent } from "./components/users-list/users-list.component";
+import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
 
 
 
@@ -25,7 +27,6 @@ const routes: Routes = [
     {
       path: '',
       children: [
-        // {path: '', redirectTo: 'home', pathMatch: 'full' },
         {path: 'login',component:AdminLoginComponent},
         {path: 'home', component:AdminHomeComponent},
         {path: 'all_combos', component: ComboItemsComponent},
@@ -40,7 +41,9 @@ const routes: Routes = [
         {path: 'view-order/:orderId',component: OrderDetailsComponent},
         {path: 'serve-team',component: ServingTeamsComponent},
         {path: 'decor-team',component: DecorationTeamsComponent},
-        {path: 'kitchenCrew-team',component: KitchenCrewTeamsComponent}
+        {path: 'kitchenCrew-team',component: KitchenCrewTeamsComponent},
+        {path: 'all-users',component:UsersListComponent},
+        {path: 'employees',component:EmployeeListComponent}
       ],
     },
   ];

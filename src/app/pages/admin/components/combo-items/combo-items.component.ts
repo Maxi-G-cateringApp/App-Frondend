@@ -43,9 +43,7 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    // this.uploadComboPic = new FormGroup({
-    //   file: new FormControl(null),
-    // });
+
     this.loadFoodComboItems();
   }
 

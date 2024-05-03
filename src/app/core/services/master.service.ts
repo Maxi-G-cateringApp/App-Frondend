@@ -25,6 +25,7 @@ import { Token } from '@angular/compiler';
 import { GToken } from '../../pages/auth/models/token.model';
 import { ReviewModel } from '../../pages/user/models/rating.model';
 import { UpdateUser } from '../../pages/user/models/update-user.model';
+import { Employee } from '../../pages/admin/models/employee.model';
 
 @Injectable({
   providedIn: 'root',
@@ -259,24 +260,47 @@ export class MasterService {
     return this.http.get('/auth/url');
   }
 
-  googleLogin(token: string):Observable<any>{
-    return this.http.post<any>(`/google/login?token=${token}`,null)
+  googleLogin(token: string): Observable<any> {
+    return this.http.post<any>(`/google/login?token=${token}`, null);
   }
 
-  giveReview(review: ReviewModel): Observable<any>{
-    return this.http.post<any>('/add-review',review)
+  giveReview(review: ReviewModel): Observable<any> {
+    return this.http.post<any>('/add-review', review);
+  }
+
+  orderComplete(orderId: string): Observable<any> {
+    return this.http.post<any>(`/complete-order?orderId=${orderId}`, null);
+  }
+
+  updateUser(userId: string, user: UpdateUser): Observable<any> {
+    console.log(userId, 'user id  in service');
+
+    return this.http.put<any>(`/update-user/${userId}`, user);
+  }
+
+  getUserByRole(): Observable<User> {
+    return this.http.get<User>('/get-admin');
+  }
+
+  getRecipientId(adminId: string) {
+    return this.http.post<any>(`/get-chats?user=${adminId}`, null);
+  }
+
+  getAllUsers():Observable<User[]>{
+    return this.http.get<User[]>('/all-users');
+  }
+
+  addEmployee(employee: Employee): Observable<Employee>{
+    return this.http.post<Employee>('/add-employee',employee);
 
   }
 
-  orderComplete(orderId: string):Observable<any>{
-    return this.http.post<any>(`/complete-order?orderId=${orderId}`,null)
-  }
-
-  updateUser(userId: string,user: UpdateUser):Observable<any>{
-    console.log(userId,'user id  in service');
-    
-   return this.http.put<any>(`/update-user/${userId}`,user)
+  getAllEmployees():Observable<Employee[]>{
+    return this.http.get<Employee[]>('/all-employees');
   }
 
 
+
+
+  
 }

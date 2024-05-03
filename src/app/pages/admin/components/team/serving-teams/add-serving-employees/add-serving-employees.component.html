@@ -13,6 +13,13 @@
             *ngFor="let team of servingTeam ">{{ team.teamName }}</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-form-field >
+        <mat-label>Select Employee</mat-label>
+        <mat-select formControlName="servingEmpNameId">
+          <mat-option [value]="emp.id"
+            *ngFor="let emp of employees ">{{ emp.emp_name }} <span>[ {{ emp.expertise }} ]</span></mat-option>
+        </mat-select>
+      </mat-form-field>
 
     </div>
     <div mat-dialog-actions>

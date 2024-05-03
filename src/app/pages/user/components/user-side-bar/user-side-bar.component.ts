@@ -41,6 +41,7 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
     {icon: 'home',label: 'Home',route:'/user/home'},
     {icon: 'dashboard',label: 'Orders',route:'/user/orders'},
     {icon: 'person',label: 'Profile',route:'/user/user-profile'},
+    // {icon: 'person',label: 'Chat',route:'/chat'},
   ]);
 
   sideNavCollapsed = signal(false)

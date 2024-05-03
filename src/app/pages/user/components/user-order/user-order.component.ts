@@ -29,13 +29,14 @@ export class UserOrderComponent implements OnInit {
   userId!: string;
   orderId!: string;
   foodComboFormArray: FormArray | undefined;
+  minDate!: Date;
 
   constructor(
     private masterService: MasterService,
     private fb: FormBuilder,
     private store: Store<AppState>,
     private router: Router
-  ) {}
+  ) { this.minDate = new Date();}
 
   ngOnInit(): void {
     this.orderForm = this.fb.group({
@@ -58,6 +59,11 @@ export class UserOrderComponent implements OnInit {
     this.store.select(getuserId).subscribe((data) => {
       this.userId = data || '';
     });
+  }
+  filterDates = (d: Date | null): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return d ? d >= today: false;
   }
 
   onSaveOrder() {

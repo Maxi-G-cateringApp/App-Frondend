@@ -26,18 +26,20 @@ import { MaterialModule } from './shared/material/material.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    NavbarComponent,
+   
     BottomSessionComponent,
     SessionComponent,
     LoadingSpinnerComponent,
+    NavbarComponent,
     FooterComponent,
     NotFoundComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     GoogleMapsModule,
     [SweetAlert2Module.forRoot()]
   ],
+  exports:[NavbarComponent,FooterComponent],
   providers: [
     provideClientHydration(),
     {
