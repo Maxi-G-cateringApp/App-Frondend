@@ -3,7 +3,7 @@ export interface ServingEmpl {
 
     id?: number;
     servingTeamId: number;
-    servingEmpName: string;
+    servingEmpName?: string;
     teamName?:string;
-    servingEmpNameId?: string;
+    emp?: number;
 }

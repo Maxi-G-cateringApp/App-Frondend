@@ -21,6 +21,23 @@ export class ChatListComponent implements OnInit {
   selectedChatRoom?: any;
   userChatRoomId!: any;
 
+  showEmojiPicker = false;
+  sets = [
+    'native',
+    'google',
+    'twitter',
+    'facebook',
+    'emojione',
+    'apple',
+    'messenger'
+  ]
+  set: 'google' | 'twitter' | 'facebook' | 'apple' = 'twitter';
+
+  toggleEmojiPicker() {
+    console.log(this.showEmojiPicker);
+        this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
   constructor(
     private chatService: ChatService,
     private store: Store<AppState>
@@ -36,18 +53,6 @@ export class ChatListComponent implements OnInit {
       
     });
     this.lisenerMessage()
-
-    // this.chatService.message$.subscribe((msg) => {
-    //   const receivedMsg = JSON.parse(msg);
-    //   if (
-    //     this.selectedChatRoom &&
-    //     receivedMsg.chatRoomName === this.selectedChatRoom.id
-    //   ) {
-    //     this.chatMessages.push(receivedMsg);
-    //   } else {
-    //     console.error('error');
-    //   }
-    // });
   }
 
   lisenerMessage(){
@@ -86,7 +91,6 @@ export class ChatListComponent implements OnInit {
       .getMessagesBetweenUserAndAdmin(this.selectedChatRoom.chatRoomName)
       .subscribe((data) => {
         this.chatMessages = data.map((msg) => ({
-          // ms_id: msg.ms_id,
           content: msg.content,
           sender: msg.senderId,
           timestamp: msg.t_stamp,
@@ -102,14 +106,16 @@ export class ChatListComponent implements OnInit {
       const content = this.newMessage.trim();
       const senderId = this.admin.id;
       const recipientId = this.selectedChatRoom.user.id
-      // const chatRoomName = `${recipientId}_${senderId}`;
       const chatRoomName = this.chatService.generateChatroomName(senderId, recipientId)
+
 
 
       this.chatService.sentPrivateMessage(
         senderId,
         chatRoomName,
         content
+        
+        
       );
       this.chatMessages.push({
         sender: senderId,
@@ -131,5 +137,19 @@ export class ChatListComponent implements OnInit {
       recId = this.selectedChatRoom.participant2;
     }
     return recId
+  }
+
+  addEmoji(event: any){
+    console.log(this.newMessage);
+    const {newMessage} = this;
+    console.log(newMessage);
+    console.log(`${event.emoji.native}`);
+    const message = `${newMessage}${event.emoji.native}`;
+    this.newMessage = message;
+    this.showEmojiPicker = false;
+    
+    
+
+
   }
 }

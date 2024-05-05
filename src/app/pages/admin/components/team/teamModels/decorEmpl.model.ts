@@ -3,6 +3,7 @@ export interface DecorImpl {
 
     id?: number;
     decorationTeamId: number;
-    decorationEmpName: string;
+    decorationEmpName?: string;
     teamName?:string;
+    emp?: number;
 }

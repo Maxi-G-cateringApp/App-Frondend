@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { KitchenCrewEmpl } from '../../teamModels/kitchenCrew.model';
+import { Employee } from '../../../../models/employee.model';
 
 @Component({
   selector: 'app-add-kitchen-crew-employees',
@@ -18,6 +19,7 @@ import { KitchenCrewEmpl } from '../../teamModels/kitchenCrew.model';
 export class AddKitchenCrewEmployeesComponent implements OnInit {
   kitchenCrewTeam!: TeamModel[];
   kitchenCrewEmployeeForm!: FormGroup;
+  employees!: Employee[];
 
   constructor(
     private masterService: MasterService,
@@ -28,10 +30,11 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadKitchenCrewTeams();
+    this.getAllEmployees()
 
     this.kitchenCrewEmployeeForm = this.fb.group({
       kitchenCrewTeamId: ['', Validators.required],
-      kitchenCrewEmpName: ['', [Validators.required, this.whiteSpaceValidator]],
+      emp: ['',Validators.required]
     });
   }
 
@@ -39,8 +42,7 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
     if (this.kitchenCrewEmployeeForm.valid) {
       const data: KitchenCrewEmpl = {
         kitchenCrewTeamId: this.kitchenCrewEmployeeForm.value.kitchenCrewTeamId,
-        kitchenCrewEmpName:
-          this.kitchenCrewEmployeeForm.value.kitchenCrewEmpName,
+        emp: this.kitchenCrewEmployeeForm.value.emp,
       };
       this.masterService.addlKitchenCrewEmpl(data).subscribe({
         next: (response) => {
@@ -56,6 +58,11 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
     this.masterService.getAllKitchenCrewTeams().subscribe((response) => {
       this.kitchenCrewTeam = response;
     });
+  }
+  getAllEmployees(){
+    this.masterService.getAllEmployees().subscribe((data)=>{
+      this.employees = data;
+    })
   }
 
   closePopup() {

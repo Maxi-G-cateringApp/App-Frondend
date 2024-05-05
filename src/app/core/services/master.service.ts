@@ -1,12 +1,7 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../pages/auth/models/user.model';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { LoginData } from '../../pages/auth/models/loginReq.model';
 import { AuthResponse } from '../../pages/auth/models/authResponse.model';
 import { VerificationResponse } from '../../pages/auth/models/verificationResponse.model';
@@ -21,8 +16,6 @@ import { ServingEmpl } from '../../pages/admin/components/team/teamModels/servin
 import { DecorImpl } from '../../pages/admin/components/team/teamModels/decorEmpl.model';
 import { KitchenCrewEmpl } from '../../pages/admin/components/team/teamModels/kitchenCrew.model';
 import { OrderProcessing } from '../../pages/admin/models/orderProcessing.model';
-import { Token } from '@angular/compiler';
-import { GToken } from '../../pages/auth/models/token.model';
 import { ReviewModel } from '../../pages/user/models/rating.model';
 import { UpdateUser } from '../../pages/user/models/update-user.model';
 import { Employee } from '../../pages/admin/models/employee.model';
@@ -299,8 +292,4 @@ export class MasterService {
     return this.http.get<Employee[]>('/all-employees');
   }
 
-
-
-
-  
 }

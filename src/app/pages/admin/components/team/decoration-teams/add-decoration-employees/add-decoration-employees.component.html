@@ -1,16 +1,19 @@
 <form [formGroup]="decorationEmployeeForm" (ngSubmit)="onAddDecorationEmployees()">
     <div mat-dialog-content>
-      <mat-form-field>
-        <mat-label>Employee Name</mat-label>
-        <input formControlName="decorationEmpName" matInput>
-        <mat-error *ngIf="decorationEmployeeForm.controls['decorationEmpName'].errors?.['whitespace']">*Enter valid EmplName</mat-error>
-      </mat-form-field>
+     
 
       <mat-form-field >
         <mat-label>Select Team</mat-label>
         <mat-select formControlName="decorationTeamId">
           <mat-option [value]="team.id"
             *ngFor="let team of decorationTeams ">{{ team.teamName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Select Employee</mat-label>
+        <mat-select formControlName="emp">
+          <mat-option [value]="emp.id"
+            *ngFor="let emp of employees ">{{ emp.emp_name }} <span>[ {{ emp.expertise }} ]</span></mat-option>
         </mat-select>
       </mat-form-field>
 

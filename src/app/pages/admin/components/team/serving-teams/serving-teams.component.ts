@@ -14,12 +14,12 @@ import TeamModel from '../teamModels/team.model';
 })
 export class ServingTeamsComponent implements OnInit {
   
-  displayedColumns: string[] = ['teamName', 'action'];
+  displayedColumns: string[] = ['teamName','count', 'action'];
   dataSource: any;
   servingTeam!: TeamModel[];
   servingEmp!: ServingEmpl[];
 
-  displayedSEColumns: string[] = ['servingEmpName', 'teamName', 'action'];
+  displayedSEColumns: string[] = ['empName', 'teamName', 'action'];
   dataSourceSE: any;
 
   constructor(
@@ -46,6 +46,7 @@ export class ServingTeamsComponent implements OnInit {
     });
     _popup.afterClosed().subscribe((data) => {
       this.loadServingEmployees();
+      this.loadServingTeams();
     });
   }
 
@@ -68,6 +69,8 @@ export class ServingTeamsComponent implements OnInit {
   loadServingEmployees() {
     this.masterService.getAllServingEmployees().subscribe((response) => {
       this.servingEmp = response;
+      console.log(this.servingEmp);
+      
       this.dataSourceSE = new MatTableDataSource<ServingEmpl>(this.servingEmp);
     });
   }

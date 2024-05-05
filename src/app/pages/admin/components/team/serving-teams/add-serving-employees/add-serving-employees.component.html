@@ -1,10 +1,7 @@
 <form [formGroup]="servingEmployeeForm" (ngSubmit)="onAddServingEmployees()">
     <div mat-dialog-content>
-      <mat-form-field>
-        <mat-label>Employee Name</mat-label>
-        <input formControlName="servingEmpName" matInput>
-        <mat-error *ngIf="servingEmployeeForm.controls['servingEmpName'].errors?.['whitespace']">*Enter valid EmplName</mat-error>
-      </mat-form-field>
+
+    
 
       <mat-form-field >
         <mat-label>Select Team</mat-label>
@@ -13,18 +10,17 @@
             *ngFor="let team of servingTeam ">{{ team.teamName }}</mat-option>
         </mat-select>
       </mat-form-field>
+      
       <mat-form-field >
         <mat-label>Select Employee</mat-label>
-        <mat-select formControlName="servingEmpNameId">
+        <mat-select formControlName="emp">
           <mat-option [value]="emp.id"
             *ngFor="let emp of employees ">{{ emp.emp_name }} <span>[ {{ emp.expertise }} ]</span></mat-option>
         </mat-select>
       </mat-form-field>
-
     </div>
     <div mat-dialog-actions>
       <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
       <button mat-raised-button color="primary" type="submit">save</button>
-  
     </div>
   </form>

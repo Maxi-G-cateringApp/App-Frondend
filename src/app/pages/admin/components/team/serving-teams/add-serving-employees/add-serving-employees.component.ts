@@ -34,8 +34,7 @@ export class AddServingEmployeesComponent implements OnInit {
 
     this.servingEmployeeForm = this.fb.group({
       servingTeamId: ['', Validators.required],
-      servingEmpName: ['', [Validators.required, this.whiteSpaceValidator]],
-      servingEmpNameId:['',Validators.required]
+      emp:['',Validators.required]
     });
   }
 
@@ -43,8 +42,7 @@ export class AddServingEmployeesComponent implements OnInit {
     if (this.servingEmployeeForm.valid) {
       const data: ServingEmpl = {
         servingTeamId: this.servingEmployeeForm.value.servingTeamId,
-        servingEmpName: this.servingEmployeeForm.value.servingEmpName,
-        servingEmpNameId: this.servingEmployeeForm.value.servingEmpNameId
+        emp: this.servingEmployeeForm.value.emp
       };
       this.masterService.addServingEmpl(data).subscribe({
         next: (response) => {

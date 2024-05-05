@@ -18,7 +18,7 @@ export class UsersListComponent implements OnInit {
     this.getAllUsers();
   }
 
-  displayedColumns: string[] = ['name', 'phoneNumber', 'role', 'action'];
+  displayedColumns: string[] = ['name', 'phoneNumber', 'role'];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

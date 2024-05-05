@@ -1,6 +1,5 @@
 import {
   HttpEvent,
-  HttpEventType,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
@@ -8,7 +7,6 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
-import { MasterService } from '../services/master.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../shared/app.state';
 import { setErrorMessage, setLoadingSpinner } from '../../shared/store/shared.action';

@@ -13,12 +13,12 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './decoration-teams.component.css',
 })
 export class DecorationTeamsComponent implements OnInit {
-  displayedColumns: string[] = ['teamName', 'action'];
+  displayedColumns: string[] = ['teamName','count', 'action'];
   dataSource: any;
   decorationTeam!: TeamModel[];
   decorationEmp!: DecorImpl[];
 
-  displayedDEColumns: string[] = ['decorationEmpName', 'teamName', 'action'];
+  displayedDEColumns: string[] = ['empName', 'teamName', 'action'];
   dataSourceDE: any;
 
   constructor(
@@ -44,6 +44,7 @@ export class DecorationTeamsComponent implements OnInit {
     });
     _popup.afterClosed().subscribe((data) => {
       this.loadDecorEmployees();
+      this.loadDecorTeams();
     });
   }
 

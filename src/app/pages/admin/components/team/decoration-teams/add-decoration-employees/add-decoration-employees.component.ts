@@ -4,6 +4,7 @@ import { MasterService } from '../../../../../../core/services/master.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import TeamModel from '../../teamModels/team.model';
 import { DecorImpl } from '../../teamModels/decorEmpl.model';
+import { Employee } from '../../../../models/employee.model';
 
 @Component({
   selector: 'app-add-decoration-employees',
@@ -14,6 +15,7 @@ export class AddDecorationEmployeesComponent implements OnInit{
 
   decorationEmployeeForm!: FormGroup;
   decorationTeams!: TeamModel[];
+  employees!: Employee[];
 
   constructor(
     private masterService: MasterService,
@@ -25,9 +27,10 @@ export class AddDecorationEmployeesComponent implements OnInit{
   ngOnInit(): void {
 
     this.loadServingTeams();
+    this.getAllEmployees()
       this.decorationEmployeeForm = this.fb.group({
         decorationTeamId: ['',Validators.required],
-        decorationEmpName: ['',[Validators.required,this.whiteSpaceValidator]]
+        emp:['',Validators.required]
       })
   }
 
@@ -37,11 +40,17 @@ export class AddDecorationEmployeesComponent implements OnInit{
     });
   }
 
+  getAllEmployees(){
+    this.masterService.getAllEmployees().subscribe((data)=>{
+      this.employees = data;
+    })
+  }
+
   onAddDecorationEmployees(){
     if(this.decorationEmployeeForm.valid){
     const data:DecorImpl = {
       decorationTeamId: this.decorationEmployeeForm.value.decorationTeamId,
-      decorationEmpName: this.decorationEmployeeForm.value.decorationEmpName
+      emp: this.decorationEmployeeForm.value.emp
     } 
     this.masterService.addDecorationEmpl(data).subscribe({next:(response)=>{
       this.closePopup();  

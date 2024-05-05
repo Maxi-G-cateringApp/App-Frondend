@@ -1,16 +1,19 @@
 <form [formGroup]="kitchenCrewEmployeeForm" (ngSubmit)="onAddKitchenCrewEmployees()">
     <div mat-dialog-content>
-      <mat-form-field>
-        <mat-label>Employee Name</mat-label>
-        <input formControlName="kitchenCrewEmpName" matInput>
-        <mat-error *ngIf="kitchenCrewEmployeeForm.controls['kitchenCrewEmpName'].errors?.['whitespace']">*Enter valid EmplName</mat-error>
-      </mat-form-field>
 
       <mat-form-field >
         <mat-label>Select Team</mat-label>
         <mat-select formControlName="kitchenCrewTeamId">
           <mat-option [value]="team.id"
             *ngFor="let team of kitchenCrewTeam ">{{ team.teamName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Select Employee</mat-label>
+        <mat-select formControlName="emp">
+          <mat-option [value]="emp.id"
+            *ngFor="let emp of employees ">{{ emp.emp_name }} <span>[ {{ emp.expertise }} ]</span></mat-option>
         </mat-select>
       </mat-form-field>
 

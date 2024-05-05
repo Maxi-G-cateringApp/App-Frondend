@@ -9,7 +9,6 @@ import * as Stomp from 'stompjs';
 import { FormControl } from '@angular/forms';
 import SockJS from 'sockjs-client';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../auth/models/user.model';
 
 @Component({
@@ -26,12 +25,27 @@ export class ChatComponent implements OnInit {
   currentDate: any = Date.now();
   chatRoomName!: string;
   messageList: any[] = [];
+  showEmojiPicker = false;
+  sets = [
+    'native',
+    'google',
+    'twitter',
+    'facebook',
+    'emojione',
+    'apple',
+    'messenger',
+  ];
+  set: 'google' | 'twitter' | 'facebook' | 'apple' = 'twitter';
+
+  toggleEmojiPicker() {
+    console.log(this.showEmojiPicker);
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
 
   constructor(
     private chatService: ChatService,
     private store: Store<AppState>,
     private masterService: MasterService
-    
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +55,6 @@ export class ChatComponent implements OnInit {
         this.store.select(getUser).subscribe((data) => {
           if (data) {
             this.user = data;
-           
 
             const chatRoomName = this.chatService.generateChatroomName(
               this.user.id,
@@ -54,11 +67,11 @@ export class ChatComponent implements OnInit {
                   sender: msg.senderId,
                   content: msg.content,
                   timestamp: msg.t_stamp,
+                  type: 'text',
                 }));
               });
-              this.chatService.initConectionSocket(chatRoomName);
-              this.lisenerMessage()
-        
+            this.chatService.initConectionSocket(chatRoomName);
+            this.lisenerMessage();
           }
         });
       },
@@ -84,16 +97,31 @@ export class ChatComponent implements OnInit {
       this.newMessage = '';
     }
   }
+  sendImage(event: any) {
+    const file = event.target.files[0];
+    console.log(file,' fileeeeee');
+    
+    const senderId = this.user.id;
+    const recipientId = this.admin.id;
+    const chatRoomName = this.chatService.generateChatroomName(
+      senderId,
+      recipientId
+    );
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('chatRoomName', chatRoomName);
+    formData.append('senderId', senderId);
+    formData.append('messageType', 'file');
+    this.chatService.sentPrivateFileMessage(formData);
+  }
 
-  lisenerMessage(){
-
+  lisenerMessage() {
     this.chatService.message$.subscribe((message) => {
       console.log('Received message:', message);
 
-      
       const receivedMessage = JSON.parse(message);
       if (receivedMessage.senderId !== this.user.id) {
-        console.log('Processed message in user side:', receivedMessage);                
+        console.log('Processed message in user side:', receivedMessage);
         this.chatMessages.push({
           sender: receivedMessage.senderId,
           content: receivedMessage.content,
@@ -101,15 +129,15 @@ export class ChatComponent implements OnInit {
         });
       }
     });
-      
   }
-  // lisenerMessage(){
-  //   this.chatService.getMessageSubject().subscribe((msg: any)=>{
-  //     this.chatMessages = msg.map((item: any)=>({
-  //       ...item
-  //     }))
 
-  //   })
-  // }
-
+  addEmoji(event: any) {
+    console.log(this.newMessage);
+    const { newMessage } = this;
+    console.log(newMessage);
+    console.log(`${event.emoji.native}`);
+    const message = `${newMessage}${event.emoji.native}`;
+    this.newMessage = message;
+    this.showEmojiPicker = false;
+  }
 }

@@ -14,12 +14,12 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class KitchenCrewTeamsComponent implements OnInit{
 
-  displayedColumns: string[] = ['teamName', 'action'];
+  displayedColumns: string[] = ['teamName','count', 'action'];
   dataSource: any;
   kitchenCrewTeam!: TeamModel[];
   kitchenCrewEmp!: KitchenCrewEmpl[];
 
-  displayedSEColumns: string[] = ['kitchenCrewEmpName', 'teamName', 'action'];
+  displayedSEColumns: string[] = ['empName', 'teamName', 'action'];
   dataSourceSE: any;
 
   constructor(
@@ -38,6 +38,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
       width: '40%',
     });
     _popup.afterClosed().subscribe((data) => {
+      this.loadKitchenCrewTeams();
       this.loadKitchenCrewEmployees();
     });
   }
