@@ -24,7 +24,7 @@ export class UserProfileComponent {
   userId!: any;
   formField: boolean = false;
   changeProfileBtn: boolean = true;
-  selectedFile!: File;
+  selectedImage!: File;
   uploadProfilePic!: FormGroup;
   profilePictureUrl!: string;
   userName: string|undefined;
@@ -70,9 +70,6 @@ export class UserProfileComponent {
       
     });
     this.loadProfilePicture();
-
-   
-    
     this.uploadProfilePic = this.fb.group({
       file: [null],
     });
@@ -87,17 +84,18 @@ export class UserProfileComponent {
  
 
   handleFileChange(event: any) {
-    this.selectedFile = event.target.files[0];
-    this.uploadProfilePic.patchValue(this.selectedFile);
-    console.log(this.selectedFile);
+    this.selectedImage = event.target.files[0];
+    this.uploadProfilePic.patchValue(this.selectedImage);
+    this.formField = true;
+    console.log(this.selectedImage);
   }
 
   submitProPic() {
     if (this.userId) {
-      console.log(this.userId,' ',this.selectedFile);
+      console.log(this.userId,' ',this.selectedImage);
       
       this.masterService
-        .changeProfilePicture(this.selectedFile, this.userId)
+        .changeProfilePicture(this.selectedImage, this.userId)
         .subscribe((response) => {
           this.loadProfilePicture();
           this.formField = false;

@@ -1,49 +1,29 @@
-<div class="flex flex-col justify-center items-center">
-  
-    <div class="flex flex-col items-center w-36 h-36 object-cover relative">
-        
-        <img [src]="profilePictureUrl">
+<div class="relative bg-slate-900 h-full">
+  <div class="flex justify-start absolute top-[6rem] w-1/4">
+    <div class="w-full">
+      <div class="flex flex-col justify-center items-center">
+        <div class="flex flex-col items-center w-36 h-36 object-cover relative">
+          <img [src]="profilePictureUrl">
+          <label for="file-upload" class="custom-file-upload">
             <button *ngIf="changeProfileBtn" class="edit-btn" (click)="changeProfilePicClicked()">
-                Edit 
+              Edit
             </button>
-        
+          </label>
+        </div>
+        <form [formGroup]="uploadProfilePic" (ngSubmit)="submitProPic()" enctype="multipart/form-data">
+          <input id="file-upload" type="file" (change)="handleFileChange($event)">
+          <button type="submit" *ngIf="formField"
+            class="flex items-center m-2 justify-center focus:outline-none text-black text-sm sm:text-base bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
+            <span class="uppercase">Submit</span>
+          </button>
+        </form>
+        <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }} </b></mat-error>
+      </div>
     </div>
-    <form [formGroup]="uploadProfilePic" (ngSubmit)="submitProPic()" enctype="multipart/form-data" *ngIf="formField">
-        <input type="file" (change)="handleFileChange($event)">
-        <button type="submit"
-            class="flex items-center justify-center focus:outline-none text-black text-sm sm:text-base bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
-            <span class="mr-2 uppercase">Submit</span>
-        </button>
-    </form>
-    <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }} </b></mat-error>
-
-
-
-<div class="flex flex-col mt-2">
-        <!-- <form [formGroup]="updateForm" (ngSubmit)="updateUser()"> -->
-            <p>
-                <mat-form-field >
-                  <mat-label>Username</mat-label>
-                  <input matInput [value]="user?.username">
-                  
-                </mat-form-field>
-              </p>
-              <p>
-                <mat-form-field >
-                  <mat-label>Email</mat-label>
-                  <input matInput [value]="user?.userEmail">                
-                </mat-form-field>
-              </p>
-              <p>
-                <mat-form-field >
-                  <mat-label>Phonenumber</mat-label>
-                  <input matInput [value]="user?.phonenumber">
-                </mat-form-field>
-              </p> 
-              <!-- <mat-card-actions align="end">
-                <button mat-raised-button>Save changes</button>
-            </mat-card-actions> -->
-        <!-- </form> -->
-
-</div>
+    <div class="w-1/4 m-5">
+      <h2>{{user?.username}}</h2>
+      <h2>{{user?.phonenumber}}</h2>
+      <h2>{{user?.userEmail}}</h2>
+    </div>
+  </div>
 </div>

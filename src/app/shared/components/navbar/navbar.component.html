@@ -1,7 +1,7 @@
-<nav class="nav navbar-floating bg-yellow-950">
+<nav class="nav navbar-sticky bg-black opacity-70">
 	<div class="max-w-screen-xl flex flex-wrap items-center justify-between">
-		<div>
-			<a><img [src]="logo" class=" h-[6rem] w-[10rem]"></a>
+		<div class="ml-20">
+			<a><img [src]="logo" class=" h-[5rem] w-[8rem]"></a>
 		</div>
 		<button data-collapse-toggle="navbar-default" type="button"
 			class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -12,36 +12,51 @@
 					d="M1 1h15M1 7h15M1 13h15" />
 			</svg>
 		</button>
-		<div class="hidden w-screen md:block md:w-auto" id="navbar-default">
+		<div class="hidden w-screen md:block md:w-auto mr-10 nav-items" id="navbar-default">
 			<ul
 				class="font-medium flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
-				<li>
+				<li *ngIf="!(isAuthenticated | async)">
 					<button [routerLink]="['/']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Home</button>
+				</li>
+				<li *ngIf="(isAuthenticated | async)">
+					<button [routerLink]="['/user/home']"
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
+						Home</button>
+				</li>
+				<li *ngIf="(isAuthenticated | async)">
+					<button [routerLink]="['/user/orders']"
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
+						orders</button>
+				</li>
+				<li *ngIf="(isAuthenticated | async)">
+					<button [routerLink]="['user/chat']"
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
+						Chats</button>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
 					<button [routerLink]="['/auth/register']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Signup</button>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
 					<button [routerLink]="['/auth']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Login</button>
 
 				</li>
 				<li *ngIf="(isAuthenticated | async)">
 					<button (click)="onLogout($event)"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300 ">
 						Logout</button>
 				</li>
 
 				<li *ngIf="(isAuthenticated | async)">
-					<button [routerLink]="['/user/home']"
-						class="relative inline-flex items-center justify-center p-2 mb-2 me-2 overflow-hidden text-sm font-medium text-white bg-transparent hover:text-white hover:outline focus:ring-white px-5 rounded-lg">
+					<button [routerLink]="['/user/user-profile']"
+						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							stroke="currentColor" class="w-6 h-6">
 							<path stroke-linecap="round" stroke-linejoin="round"

@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 .title-style{
     font-family: "Italianno", cursive;
     font-size: x-large;
@@ -6,7 +6,15 @@
 .sub-style{
     font-family: "Italiana", sans-serif;
 }
-.nav{
-    background: border-box;
-
+.nav-items ul li button{
+    border: none;
+    font-family: 'Montserrat', Arial, sans-serif;
+    /* font-size: 15px; */
+    text-transform: uppercase;
+    /* color: #fff;
+    line-height: 25px;
+    text-transform: uppercase; */
+    
 }
+
+

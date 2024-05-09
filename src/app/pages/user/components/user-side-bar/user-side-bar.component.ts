@@ -8,6 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { getEmailFromState, getuserId, getuserNameFromState } from '../../../auth/state/auth.selector';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 import { AuthService } from '../../../auth/service/auth-service.service';
+import { logout } from '../../../auth/state/auth.action';
 
 
 export type MenuItem = {
@@ -41,7 +42,9 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
     {icon: 'home',label: 'Home',route:'/user/home'},
     {icon: 'dashboard',label: 'Orders',route:'/user/orders'},
     {icon: 'person',label: 'Profile',route:'/user/user-profile'},
-    // {icon: 'person',label: 'Chat',route:'/chat'},
+    {icon: 'person',label: 'Order',route:'/user/user-order'},
+    {icon: 'chat',label: 'Chat',route:'/user/chat'},
+    {icon: 'feed',label: 'Feed',route:'/user/add-feed'},
   ]);
 
   sideNavCollapsed = signal(false)
@@ -132,4 +135,6 @@ export class UserSideBarComponent implements OnInit,AfterViewInit{
     };
   }
 
+
+ 
 }

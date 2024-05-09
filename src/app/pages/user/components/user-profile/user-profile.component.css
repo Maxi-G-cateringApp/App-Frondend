@@ -4,10 +4,7 @@ img {
     width: 100%;
     object-fit: cover;
 }
-mat-card {
-    margin: 1%;
-    padding: 2%;
-}
+
 .edit-btn {
     position: absolute;
     border-radius: 50%;
@@ -26,3 +23,15 @@ mat-card {
 .edit-btn:hover {
     opacity: 1; 
 }
+
+input[type="file"] {
+    display: none;
+  }
+
+  h2{
+    margin: 6%;
+    text-align: center;;
+    font-family: 'Montez', cursive;
+    font-size: x-large;
+    color: #fcda9a;
+  }

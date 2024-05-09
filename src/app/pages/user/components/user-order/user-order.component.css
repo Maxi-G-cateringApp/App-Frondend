@@ -1,20 +1,45 @@
 
 mat-card{
-    margin: 2%;
+    margin: 1%;
     text-align: left;
     border-radius: 3%;
     background-color: transparent;
     margin: 2%;
     padding: 2%;
-    background-color: rgb(249, 249, 249);
-   
+    background-color: transparent; 
+}
+label {
+    margin: 1%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    font-family: 'Montez', cursive;
+}
+.selected-items {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgb(24, 24, 32);
+    margin: 2%;
+    border-radius: 5px;
+}
+.selected {
+
+    height: calc(100vh - 5rem); 
+    overflow-y: auto;
 }
 h1 {
-    font-weight: 900;
-    text-align: center;
+    margin: 6%;
+    text-align: center;;
+    font-family: 'Montez', cursive;
+    font-size: xx-large;
+    color: #fcda9a;
 }
-img{
-    border-radius: 3%;
+h2 {
+    margin: 6%;
+    text-align: center;;
+    font-family: 'Montez', cursive;
+    font-size: x-large;
+    color: #fcda9a;
+
 }
 
 .mat-mdc-card{
@@ -22,7 +47,7 @@ img{
     margin: 1%;
 }
 .mat-mdc-form-field{
-    width: 98%;
+    width: 95%;
     margin: 1%;
 }
 
@@ -42,7 +67,8 @@ button{
     margin-right: 10px; 
   }
 
-.itemList h1 {  
-font-weight: 900;
-
+.order-form {
+    background-image: url('/assets/page-title-3.jpeg');
+    background-size: cover;
+    background-position: center;
 }

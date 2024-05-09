@@ -6,6 +6,8 @@ export interface ChatMessage {
     recipientId?: string
     t_stamp: string;
     chatRoomId?:string
+    type?: string;
+    file?: File
 
 
     

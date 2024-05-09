@@ -28,18 +28,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.route.queryParams.subscribe((params) => { 
-    //   if (params['code'] !== undefined) {
-    //     this.masterService.getToken(params['code']).subscribe((result) => {
-    //       if (result === true) {
-    //         this.router.navigateByUrl('/user/home');
-    //       } else {
-    //         this.router.navigateByUrl('/user/home');
-    //       }
-    //     });
-    //   }
-    // });
-
     this.showLoading = this.store.select(getLoading);
     this.isAuthenticated = this.store.select(isAuthenticated);
     this.showErrorMessage = this.store.select(getErrorMessage);

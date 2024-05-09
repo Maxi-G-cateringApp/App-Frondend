@@ -19,8 +19,8 @@ export class HomePageComponent implements OnInit {
     this.token = localStorage.getItem('token');
   }
 
-  imagePath2: String =
-    '/assets/vegetarian-kerala-meals-on-banana-leaf-2BMT9DB.png';
+  imagePath2: String ="/assets/Home.jpg"
+    // '/assets/vegetarian-kerala-meals-on-banana-leaf-2BMT9DB.png';
   // logo: string = "/assets/Brown_Simple_Minimalist_Cuisine_Logo-removebg-preview (1).png"
   imagePath: String =
     '/assets/vegetarian-kerala-meals-on-banana-leaf-2BMT9DB.png';

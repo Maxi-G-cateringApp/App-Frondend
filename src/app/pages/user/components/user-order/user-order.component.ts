@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MasterService } from '../../../../core/services/master.service';
 import { FoodCombo } from '../../../admin/models/combo.model';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FoodItems } from '../../../admin/models/foodItems.model';
 import { Events } from '../../../admin/models/event.model';
 import { Categories } from '../../../admin/models/category.model';
@@ -45,7 +45,7 @@ export class UserOrderComponent implements OnInit {
       categoryControl: ['', Validators.required],
       foodItems: this.fb.array([], Validators.required),
       event: ['', Validators.required],
-      peopleCount: ['', Validators.required],
+      peopleCount: [0, [Validators.required,Validators.min(0),Validators.max(5000)]],
       venue: ['', Validators.required],
       timeFrom: ['',Validators.required],
       timeTo: ['',Validators.required],
@@ -134,4 +134,6 @@ export class UserOrderComponent implements OnInit {
       this.categories = response;
     });
   }
+
+  
 }

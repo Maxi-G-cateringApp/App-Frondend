@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../shared/material/material.module';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserSideBarComponent } from './components/user-side-bar/user-side-bar.component';
@@ -17,6 +17,10 @@ import { ReviewComponent } from './components/view-order/review/review.component
 import { RatingComponent } from './components/view-order/rating/rating.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AddFeedsComponent } from './components/add-feeds/add-feeds.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
 
 
 
@@ -33,7 +37,10 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     ViewOrderComponent,
     ReviewComponent,
     RatingComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AddFeedsComponent,
+    ChatComponent,
+    ContactUsComponent,
 
  
   ],
@@ -42,6 +49,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     UserRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    FormsModule,
+    PickerModule,
   ]
 })
 export class UserModule { }

@@ -6,6 +6,7 @@ import { AddDecorationEmployeesComponent } from './add-decoration-employees/add-
 import { AddDecorationTeamComponent } from './add-decoration-team/add-decoration-team.component';
 import TeamModel from '../teamModels/team.model';
 import { MatTableDataSource } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-decoration-teams',
@@ -18,7 +19,7 @@ export class DecorationTeamsComponent implements OnInit {
   decorationTeam!: TeamModel[];
   decorationEmp!: DecorImpl[];
 
-  displayedDEColumns: string[] = ['empName', 'teamName', 'action'];
+  displayedDEColumns: string[] = ['empName', 'teamName'];
   dataSourceDE: any;
 
   constructor(
@@ -75,5 +76,30 @@ export class DecorationTeamsComponent implements OnInit {
         this.dataSourceDE = new MatTableDataSource<DecorImpl>(this.decorationEmp);
       },
     });
+  }
+
+  deleteTeam(id: number){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.masterService.deleteDecorationTeam(id).subscribe((respose)=>{
+          this.loadDecorEmployees()
+          this.loadDecorTeams()
+        })
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+    
   }
 }

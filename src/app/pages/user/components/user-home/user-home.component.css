@@ -1,6 +1,40 @@
-.head {
+/* .head {
     font-family: "Cinzel Decorative", serif;
     font-weight: 400;
     font-style: normal;
 }
+ */
+ @import url('https://fonts.googleapis.com/css2?family=Suranna&display=swap');
+.body{
+    height: 100vh;
+} 
+.main-title {
+    top: 20%;
+    left: 35%;
+}
+
+.main-title h1 span{
+    font-family: 'Montez', cursive;
+    text-transform: none;
+    color: #fcda9a;
+}
+
+.main-title h1{
+    font-family: 'Suranna';
+    line-height: 60px;
+    font-weight: normal;
+    font-style: normal;
+    color: #FFFFFF;
+    font-size: 50px;
+    
+}
+.feeds{
+background-image: url('/assets/bkg-img1.jpeg');
+background-size: cover; 
+background-position: center; 
+background-repeat: no-repeat; 
+}
+
+
+
 

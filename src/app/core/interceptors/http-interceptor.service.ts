@@ -41,7 +41,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       });
     }
 
-    if (req.method === 'POST') {
+    if (req.method === 'POST' || req.method === 'DELETE') {
       this.store.dispatch(setLoadingSpinner({ status: true }));
     }
 
@@ -75,7 +75,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         },
       }),
       finalize(() => {
-        if (req.method === 'POST') {
+        if (req.method === 'POST' || req.method === 'DELETE') {
           this.store.dispatch(setLoadingSpinner({ status: false }));
         }
       })

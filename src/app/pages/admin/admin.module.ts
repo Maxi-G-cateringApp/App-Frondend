@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { AddFoodComboComponent } from './components/add-food-combo/add-food-combo.component';
 import { ComboItemsComponent } from './components/combo-items/combo-items.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { FoodItemsComponent } from './components/food-items/food-items.component';
@@ -35,6 +35,8 @@ import { MapDisplayComponent } from './components/order-details/map-display/map-
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
     UsersListComponent,
     EmployeeListComponent,
     AddEmployeeComponent,
+    ChatListComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule],
 })
 export class AdminModule {}

@@ -6,6 +6,7 @@ import { MasterService } from '../../../../../core/services/master.service';
 import { AddKitchenCrewEmployeesComponent } from './add-kitchen-crew-employees/add-kitchen-crew-employees.component';
 import { AddKitchenCrewTeamComponent } from './add-kitchen-crew-team/add-kitchen-crew-team.component';
 import { MatTableDataSource } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-kitchen-crew-teams',
@@ -19,7 +20,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
   kitchenCrewTeam!: TeamModel[];
   kitchenCrewEmp!: KitchenCrewEmpl[];
 
-  displayedSEColumns: string[] = ['empName', 'teamName', 'action'];
+  displayedSEColumns: string[] = ['empName', 'teamName'];
   dataSourceSE: any;
 
   constructor(
@@ -73,6 +74,31 @@ export class KitchenCrewTeamsComponent implements OnInit{
       this.kitchenCrewTeam = response;
       this.dataSource = new MatTableDataSource<TeamModel>(this.kitchenCrewTeam);
     });
+  }
+
+  deleteKitchenCrewt(id: number){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.masterService.deleteKitchenCrewTeam(id).subscribe((response)=>{
+          this.loadKitchenCrewEmployees();
+          this.loadKitchenCrewTeams()
+        })
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+    
   }
 
 }

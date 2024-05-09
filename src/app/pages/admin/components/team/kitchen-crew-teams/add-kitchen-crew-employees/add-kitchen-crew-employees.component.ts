@@ -30,7 +30,7 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadKitchenCrewTeams();
-    this.getAllEmployees()
+    this.getEmployeesWithoutTeam()
 
     this.kitchenCrewEmployeeForm = this.fb.group({
       kitchenCrewTeamId: ['', Validators.required],
@@ -59,9 +59,11 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
       this.kitchenCrewTeam = response;
     });
   }
-  getAllEmployees(){
-    this.masterService.getAllEmployees().subscribe((data)=>{
+  getEmployeesWithoutTeam(){
+    this.masterService.getEmployeesWithoutTeam().subscribe((data)=>{
       this.employees = data;
+      console.log(this.employees);
+      
     })
   }
 
@@ -69,7 +71,5 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
     this.ref.close();
   }
 
-  public whiteSpaceValidator(control: FormControl) {
-    return (control.value || '').trim().length ? null : { whitespace: true };
-  }
+
 }

@@ -1,16 +1,36 @@
 
-<div class="flex h-full ">
-  <div class="h-screen w-full flex justify-evenly items-center flex-wrap rounded-2xl">
-    <div class="w-60 h-20 bg-yellow-500 text-center font-bold rounded-lg flex items-center justify-center">
-      <button [routerLink]="['/user/user-order']" class="btn hover:outline  hover:bg-red-950 hover:text-white">Book Catering</button>
+<div class="flex flex-col relative">
+  <div class="h-full">
+    <img src="/assets/page-title-4-1920x704.jpeg">
+    <div class="absolute main-title"> 
+      <div>
+        <h1><span>Exceptional catering</span></h1>
+      </div>
+      <div>
+        <h1>For your special day</h1>
+      </div>
     </div>
-
-    <div class="w-60 h-20 bg-yellow-500 text-center font-bold rounded-lg flex items-center justify-center">
-      <button class="btn hover:outline  hover:bg-red-950 hover:text-white">Plan Event</button>
-    </div>
-
-    <div class="w-60 h-20 bg-yellow-500 text-center font-bold rounded-lg flex items-center justify-center">
-      <button class="btn hover:outline  hover:bg-red-950 hover:text-white">Plan Event</button>
+  </div>
+  <div class="h-full feeds">
+    <div class="body max-w-xl mx-auto bg-white rounded-lg shadow-md overflow-y-auto">
+      <ng-container *ngFor="let feed of feeds">
+        <div class="flex items-center space-x-3 p-4">
+          <img class="w-10 h-10 rounded-full object-cover" src="https://placehold.co/100x100" alt="Profile picture">
+          <div>
+            <p class="font-semibold">{{ feed.user.name }}</p>
+            <p class="text-sm text-zinc-500">{{ feed.createdAt | date:'MMMM d, y'}}</p>
+          </div>
+        </div>
+        <img class="w-full" [src]="feed.imageUrl" alt="Dance performance">
+        <div class="px-4 py-3">
+          <p class="text-zinc-700">{{ feed.content }}</p>
+        </div>
+        <div class="px-4 py-3 flex items-center justify-between">
+          <div class="flex space-x-1 ">
+            <button><mat-icon>favorite_border</mat-icon></button>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

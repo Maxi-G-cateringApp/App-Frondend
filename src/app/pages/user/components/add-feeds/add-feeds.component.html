@@ -1,0 +1,43 @@
+<body>
+<div class="h-auto w-auto">
+  <form enctype="multipart/form-data" [formGroup]="feedForm" (ngSubmit)="addFeed()">
+    <input type="text" placeholder="Type Something...." formControlName="content">
+    <label for="file-upload" class="custom-file-upload">
+      <ng-container *ngIf="imageSrc">
+        <img [src]="imageSrc" alt="selected image" width="50" height="50">
+      </ng-container>
+      <ng-container *ngIf="!imageSrc">
+        <mat-icon>add_a_photo</mat-icon>
+      </ng-container>
+    </label>
+    <input id="file-upload" type="file" (change)="postImage($event)" />
+    <button type="submit" class="m-1 p-1 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Post</button>
+  </form>
+</div>
+
+<div *ngIf="feeds && feeds.length > 0" class="bg-stone-200 transition-colors duration-300 overflow-y-auto body">
+  <div class="container mx-auto px-2 py-6">
+      <h1 class="text-3xl font-extrabold text-center text-black ">My Feeds</h1>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <ng-container *ngFor="let feed of feeds">
+          <div class="bg-zinc-700 rounded-lg overflow-hidden shadow-lg">
+              <img [src]="feed.imageUrl" alt="Latest News Post" class="w-full h-48 object-cover">
+              <div class="p-6 flex justify-between">
+                  <p class="text-white text-base mb-4">
+                    {{ feed.content }}
+                  </p>
+                  <button (click)="onDeleteFeed(feed.id)"><mat-icon>delete</mat-icon></button>
+              </div>
+          </div>
+        </ng-container>
+      </div>
+  </div>
+
+</div>
+<ng-container *ngIf="feeds && feeds.length === 0">
+<div class="nofeeds flex items-center justify-center">
+  <h1>No Feeds...!  Post Your First Feed</h1>
+</div>
+</ng-container>
+
+</body>

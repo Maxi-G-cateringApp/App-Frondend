@@ -1,7 +1,8 @@
-<div class="h-screen">
+<div class="bg-slate-800 h-full relative">
+    <div class="absolute top-[6rem] m-10">
     <h1>My Orders</h1>
     <div class="flex flex-wrap">
-
+        <button [routerLink]="['/user/user-order']" class="btn hover:outline  hover:bg-red-950 hover:text-white">Book Catering</button>
         <ng-container *ngFor="let order of orders">
             <div class="w-1/2 h-auto">
                 <mat-card class="hover:bg-red-950">
@@ -34,4 +35,5 @@
             </div>
         </ng-container>
     </div>
+</div>
 </div>

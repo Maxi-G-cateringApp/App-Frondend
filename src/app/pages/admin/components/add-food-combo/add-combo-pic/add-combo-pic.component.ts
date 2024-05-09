@@ -26,7 +26,6 @@ export class AddComboPicComponent implements OnInit{
 
     ngOnInit(): void {
       this.inputData = this.data;
-  
 
       this.uploadComboPic = new FormGroup({
         file: new FormControl(null),

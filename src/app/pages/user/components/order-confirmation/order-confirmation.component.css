@@ -1,23 +1,69 @@
-mat-form-field {
-    margin-left: 0.5rem;
-    
-}
-mat-card {
-    background-color: rgb(236, 208, 95);
-}
-h1{
+
+mat-card{
     margin: 2%;
+    text-align: left;
+    border-radius: 3%;
+    background-color: transparent;
+    margin: 2%;
+    padding: 2%;
+    background-color: transparent; 
+}
+h1 {
+    margin: 6%;
+    text-align: center;;
+    font-family: 'Montez', cursive;
+    font-size: xx-large;
+    color: #fcda9a;
+}
+.price-details {
+    border: 2px solid wheat;
 }
 
 
-.amoutInfo {
+.mat-mdc-card{
+    width: 100%;
     margin: 1%;
-    background-color: rgb(241, 224, 142);
 }
-
-.amoutInfo p{
-    color: black;
-    font-weight: 900;
+.mat-mdc-form-field{
+    width: 98%;
     margin: 1%;
 }
 
+.mat-50{
+    width: 48%;
+    margin: 1%;
+}
+
+button{
+    margin: 2px;
+}
+.time-input-container {
+    display: flex;
+  }
+  
+.mat-form-field {
+    margin-right: 10px; 
+  }
+.form-sec {
+    background-image: url('/assets/bkg-img17.jpeg');
+    background-size: cover;
+    background-position: center;
+    
+
+}
+
+p {
+    color: white;
+    font-size: x-large;
+    text-align: center;
+    margin: 2%;
+    padding: 2%;
+    font-family: 'Montez', cursive;
+}
+h3 {
+    margin: 6%;
+    text-align: center;;
+    font-family: 'Montez', cursive;
+    font-size: x-large;
+    color: #fcda9a;
+}

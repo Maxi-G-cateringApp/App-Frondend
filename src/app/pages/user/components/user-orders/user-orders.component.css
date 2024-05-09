@@ -17,9 +17,10 @@ h2{
 }
 h1{
     font-size: xx-large;
+    color: white;
     font-weight: 900;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    border-bottom: 2px solid black; 
+    border-bottom: 2px solid white; 
     width: fit-content;
 
 

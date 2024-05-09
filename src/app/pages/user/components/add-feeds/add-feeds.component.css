@@ -1,0 +1,30 @@
+input[type="file"] {
+  display: none;
+}
+input {
+  padding: 1%;
+  border-radius: 3px;
+  margin: 1%;
+  border: 2px solid rgb(116, 114, 114);
+  width: 20%;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.body {
+  height: 70vh;
+}
+.nofeeds {
+  height: 70vh;
+}
+
+button mat-icon {
+  color: white;
+  
+}
+button{
+  margin: 1%;
+}

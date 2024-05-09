@@ -18,6 +18,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { getLoading } from '../../../../shared/store/shared.selector';
 import { setLoadingSpinner } from '../../../../shared/store/shared.action';
+import { Feed } from '../../../admin/models/feed.model';
 
 @Component({
   selector: 'app-user-home',
@@ -27,32 +28,36 @@ import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 export class UserHomeComponent implements OnInit {
   
 
-  // constructor(
-  //   private store: Store<AppState>,
-  //   private fb: FormBuilder,
-  //   private masterService: MasterService
-  // ) {}
+  userId!: string;
+  feeds!: Feed[]
+  profilePictureUrl!: string;
+  constructor(
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+    private masterService: MasterService
+  ) {}
 
   ngOnInit(): void {
-  //   this.store.select(getEmailFromState).subscribe((data) => {
-  //     console.log(data);
-  //     this.email = data;
-  //   });
-  //   this.store.select(getuserId).subscribe((data) => {
-  //     console.log(data);
-  //     this.userId = data;
-  //   });
-    
-  //   this.uploadProfilePic = this.fb.group({
-  //     file: [null],
-  //   });
-  // }
-
-  // ngAfterViewInit(): void {
-  //   this.store.dispatch(setLoadingSpinner({status: false}))
-  // }
+    this.getFeeds();
+  
+    this.store.select(getuserId).subscribe((data) => {
+      if(data){
+      this.userId = data;
+      
+      }
+    });
   }
 
+
+    getFeeds() {
+    this.masterService.getAllFeeds().subscribe({
+      next: (response) => {
+        console.log(response,'  response');
+        
+        this.feeds = response; 
+      },
+    });
+  }
 
  
 }

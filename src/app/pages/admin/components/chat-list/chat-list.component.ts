@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MasterService } from '../../../core/services/master.service';
-import { User } from '../../auth/models/user.model';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../shared/app.state';
-import { getUser } from '../../auth/state/auth.selector';
-import { ChatService } from '../chatService/chat.service';
-import { ChatMessage } from '../models/chat.model';
+import { AppState } from '../../../../shared/app.state';
+import { getUser } from '../../../auth/state/auth.selector';
+import { ChatService } from '../../../../core/chatService/chat.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -16,7 +13,7 @@ export class ChatListComponent implements OnInit {
   admin: any;
   chatRoom?: any[];
   // chatMessages?: ChatMessage[] = [];
-  chatMessages: { sender: string; content: string; timestamp: string }[] = [];
+  chatMessages: { sender: string; content: string; timestamp: string; }[] = [];
   newMessage: string = '';
   selectedChatRoom?: any;
   userChatRoomId!: any;
@@ -81,12 +78,8 @@ export class ChatListComponent implements OnInit {
 
 
   selectChatRoom(chat: any) {
-    this.selectedChatRoom = chat;
-    console.log(this.selectedChatRoom);
-    
-
+    this.selectedChatRoom = chat;    
     this.chatService.initConectionSocket(this.selectedChatRoom.chatRoomName);
-  
     this.chatService
       .getMessagesBetweenUserAndAdmin(this.selectedChatRoom.chatRoomName)
       .subscribe((data) => {
@@ -94,6 +87,7 @@ export class ChatListComponent implements OnInit {
           content: msg.content,
           sender: msg.senderId,
           timestamp: msg.t_stamp,
+          type: msg.type
         }));
       });
 
@@ -107,15 +101,11 @@ export class ChatListComponent implements OnInit {
       const senderId = this.admin.id;
       const recipientId = this.selectedChatRoom.user.id
       const chatRoomName = this.chatService.generateChatroomName(senderId, recipientId)
-
-
-
       this.chatService.sentPrivateMessage(
         senderId,
         chatRoomName,
-        content
-        
-        
+        content,
+      
       );
       this.chatMessages.push({
         sender: senderId,
@@ -125,7 +115,6 @@ export class ChatListComponent implements OnInit {
       this.newMessage = '';
     }
   }
-
 
 
   getRecipientId (userId: string)
@@ -140,10 +129,7 @@ export class ChatListComponent implements OnInit {
   }
 
   addEmoji(event: any){
-    console.log(this.newMessage);
     const {newMessage} = this;
-    console.log(newMessage);
-    console.log(`${event.emoji.native}`);
     const message = `${newMessage}${event.emoji.native}`;
     this.newMessage = message;
     this.showEmojiPicker = false;

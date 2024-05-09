@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './shared/components/home-page/home-page.component';
 import { BottomSessionComponent } from './shared/components/bottom-session/bottom-session.component';
-import { SessionComponent } from './shared/components/bottom-session/session/session.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
@@ -32,9 +31,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   declarations: [
     AppComponent,
     HomePageComponent,
-   
     BottomSessionComponent,
-    SessionComponent,
     LoadingSpinnerComponent,
     NavbarComponent,
     FooterComponent,

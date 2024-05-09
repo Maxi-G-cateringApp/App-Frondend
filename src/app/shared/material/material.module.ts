@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -43,7 +44,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatListModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule
   ],
   declarations: [],
   imports: [CommonModule],

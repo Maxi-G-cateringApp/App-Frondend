@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService } from './chatService/chat.service';
-import { AppState } from '../../shared/app.state';
+import { ChatService } from '../../../../core/chatService/chat.service';
+import { AppState } from '../../../../shared/app.state';
 import { Store } from '@ngrx/store';
-import { getUser, getuserId } from '../auth/state/auth.selector';
-import { ChatMessage } from './models/chat.model';
-import { MasterService } from '../../core/services/master.service';
-import * as Stomp from 'stompjs';
-import { FormControl } from '@angular/forms';
-import SockJS from 'sockjs-client';
-import { Observable, of } from 'rxjs';
-import { User } from '../auth/models/user.model';
+import { getUser } from '../../../auth/state/auth.selector';
+import { MasterService } from '../../../../core/services/master.service';
+import { User } from '../../../auth/models/user.model';
 
 @Component({
   selector: 'app-chat',
@@ -21,7 +16,7 @@ export class ChatComponent implements OnInit {
   admin!: User;
   roomName?: string;
   newMessage: string = '';
-  chatMessages: { sender: string; content: string; timestamp: string }[] = [];
+  chatMessages: { sender: string; content: string; timestamp: string;}[] = [];
   currentDate: any = Date.now();
   chatRoomName!: string;
   messageList: any[] = [];
@@ -67,7 +62,7 @@ export class ChatComponent implements OnInit {
                   sender: msg.senderId,
                   content: msg.content,
                   timestamp: msg.t_stamp,
-                  type: 'text',
+                  type: msg.type
                 }));
               });
             this.chatService.initConectionSocket(chatRoomName);
@@ -91,29 +86,13 @@ export class ChatComponent implements OnInit {
       this.chatService.sentPrivateMessage(senderId, chatRoomName, content);
       this.chatMessages.push({
         sender: senderId,
-        content,
+        content: content,
         timestamp: '',
       });
       this.newMessage = '';
     }
   }
-  sendImage(event: any) {
-    const file = event.target.files[0];
-    console.log(file,' fileeeeee');
-    
-    const senderId = this.user.id;
-    const recipientId = this.admin.id;
-    const chatRoomName = this.chatService.generateChatroomName(
-      senderId,
-      recipientId
-    );
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('chatRoomName', chatRoomName);
-    formData.append('senderId', senderId);
-    formData.append('messageType', 'file');
-    this.chatService.sentPrivateFileMessage(formData);
-  }
+
 
   lisenerMessage() {
     this.chatService.message$.subscribe((message) => {

@@ -19,6 +19,7 @@ import { OrderProcessing } from '../../pages/admin/models/orderProcessing.model'
 import { ReviewModel } from '../../pages/user/models/rating.model';
 import { UpdateUser } from '../../pages/user/models/update-user.model';
 import { Employee } from '../../pages/admin/models/employee.model';
+import { Feed } from '../../pages/admin/models/feed.model';
 
 @Injectable({
   providedIn: 'root',
@@ -206,6 +207,9 @@ export class MasterService {
   getAllServingEmployees(): Observable<any> {
     return this.http.get<any>('/serving_emp');
   }
+  deleteServingTeam(id: number):Observable<any>{
+    return this.http.delete<any>(`/delete-serve_team?id=${id}`)
+  }
 
   // Decoration Team
 
@@ -224,6 +228,10 @@ export class MasterService {
     return this.http.post<any>('/add/decor_team', teamName);
   }
 
+  deleteDecorationTeam(id: number):Observable<any>{
+    return this.http.delete<any>(`/delete-dec_team?id=${id}`)
+  }
+
   // kitchenCrew Team
 
   getAllKitchenCrewTeams(): Observable<any> {
@@ -240,6 +248,11 @@ export class MasterService {
   addlKitchenCrewTeam(teamName: string): Observable<any> {
     return this.http.post<any>('/add/kitchenCrew_team', teamName);
   }
+  deleteKitchenCrewTeam(id: number):Observable<any>{
+    return this.http.delete<any>(`/delete-kitchen_crew?id=${id}`)
+  }
+
+  
 
   cancelOrder(orderId: string): Observable<any> {
     return this.http.post<any>(`/cancel-order/${orderId}`, null);
@@ -290,6 +303,26 @@ export class MasterService {
 
   getAllEmployees():Observable<Employee[]>{
     return this.http.get<Employee[]>('/all-employees');
+  }
+
+  getEmployeesWithoutTeam():Observable<Employee[]>{
+    return this.http.get<Employee[]>('/employees/without-team');
+  }
+
+  addFeed(formData: FormData):Observable<any>{
+    return this.http.post<any>('/add-feed',formData)
+  }
+
+  getAllFeeds():Observable<any[]>{
+    return this.http.get<any[]>('/get-feeds')
+  }
+
+  getUserFeeds(userId: string):Observable<any[]>{
+    return this.http.get<any[]>(`/get-feeds/user?userId=${userId}`)
+  }
+
+  deleteFeed(id: number):Observable<any>{
+    return this.http.delete<any>(`/delete-feed?id=${id}`)
   }
 
 }

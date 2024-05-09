@@ -30,7 +30,7 @@ export class AddServingEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadServingTeams();
-    this.getAllEmployees()
+    this.getEmployeesWithoutTeam()
 
     this.servingEmployeeForm = this.fb.group({
       servingTeamId: ['', Validators.required],
@@ -61,9 +61,11 @@ export class AddServingEmployeesComponent implements OnInit {
   }
 
 
-  getAllEmployees(){
-    this.masterService.getAllEmployees().subscribe((data)=>{
+  getEmployeesWithoutTeam(){
+    this.masterService.getEmployeesWithoutTeam().subscribe((data)=>{
       this.employees = data;
+      console.log(this.employees);
+      
     })
   }
 
@@ -72,7 +74,4 @@ export class AddServingEmployeesComponent implements OnInit {
     this.ref.close();
   }
 
-  public whiteSpaceValidator(control: FormControl) {
-    return (control.value || '').trim().length ? null : { whitespace: true };
-  }
 }

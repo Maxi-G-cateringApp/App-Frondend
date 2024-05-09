@@ -6,7 +6,6 @@ import { AdminComponent } from './layouts/admin/components.component';
 import { UserComponent } from './layouts/user/user.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { AuthGuard } from './guards/guard';
-import { ChatLayoutComponent } from './layouts/chat-layout/chat-layout.component';
 
 
 
@@ -29,7 +28,6 @@ const routes: Routes = [
     component: UserComponent,
     loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule) 
   },
-  { path: 'chat',component:ChatLayoutComponent, loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule) },
   {path: '**', component: NotFoundComponent}
   
 

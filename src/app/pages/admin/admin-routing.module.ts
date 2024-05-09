@@ -20,6 +20,7 @@ import { RoleGuard } from "../../guards/guard";
 import { AdminLoginComponent } from "./components/admin-login/admin-login.component";
 import { UsersListComponent } from "./components/users-list/users-list.component";
 import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
+import { ChatListComponent } from "./components/chat-list/chat-list.component";
 
 
 
@@ -43,7 +44,8 @@ const routes: Routes = [
         {path: 'decor-team',component: DecorationTeamsComponent},
         {path: 'kitchenCrew-team',component: KitchenCrewTeamsComponent},
         {path: 'all-users',component:UsersListComponent},
-        {path: 'employees',component:EmployeeListComponent}
+        {path: 'employees',component:EmployeeListComponent},
+        {path: 'chat',component:ChatListComponent}
       ],
     },
   ];

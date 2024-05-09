@@ -1,5 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MasterService } from '../../../../../../core/services/master.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import TeamModel from '../../teamModels/team.model';
@@ -9,10 +14,9 @@ import { Employee } from '../../../../models/employee.model';
 @Component({
   selector: 'app-add-decoration-employees',
   templateUrl: './add-decoration-employees.component.html',
-  styleUrl: './add-decoration-employees.component.css'
+  styleUrl: './add-decoration-employees.component.css',
 })
-export class AddDecorationEmployeesComponent implements OnInit{
-
+export class AddDecorationEmployeesComponent implements OnInit {
   decorationEmployeeForm!: FormGroup;
   decorationTeams!: TeamModel[];
   employees!: Employee[];
@@ -25,13 +29,12 @@ export class AddDecorationEmployeesComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-
     this.loadServingTeams();
-    this.getAllEmployees()
-      this.decorationEmployeeForm = this.fb.group({
-        decorationTeamId: ['',Validators.required],
-        emp:['',Validators.required]
-      })
+    this.getEmployeesWithoutTeam();
+    this.decorationEmployeeForm = this.fb.group({
+      decorationTeamId: ['', Validators.required],
+      emp: ['', Validators.required],
+    });
   }
 
   loadServingTeams() {
@@ -40,34 +43,31 @@ export class AddDecorationEmployeesComponent implements OnInit{
     });
   }
 
-  getAllEmployees(){
-    this.masterService.getAllEmployees().subscribe((data)=>{
+  getEmployeesWithoutTeam() {
+    this.masterService.getEmployeesWithoutTeam().subscribe((data) => {
       this.employees = data;
-    })
+      console.log(this.employees);
+    });
   }
 
-  onAddDecorationEmployees(){
-    if(this.decorationEmployeeForm.valid){
-    const data:DecorImpl = {
-      decorationTeamId: this.decorationEmployeeForm.value.decorationTeamId,
-      emp: this.decorationEmployeeForm.value.emp
-    } 
-    this.masterService.addDecorationEmpl(data).subscribe({next:(response)=>{
-      this.closePopup();  
-    }})
-  }else {
-    console.error("data not valid");
+  onAddDecorationEmployees() {
+    if (this.decorationEmployeeForm.valid) {
+      const data: DecorImpl = {
+        decorationTeamId: this.decorationEmployeeForm.value.decorationTeamId,
+        emp: this.decorationEmployeeForm.value.emp,
+      };
+      this.masterService.addDecorationEmpl(data).subscribe({
+        next: (response) => {
+          this.closePopup();
+        },
+      });
+    } else {
+      console.error('data not valid');
+    }
   }
-
-  }
-
 
   closePopup() {
     this.ref.close();
   }
 
-  public whiteSpaceValidator(control: FormControl) {
-    return (control.value || '').trim().length ? null : { whitespace: true };
-  }
 }
-

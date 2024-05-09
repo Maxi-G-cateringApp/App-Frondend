@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { ChatMessage } from '../models/chat.model';
+import { ChatMessage } from '../../pages/user/models/chat.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -78,13 +78,19 @@ export class ChatService {
   }
 
 
-  sentPrivateFileMessage(formData: FormData) {
-    if (this.stompClient && this.stompClient.connected) {
-      this.stompClient.send('/app/send-message', {}, formData);
-    } else {
-      console.error('WebSocket is not initialized.');
-    }
-  }
+  // sentPrivateFileMessage(senderId: string, chatRoomName: string, content: File,type: string) {
+  //   if (this.stompClient && this.stompClient.connected) {
+  //     const message = {
+  //       senderId,
+  //       chatRoomName,
+  //       content,
+  //       type
+  //     };
+  //     this.stompClient.send('/app/send-message', {}, JSON.stringify(message));
+  //   } else {
+  //     console.error('WebSocket is not initialized.');
+  //   }
+  // }
   
   getMessageSubject() {
     return this.messageSubject.asObservable();
