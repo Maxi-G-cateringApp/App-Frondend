@@ -19,44 +19,38 @@
     height: 80vh;
   }
   
-  /* Set max height for chat messages and add overflow */
+  
   .chat-body {
     max-height: calc(100% - 50px);
   }
   
-  /* List styles for chat messages */
+  
   .chat-messages {
     list-style: none;
     padding: 0;
   }
   
-  /* Message styling */
   .chat-message {
     max-width: 70%;
     display: inline-block;
     word-wrap: break-word;
   }
   
-  /* Sender message styles */
   .sender-message {
     background-color: #2196F3;
     color: white;
   }
   
-  /* Receiver message styles */
   .receiver-message {
     background-color: #E0E0E0;
     color: black;
   }
   
-  /* Chat input field styles */
   .chat-input input {
-    border: 1px solid #525252;
     border-radius: 4px;
     outline: none;
   }
   
-  /* File upload button styles */
   .chat-input label {
     border: 1px solid #ccc;
     display: inline-block;
@@ -64,19 +58,17 @@
     cursor: pointer;
   }
   
-  /* Emoji button styles */
   .emoji-button {
-    background-color: rgb(0, 0, 0);
     cursor: pointer;
     font-size: large;
-    padding: 1%;
+    padding: 1.5%;
   }
   
-  /* Send button styles */
   .send-button {
-    background-color: #89eb20;
-    color: rgb(2, 1, 1);
-    border: 2px solid #000000;
+    background-color: #928e94;
+    color: white;
+    font-weight: 400;
+    font-family: sans-serif;
     padding: 6px 16px;
     border-radius: 6px;
     cursor: pointer;
@@ -84,7 +76,7 @@
   }
   
   .send-button:hover {
-    background-color: #54b300;
+    background-color: #6b696c;
   }
   
   /* Hide default file input */

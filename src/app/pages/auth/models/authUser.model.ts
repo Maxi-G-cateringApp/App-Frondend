@@ -5,7 +5,7 @@ export class AuthenticatedUser {
     private token: string,
     private role: string,
     private email: string,
-    private phoneNumber: string
+    private phoneNumber: string,
   ) {}
 
   public get userRole(): string {
@@ -26,4 +26,5 @@ export class AuthenticatedUser {
   public get phonenumber(): string {
     return this.phoneNumber;
   }
+  
 }

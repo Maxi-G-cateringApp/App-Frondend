@@ -20,6 +20,7 @@ import { ReviewModel } from '../../pages/user/models/rating.model';
 import { UpdateUser } from '../../pages/user/models/update-user.model';
 import { Employee } from '../../pages/admin/models/employee.model';
 import { Feed } from '../../pages/admin/models/feed.model';
+import { Partner } from '../../pages/admin/models/partner.model';
 
 @Injectable({
   providedIn: 'root',
@@ -295,6 +296,9 @@ export class MasterService {
   getAllUsers():Observable<User[]>{
     return this.http.get<User[]>('/all-users');
   }
+  getAllPartnerUsers():Observable<User[]>{
+    return this.http.get<User[]>('/admin/partner-users');
+  }
 
   addEmployee(employee: Employee): Observable<Employee>{
     return this.http.post<Employee>('/add-employee',employee);
@@ -325,4 +329,20 @@ export class MasterService {
     return this.http.delete<any>(`/delete-feed?id=${id}`)
   }
 
+  getUserById(userId: string):Observable<any>{
+    return this.http.get<any>(`/get-user?userId=${userId}`)
+  }
+
+  addPartner(userId: string):Observable<any>{
+    return this.http.post<any>(`/admin/set-partner?userId=${userId}`,null)
+  }
+  createPartner(partnerData: Partner):Observable<any>{
+    return this.http.post<any>('/admin/create/partner',partnerData)
+  }
+
+  deleteEmp(id: number): Observable<any>{
+    return this.http.delete<any>(`/delete/emp?id=${id}`)
+  }
 }
+
+

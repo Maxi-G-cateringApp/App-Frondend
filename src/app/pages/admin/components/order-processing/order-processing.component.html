@@ -21,7 +21,7 @@
             <mat-option [value]="team.id" *ngFor="let team of servingTeam ">{{ team.teamName }}</mat-option>
           </mat-select>
         </mat-form-field>
-
+     <ng-container *ngIf="order?.decorationOption ==='YES'">
         <h3>Decoration Crews</h3>
         <mat-form-field>
           <mat-label>Select Team</mat-label>
@@ -29,6 +29,8 @@
             <mat-option [value]="team.id" *ngFor="let team of decorationTeam ">{{ team.teamName }}</mat-option>
           </mat-select>
         </mat-form-field>
+      </ng-container>
+
 
       </div>
       <div mat-dialog-actions>

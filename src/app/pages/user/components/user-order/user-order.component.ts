@@ -10,6 +10,7 @@ import { AppState } from '../../../../shared/app.state';
 import { getuserId } from '../../../auth/state/auth.selector';
 import { OrderDetails } from '../../models/order.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-order',
@@ -35,7 +36,8 @@ export class UserOrderComponent implements OnInit {
     private masterService: MasterService,
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private tost: ToastrService,
   ) { this.minDate = new Date();}
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class UserOrderComponent implements OnInit {
       date: ['', Validators.required],
       foodCombos: this.fb.array([], Validators.required),
       categoryControl: ['', Validators.required],
-      foodItems: this.fb.array([], Validators.required),
+      foodItems: this.fb.array([]),
       event: ['', Validators.required],
       peopleCount: [0, [Validators.required,Validators.min(0),Validators.max(5000)]],
       venue: ['', Validators.required],
@@ -67,9 +69,6 @@ export class UserOrderComponent implements OnInit {
   }
 
   onSaveOrder() {
-    console.log(this.orderForm.value);
-    
-   
     const data: OrderDetails = {
       date: this.orderForm.value.date,
       foodCombos: this.orderForm.value.foodCombos,
@@ -81,8 +80,8 @@ export class UserOrderComponent implements OnInit {
       timeFrom: this.orderForm.value.timeFrom,
       timeTo: this.orderForm.value.timeTo,
       userId: this.userId
-
     }
+    if(this.orderForm.valid){
     this.masterService.saveOrder(data).subscribe((response) => {
       console.log(response);
       const orderId = response.orderId;
@@ -92,6 +91,9 @@ export class UserOrderComponent implements OnInit {
         console.error('Order ID is missing in the response');
       }
     });
+  }else{
+    this.tost.error('something Wrong','check the credentials')
+  }
   }
 
   onComboChange(event: any) {

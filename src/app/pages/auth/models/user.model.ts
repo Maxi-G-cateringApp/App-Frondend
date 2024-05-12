@@ -8,4 +8,5 @@ export interface User {
     password: string;
     role: string;
     file: string;
-}
+    partner?: boolean;
+}   

@@ -23,4 +23,5 @@ export interface UserOrder {
     transactionId: string;
     isPaymentComplete:boolean;
     review: ReviewModel
+    decorationOption?: string;
 }

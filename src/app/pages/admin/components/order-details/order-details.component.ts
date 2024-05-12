@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MasterService } from '../../../../core/services/master.service';
-import { OrderDetails } from '../../../user/models/order.model';
 import { UserOrder } from '../../../user/models/userOrder.model';
 import { FoodCombo } from '../../models/combo.model';
 import { FoodItems } from '../../models/foodItems.model';

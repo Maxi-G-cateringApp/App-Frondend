@@ -1,4 +1,4 @@
-<div class="relative bg-slate-900 h-full">
+<div class="relative bg-slate-900 h-1/2">
   <div class="flex justify-start absolute top-[6rem] w-1/4">
     <div class="w-full">
       <div class="flex flex-col justify-center items-center">
@@ -20,10 +20,26 @@
         <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }} </b></mat-error>
       </div>
     </div>
-    <div class="w-1/4 m-5">
-      <h2>{{user?.username}}</h2>
-      <h2>{{user?.phonenumber}}</h2>
-      <h2>{{user?.userEmail}}</h2>
+    <div class="w-2/4 m-5">
+      <ng-container *ngIf="!user.partner">
+        <h1>Welcome User</h1>
+      </ng-container>
+      <ng-container *ngIf="user.partner">
+        <h1>Welcome Partner</h1>
+      </ng-container>
+      <h2>{{user?.name}}</h2>
+      <h2>{{user?.phoneNumber}}</h2>
+      <h2>{{user?.email}}</h2>
     </div>
+
   </div>
 </div>
+<ng-container *ngIf="!user.partner">
+  <div class="h-1/2 bg-white">
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="user.partner">
+  <app-add-feeds></app-add-feeds>
+</ng-container>

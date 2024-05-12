@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { Employee } from '../../models/employee.model';
 import { MatTableDataSource } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee-list',
@@ -47,6 +48,30 @@ export class EmployeeListComponent implements OnInit {
       this.dataSource.paginator = this.paginator
     });
       
+    
+  }
+
+  removeEmp(id: number){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.masterService.deleteEmp(id).subscribe((res)=>{
+          this.getAllEmployees();
+        })
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
     
   }
 }

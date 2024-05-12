@@ -1,36 +1,53 @@
+<div class=" bg-slate-900 relative h-screen">
+  <div class="body flex justify-center absolute top-[5rem] w-full">
 
-<div class="flex flex-col relative">
-  <div class="h-full">
-    <img src="/assets/page-title-4-1920x704.jpeg">
-    <div class="absolute main-title"> 
-      <div>
-        <h1><span>Exceptional catering</span></h1>
-      </div>
-      <div>
-        <h1>For your special day</h1>
-      </div>
-    </div>
-  </div>
-  <div class="h-full feeds">
-    <div class="body max-w-xl mx-auto bg-white rounded-lg shadow-md overflow-y-auto">
-      <ng-container *ngFor="let feed of feeds">
-        <div class="flex items-center space-x-3 p-4">
-          <img class="w-10 h-10 rounded-full object-cover" src="https://placehold.co/100x100" alt="Profile picture">
-          <div>
-            <p class="font-semibold">{{ feed.user.name }}</p>
-            <p class="text-sm text-zinc-500">{{ feed.createdAt | date:'MMMM d, y'}}</p>
+    <div class="h-auto w-1/2 post-container">
+      <ng-container *ngIf="user?.partner === true">
+        <form enctype="multipart/form-data" [formGroup]="feedForm" (ngSubmit)="addFeed()">
+          <h1>Post Your Feed</h1>
+          <div class="flex justify-center">
+            <textarea type="text" placeholder="Type Something...." formControlName="content"></textarea>
+            <div>
+              <label for="file-upload" class="custom-file-upload">
+                <ng-container *ngIf="imageSrc">
+                  <img [src]="imageSrc" alt="selected image" width="50" height="50">
+                </ng-container>
+                <ng-container *ngIf="!imageSrc">
+                  <mat-icon>add_a_photo</mat-icon>
+                </ng-container>
+              </label>
+              <input id="file-upload" type="file" (change)="postImage($event)" />
+              <br>
+              <button type="submit"
+                class="items-end py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">Post</button>
+            </div>
           </div>
-        </div>
-        <img class="w-full" [src]="feed.imageUrl" alt="Dance performance">
-        <div class="px-4 py-3">
-          <p class="text-zinc-700">{{ feed.content }}</p>
-        </div>
-        <div class="px-4 py-3 flex items-center justify-between">
-          <div class="flex space-x-1 ">
-            <button><mat-icon>favorite_border</mat-icon></button>
-          </div>
-        </div>
+        </form>
       </ng-container>
+    </div>
+    <div class="feeds-container w-1/2">
+      <div class=" rounded-lg shadow-md  py-1 px-2">
+        <ng-container *ngFor="let feed of feeds">
+          <div class="feed-item border-b-2 border-gray-200 pb-4 mb-4">
+            <div class="flex items-center space-x-3 p-4 outline rounded-md">
+              <img class="w-10 h-10 rounded-full object-cover" src="https://placehold.co/100x100" alt="Profile picture">
+              <div>
+                <p class="font-semibold text-white">{{ feed.user.name }}</p>
+                <p class="text-sm text-white">{{ feed.createdAt | date:'MMMM d, y'}}</p>
+              </div>
+            </div>
+            <img class="w-full rounded-md" [src]="feed.imageUrl" alt="Dance performance">
+            <div class="px-4 py-3 outline">
+              <p class="text-white">{{ feed.content }}</p>
+            </div>
+            <div class="px-4 py-3 flex items-center justify-between">
+              <div class="flex space-x-1 ">
+                <button><mat-icon>favorite_border</mat-icon></button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

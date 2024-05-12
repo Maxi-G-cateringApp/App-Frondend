@@ -49,7 +49,7 @@
               <mat-label>Password</mat-label>
               <input matInput formControlName="password" type="password" style="border: none;">
              <mat-error *ngIf="registerForm.controls['password'].errors?.['required']">* Password Required</mat-error>
-             <mat-error *ngIf="registerForm.controls['userName'].errors?.['whitespace']">*Enter valid password</mat-error>
+             <mat-error *ngIf="registerForm.controls['password'].errors?.['whitespace']">*Enter valid password</mat-error>
 
             </mat-form-field>
           </p>

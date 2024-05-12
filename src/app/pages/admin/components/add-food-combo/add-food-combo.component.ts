@@ -6,7 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { FoodCombo } from '../../models/combo.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
@@ -35,7 +39,7 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     private store: Store<AppState>,
     private tost: ToastrService,
     private ref: MatDialogRef<AddFoodComboComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
@@ -58,11 +62,6 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     this.store.dispatch(setLoadingSpinner({ status: false }));
   }
 
-  // onFileSelected(event: any) {
-  //   this.selectedFile = event.target.files[0];
-  //   this.foodComboForm.patchValue(this.selectedFile);
-  // }
-
   onaddCombos() {
     if (this.inputData.isEdit) {
       this.onEdit(this.inputData.id);
@@ -77,7 +76,15 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
         this.masterService
           .addFoodCombo(comboData, this.selectedFile)
           .subscribe((response) => {
-            this.closePopup();
+            if (response.status == true) {
+              this.tost.success('FoodCombo Added', 'Success');
+              this.closePopup();
+            } else {
+              this.tost.error(
+                'Combo Already Exist or Something Wrong',
+                'Invalid'
+              );
+            }
           });
       } else {
         this.tost.error('Enter valid Data', 'Invalid');
@@ -92,13 +99,13 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
   }
   onEdit(id: number) {
     // if (this.foodComboForm.valid) {
-      const formData = { ...this.foodComboForm.value };
-      delete formData.file;
-      this.masterService.editFoodCombo(id, formData).subscribe({
-        next: (respose) => {
-          this.closePopup();
-        },
-      });
+    const formData = { ...this.foodComboForm.value };
+    delete formData.file;
+    this.masterService.editFoodCombo(id, formData).subscribe({
+      next: (respose) => {
+        this.closePopup();
+      },
+    });
     // } else {
     //   this.tost.error('Enter valid Data', 'Invalid');
     // }

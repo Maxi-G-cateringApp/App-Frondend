@@ -13,9 +13,7 @@ export class ChatService {
   private messageSubject = new Subject<string>();
   public message$ = this.messageSubject.asObservable();
   private currentRoomId!: string;
-  private messageSubject2: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<
-    ChatMessage[]
-  >([]);
+
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +30,6 @@ export class ChatService {
     this.stompClient.connect(
       {},
       (frame: any) => {
-        console.log('WebSocket connected:', frame);
         this.stompClient.subscribe(chatRoomTopic, (message: any) => {
           this.showMessage(message.body);
         });
@@ -76,21 +73,6 @@ export class ChatService {
       console.error('WebSocket is not initialized.');
     }
   }
-
-
-  // sentPrivateFileMessage(senderId: string, chatRoomName: string, content: File,type: string) {
-  //   if (this.stompClient && this.stompClient.connected) {
-  //     const message = {
-  //       senderId,
-  //       chatRoomName,
-  //       content,
-  //       type
-  //     };
-  //     this.stompClient.send('/app/send-message', {}, JSON.stringify(message));
-  //   } else {
-  //     console.error('WebSocket is not initialized.');
-  //   }
-  // }
   
   getMessageSubject() {
     return this.messageSubject.asObservable();
@@ -114,3 +96,28 @@ export class ChatService {
   }
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+  // sentPrivateFileMessage(senderId: string, chatRoomName: string, content: File,type: string) {
+  //   if (this.stompClient && this.stompClient.connected) {
+  //     const message = {
+  //       senderId,
+  //       chatRoomName,
+  //       content,
+  //       type
+  //     };
+  //     this.stompClient.send('/app/send-message', {}, JSON.stringify(message));
+  //   } else {
+  //     console.error('WebSocket is not initialized.');
+  //   }
+  // }

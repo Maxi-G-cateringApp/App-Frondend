@@ -1,39 +1,48 @@
-<div class="bg-slate-800 h-full relative">
-    <div class="absolute top-[6rem] m-10">
-    <h1>My Orders</h1>
-    <div class="flex flex-wrap">
-        <button [routerLink]="['/user/user-order']" class="btn hover:outline  hover:bg-red-950 hover:text-white">Book Catering</button>
-        <ng-container *ngFor="let order of orders">
-            <div class="w-1/2 h-auto">
-                <mat-card class="hover:bg-red-950">
-                    <mat-card-content class="">
-                        <p>{{ order.events.eventName }}</p>
-                        <h2>On : {{order.date | date :'MMM d, y' }}</h2>
-                        <span class="p-1 rounded-full font-sans font-semibold" [ngClass]="{
-        'bg-red-200 text-red-600': order.status === 'CANCELLED',
-        'bg-green-200 text-green-600': order.status === 'CONFIRMED',
-        'bg-yellow-200 text-yellow-600': order.status === 'PENDING',
-        'bg-green-500 text-white': order.status === 'ACCEPTED',
-        'bg-green-900 text-white': order.status === 'COMPLETED',
-        'bg-yellow-500 text-red-950': order.status === 'PROCESSING',
-        }">{{ order.status }}</span>
-                  <div class="mt-5">
-                        <ng-container *ngIf="order.review && order.review.rating">
-                            <small class="text-white">Your rating for this order</small><br>
-                            <ng-container *ngFor="let _ of [].constructor(5); let i = index">
-                                <mat-icon
-                                    [ngStyle]="{ 'color': i < order.review.rating ? '#f1b215' : 'gray' }">star</mat-icon>
-                            </ng-container>
-                        </ng-container>
-                    </div>
 
-                    </mat-card-content>
-                    <mat-card-actions align="end">
-                        <button (click)="viewOrder(order.id)" mat-raised-button>View Order</button>
-                    </mat-card-actions>
-                </mat-card>
+<div class=" bg-slate-900 relative h-full">
+    <div class="body flex justify-evenly absolute top-[5rem] w-full">
+        
+        <div class="w-1/3 flex justify-center mt-16 h-screen">
+            <div class="w-2/3 h-2/4 p-5 bg-slate-950 text-center">
+                <div>
+                    <h3>Book Your Order</h3>
+                </div>
+                <div>
+                    <button class="m-3 px-4 py-2 font-bold hover:bg-slate-500 hover:text-white rounded-md" [routerLink]="['/user/user-order']">Order Now</button>
+                </div>
+            </div>
+
+        </div>
+        <ng-container *ngIf="orders && orders.length === 0">
+            <div class="h-2/3 w-1/2 flex justify-center items-center mt-10">
+                <h1>Book Your First Order</h1>
             </div>
         </ng-container>
+        <div class="h-screen w-1/2 " *ngIf="orders && orders.length > 0">
+            <h1>My Orders</h1>
+            <div class="h-auto rounded-lg shadow-md order-container">
+                <ng-container *ngFor="let order of orders">
+                    <div class="bg-slate-950 m-1 rounded-lg p-2">
+                        <div class="">
+                            <p>{{ order.events.eventName }}</p>
+                            <h2>On : {{order.date | date :'MMM d, y' }}</h2>
+                            <span class="p-1 rounded-full font-sans font-semibold" [ngClass]="{'bg-red-200 text-red-600': order.status === 'CANCELLED','bg-green-200 text-green-600': order.status === 'CONFIRMED','bg-yellow-200 text-yellow-600': order.status === 'PENDING','bg-green-500 text-white': order.status === 'ACCEPTED','bg-green-900 text-white': order.status === 'COMPLETED','bg-yellow-500 text-red-950': order.status === 'PROCESSING',}">{{ order.status }}</span>
+                            <div class="mt-5">
+                                <ng-container *ngIf="order.review && order.review.rating">
+                                    <small class="text-white">Your rating for this order</small><br>
+                                    <ng-container *ngFor="let _ of [].constructor(5); let i = index">
+                                        <mat-icon
+                                            [ngStyle]="{ 'color': i < order.review.rating ? '#f1b215' : 'gray' }">star</mat-icon>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div align="end">
+                            <button (click)="viewOrder(order.id)" mat-raised-button>View Order</button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+          </div>
     </div>
-</div>
 </div>

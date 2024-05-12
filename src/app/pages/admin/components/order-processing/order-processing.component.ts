@@ -4,80 +4,93 @@ import TeamModel from '../team/teamModels/team.model';
 import { MasterService } from '../../../../core/services/master.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderProcessing } from '../../models/orderProcessing.model';
+import { UserOrder } from '../../../user/models/userOrder.model';
 
 @Component({
   selector: 'app-order-processing',
   templateUrl: './order-processing.component.html',
-  styleUrl: './order-processing.component.css'
+  styleUrl: './order-processing.component.css',
 })
-export class OrderProcessingComponent implements OnInit{
-
+export class OrderProcessingComponent implements OnInit {
   inputData!: any;
   servingTeam!: TeamModel[];
   decorationTeam!: TeamModel[];
   kitchenCrew!: TeamModel[];
   orderProcessingForm!: FormGroup;
+  order!: UserOrder;
 
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: string,private masterService: MasterService,
-  private ref: MatDialogRef<OrderProcessingComponent>,private fb: FormBuilder,){}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: string,
+    private masterService: MasterService,
+    private ref: MatDialogRef<OrderProcessingComponent>,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.inputData = this.data; 
-    console.log(this.inputData.orderId),'order idddd';
-    
+    this.inputData = this.data;
+    console.log(this.inputData.orderId), 'order idddd';
+
     this.loadServingTeam();
     this.loadKitchenCrewTeam();
     this.loadDecorationTeam();
+    this.loadOrder();
 
     this.orderProcessingForm = this.fb.group({
-      kitchenCrewId:['',Validators.required],
-      decorationTeamId:['',Validators.required],
-      servingTeamId:['',Validators.required]
-      
+      kitchenCrewId: ['', Validators.required],
+      decorationTeamId: ['', Validators.required],
+      servingTeamId: ['', Validators.required],
     });
   }
 
-  onOrderProcessingForm(){
+  onOrderProcessingForm() {
     const data: OrderProcessing = {
       orderId: this.inputData.orderId,
       kitchenCrewId: this.orderProcessingForm.value.kitchenCrewId,
       decorationTeamId: this.orderProcessingForm.value.decorationTeamId,
-      servingTeamId: this.orderProcessingForm.value.servingTeamId
-    }    
-   
-    this.masterService.orderProcessing(data).subscribe({next: (response)=> {
-      console.log(response);
-      this.closePopup()
-    
-    },
-  })
+      servingTeamId: this.orderProcessingForm.value.servingTeamId,
+    };
+
+    this.masterService.orderProcessing(data).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.closePopup();
+      },
+    });
   }
 
-
-
-  loadServingTeam(){
-    this.masterService.getAllServingTeams().subscribe({next: (response)=>{
-      this.servingTeam = response;
-    }})
+  loadServingTeam() {
+    this.masterService.getAllServingTeams().subscribe({
+      next: (response) => {
+        this.servingTeam = response;
+      },
+    });
   }
-  loadDecorationTeam(){
-    this.masterService.getAllDecorationTeams().subscribe({next: (response)=>{
-      this.decorationTeam = response;
-    }})
+  loadDecorationTeam() {
+    this.masterService.getAllDecorationTeams().subscribe({
+      next: (response) => {
+        this.decorationTeam = response;
+      },
+    });
   }
-  loadKitchenCrewTeam(){
-    this.masterService.getAllKitchenCrewTeams().subscribe({next: (response)=>{
-      this.kitchenCrew = response;
-    }})
+  loadKitchenCrewTeam() {
+    this.masterService.getAllKitchenCrewTeams().subscribe({
+      next: (response) => {
+        this.kitchenCrew = response;
+      },
+    });
   }
-
-
-
 
   closePopup() {
     this.ref.close();
   }
 
-
+  loadOrder() {
+    this.masterService.getOrderById(this.inputData.orderId).subscribe({
+      next: (response) => {
+        this.order = response;
+        console.log(this.order);
+        
+      },
+    });
+  }
 }

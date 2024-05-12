@@ -41,6 +41,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     AddFeedsComponent,
     ChatComponent,
     ContactUsComponent,
+    
 
  
   ],

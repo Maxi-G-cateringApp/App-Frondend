@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { getUser } from '../../../auth/state/auth.selector';
-import { ChatService } from '../../../../core/chatService/chat.service';
+import { ChatService } from '../../../../core/services/chat.service';
 
 @Component({
   selector: 'app-chat-list',

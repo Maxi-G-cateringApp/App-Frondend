@@ -37,6 +37,8 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ViewUserComponent } from './components/view-user/view-user.component';
+import { CreatePartnerComponent } from './components/create-partner/create-partner.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     EmployeeListComponent,
     AddEmployeeComponent,
     ChatListComponent,
+    ViewUserComponent,
+    CreatePartnerComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule],
 })

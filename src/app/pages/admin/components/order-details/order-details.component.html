@@ -2,15 +2,15 @@
     <mat-card-content>
         <h1>Event Order Details</h1>
     </mat-card-content>
-    <mat-card-actions>
-        <p>Order <span class="font-sans font-semibold" [ngClass]="{
+    <mat-card-actions >
+        <p *ngIf="order">Order <span class="font-sans font-semibold" [ngClass]="{
             ' text-red-600': order.status === 'CANCELLED' }">{{ order.status }}</span></p>
 
         <button *ngIf="!orderAccepted && order?.status === 'PENDING'" (click)="acceptOrder()" mat-raised-button>Accept
             Order</button>
-        <button *ngIf="order.status === 'CONFIRMED'" (click)="processOrder(order.id)" mat-raised-button>Process
+        <button *ngIf="order?.status === 'CONFIRMED'" (click)="processOrder(order.id)" mat-raised-button>Process
             Order</button>
-        <button *ngIf="order.status === 'PROCESSING'" (click)="orderComplete(order.id)" mat-raised-button>Mark as
+        <button *ngIf="order?.status === 'PROCESSING'" (click)="orderComplete(order.id)" mat-raised-button>Mark as
             complete</button>
     </mat-card-actions>
 
@@ -23,10 +23,10 @@
                 <mat-card-subtitle *ngIf="order?.user">Email : {{ order.user.email }}</mat-card-subtitle>
                 <mat-card-subtitle *ngIf="order?.user">Phone : {{ order.user.phoneNumber }}</mat-card-subtitle>
                 <!-- <p *ngIf="order?.orderDate">Order Received on : {{ order.orderDate| date :'MMM d, y'}}</p> -->
-                <mat-card-title>Event Details</mat-card-title>
-                <p> People Count :{{ order.peopleCount }}</p>
-                <p> Event :{{ order.events.eventName}}</p>
-                <p> Venue :{{ order.venue }}</p>
+                <mat-card-title >Event Details</mat-card-title>
+                <p *ngIf="order"> People Count :{{ order.peopleCount }}</p>
+                <p *ngIf="order"> Event :{{ order.events.eventName}}</p>
+                <p *ngIf="order"> Venue :{{ order.venue }}</p>
                 <p *ngIf="order?.date">Order Date: {{ order.date | date :'MMM d, y'}}</p>
             </mat-card>
         </div>

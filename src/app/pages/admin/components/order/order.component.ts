@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MasterService } from '../../../../core/services/master.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-order',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './order.component.css',
 })
 export class OrderComponent implements OnInit {
-  constructor(private masterService: MasterService, private router: Router) {}
+  constructor(private masterService: MasterService, private router: Router,private notification: NotificationService) {}
   orders!: OrderDetails[];
   displayedColumns: string[] = [
     'eventName',
@@ -40,5 +41,13 @@ export class OrderComponent implements OnInit {
 
   viewOrder(orderId: string) {
     this.router.navigate(['/admin/view-order', orderId]);
+  }
+
+  lisenerNotification(){
+this.notification.notification$.subscribe((notification)=>{
+  console.log(notification);
+
+  
+})
   }
 }

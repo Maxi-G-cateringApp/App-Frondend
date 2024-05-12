@@ -1,0 +1,24 @@
+<div class="flex h-full">
+    <div class="w-full">
+        <mat-card>
+            <mat-card-header>
+                <h1>User Details</h1>
+            </mat-card-header>
+            <ng-container *ngIf="user">
+            <mat-card-content>
+                <h3>userName :<span>{{ user.name }}</span></h3>
+                <h3>order length  :<span>{{ length }}</span></h3>
+            </mat-card-content>
+        </ng-container>
+        </mat-card>
+        <ng-container *ngIf="length >= 1 && user.partner === false">
+            <mat-card-actions>
+                <button mat-raised-button (click)="onAddPartner()">Add as partner</button>
+            </mat-card-actions>
+        </ng-container>
+       
+        <div mat-dialog-actions>
+            <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+          </div>
+    </div>
+</div>

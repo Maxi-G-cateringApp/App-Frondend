@@ -1,21 +1,42 @@
+<div class="flex justify-evenly items-center bg-gray-200">
 
-
-<div class="flex justify-center items-center w-screen bg-gray-200">
-  <!-- Chat list -->
-  <div class="h-full w-1/4 bg-red-400 rounded-lg shadow-lg overflow-y-auto">
-    <div class="p-4">
-      <h2 class="text-black font-extrabold text-center mb-4">Chat Rooms</h2>
-      <ul class="chat-list">
-        <li *ngFor="let chat of chatRoom" (click)="selectChatRoom(chat)" class="mb-2">
-          <button
-            class="w-full py-2 px-4 bg-white text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300">{{
-            chat.user.name}}</button>
-        </li>
-      </ul>
+  <div class="w-2/3 max-w-lg bg-white rounded-lg shadow-lg">
+    <div class="chat-window h-full flex flex-col ">
+      <div class="chat-header bg-slate-400 py-2 px-4 flex justify-between items-center rounded-md">
+        <img
+    src="https://static.thenounproject.com/png/423426-200.png"
+    alt="avatar"
+    class="relative inline-block h-8 w-8 bg-white p-1 rounded-full  object-cover object-center"/>
+        <span class="font-semibold">User </span>
+      </div>
+      <div class="chat-body flex-1 overflow-y-auto px-4 py-2">
+        <ul class="chat-messages">
+          <ng-container *ngFor="let message of chatMessages">
+            <li [ngClass]="{'flex justify-end': message.sender === admin.id, 
+            'flex justify-start': message.sender === admin.id}" class="mb-2">
+              <span [ngClass]="{'sender-message': message.sender === admin.id, 
+              'receiver-message': message.sender !== admin.id}" class="chat-message p-2 m-1 rounded-lg">{{
+                message.content }}</span>
+              <span class="timestamp">{{ message.timestamp | date: 'MMMM d, y, h:mm a'}}</span>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="chat-input flex items-center p-3 m-4 bg-slate-200 rounded-full shadow-xl">
+        <button (click)="toggleEmojiPicker()" class="emoji-button bg-white rounded-full p-2 mr-2 hover:bg-slate-400 transition">😀</button>
+        <input type="text" [(ngModel)]="newMessage" placeholder="Enter a message..." class="flex-1 px-4 py-2 mx-2 rounded-l-lg input-field border-none">
+        <!-- <label for="file-upload" class="custom-file-upload">
+          <mat-icon>add_a_photo</mat-icon>
+        </label>
+        <input id="file-upload" type="file" (change)="sendImage($event)"/> -->
+        <button (click)="sendMsg()" class="send-button mr-2">Send</button>
+      </div>
+      <div class="emoji-picker-container" *ngIf="showEmojiPicker">
+        <emoji-mart class="emoji-mart" [set]="set" (emojiSelect)="addEmoji($event)"></emoji-mart>
+      </div>
     </div>
   </div>
-  <!-- Chat window -->
-  <div class="h-full w-3/4 bg-white rounded-lg shadow-lg">
+  <!-- <div class="h-full w-2/3 bg-white rounded-lg shadow-lg">
     <div class="h-full bg-white rounded-lg shadow-lg">
       <div class="chat-window h-full flex flex-col">
         <div class="chat-header bg-gray-300 py-2 px-4 flex justify-between items-center">
@@ -30,15 +51,15 @@
                 'receiver-message': message.sender !== admin.id}" class="chat-message p-2 m-1 rounded-lg">{{
                   message.content }}</span>
                 <span class="timestamp">{{ message.timestamp | date: 'MMMM d, y, h:mm a'}}</span>
-
               </li>
             </ng-container>
           </ul>
         </div>
         <div class="chat-input flex items-center">
           <button (click)="toggleEmojiPicker()" class="emoji-button">😀</button>
-          <input type="text" [(ngModel)]="newMessage" placeholder="Enter a message..." class="flex-1 px-4 py-2 rounded-l-lg input-field">
-          
+          <input type="text" [(ngModel)]="newMessage" placeholder="Enter a message..."
+            class="flex-1 px-4 py-2 rounded-l-lg input-field">
+
           <button (click)="sendMsg()" class="send-button">Send</button>
         </div>
         <div class="emoji-picker-container" *ngIf="showEmojiPicker">
@@ -46,4 +67,18 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+    <!-- Chat list -->
+    <div class="h-full w-1/3 bg-red-400 rounded-lg shadow-lg overflow-y-auto">
+      <div class="p-4">
+        <h2 class="text-black font-extrabold text-center mb-4">Chat Rooms</h2>
+        <ul class="chat-list">
+          <li *ngFor="let chat of chatRoom" (click)="selectChatRoom(chat)" class="mb-2">
+            <button
+              class="w-full py-2 px-4 bg-white text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300">{{
+              chat.user.name}}</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+</div>

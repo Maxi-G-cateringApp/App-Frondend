@@ -19,7 +19,7 @@ import { UpdateUser } from '../../models/update-user.model';
 export class UserProfileComponent {
 
   user$: Subscription | undefined;
-  user!: AuthenticatedUser | null;
+  user!: any;
   email!: string | undefined;
   userId!: any;
   formField: boolean = false;
@@ -63,12 +63,8 @@ export class UserProfileComponent {
       this.userId = data;
     
     });
-    this.store.select(getUser).subscribe((data) => {
-      this.user = data;
-      console.log(this.user?.username);
+    this.getUserById();
       
-      
-    });
     this.loadProfilePicture();
     this.uploadProfilePic = this.fb.group({
       file: [null],
@@ -123,16 +119,11 @@ export class UserProfileComponent {
     };
   }
 
-  // updateUser(){
-  //   if(this.updateForm.valid){
-  //     const user: UpdateUser = {
-  //       id: this.user?.userId as string,
-  //       name: this.updateForm.value.username,
-  //       phoneNumber: this.updateForm.value.phonenumber,
-  //     }
-  //     console.log(typeof(this.userId));
-  //     this.store.dispatch(updateUser({ user }))
-  //   }
-  // }
+  getUserById() {
+    this.masterService.getUserById(this.userId).subscribe((response) => {
+      this.user = response;
+      console.log(this.user,'userrrrr');
+    });
+  }
 
 }

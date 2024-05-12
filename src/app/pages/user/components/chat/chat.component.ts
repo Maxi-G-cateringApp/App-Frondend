@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService } from '../../../../core/chatService/chat.service';
+import { ChatService } from '../../../../core/services/chat.service';
 import { AppState } from '../../../../shared/app.state';
 import { Store } from '@ngrx/store';
 import { getUser } from '../../../auth/state/auth.selector';
