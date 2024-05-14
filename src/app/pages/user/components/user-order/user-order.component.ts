@@ -103,6 +103,8 @@ export class UserOrderComponent implements OnInit {
     foodComboFormArray.clear();
     event.forEach((foodCombos: FoodCombo) => {
       foodComboFormArray.push(this.fb.control(foodCombos));
+      console.log(foodComboFormArray);
+      
     });
   }
 
@@ -111,6 +113,9 @@ export class UserOrderComponent implements OnInit {
     foodItemFormArray.clear();
     event.forEach((foodItems: FoodItems) => {
       foodItemFormArray.push(this.fb.control(foodItems));
+      
+      
+      
     });
   }
 
@@ -120,6 +125,8 @@ export class UserOrderComponent implements OnInit {
       .getAllCombosByCategory(category)
       .subscribe((response) => {
         this.comboItemList = response;
+        console.log(this.comboItemList);
+        
       });
     this.masterService.getAllItemByCategory(category).subscribe((response) => {
       this.itemList = response;

@@ -1,50 +1,38 @@
-<div class="flex justify-center items-center min-h-screen bg-red-950">
-  <div class="w-2/5 flex justify-center items-center h-auto">
+<div class="flex justify-center items-center min-h-screen bg-slate-950 body">
+  <div class="w-3/5 min-h-screen hidden md:block">
+
+  </div>
+  <div class="w-2/5 flex justify-center items-center h-screen">
     <form [formGroup]="registerForm" (ngSubmit)="onRegisteruser()">
       <mat-card>
-        <h1 class="text-black font-extrabold">Signup</h1>
+        <h1>Signup</h1>
         <mat-card-content>
 
           <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
 
-
-          <p>
             <mat-form-field>
               <mat-label>Username</mat-label>
               <input matInput formControlName="userName" style="border: none;">
-              <!-- <div *ngIf="registerForm.controls['userName'].invalid && (registerForm.controls['userName'].touched || registerForm.controls['userName'].dirty)"> -->
               <mat-error *ngIf="registerForm.controls['userName'].errors?.['required']">* Username Required</mat-error>
               <mat-error *ngIf="registerForm.controls['userName'].errors?.['whitespace']">*Enter valid username</mat-error>
-
-
-              <!-- </div> -->
             </mat-form-field>
-          </p>
-          <p>
+
             <mat-form-field>
               <mat-label>Email</mat-label>
               <input matInput formControlName="email" style="border: none;">
-              <!-- <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].touched || registerForm.controls['email'].dirty)"> -->
               <mat-error *ngIf="registerForm.controls['email'].errors?.['required']">* Email Required</mat-error>
               <mat-error *ngIf="registerForm.controls['email'].errors?.['email']">* Enter Proper Email</mat-error>
-              <!-- </div> -->
             </mat-form-field>
-          </p>
-          <p>
+
             <mat-form-field>
               <mat-label>Phonenumber</mat-label>
               <input matInput formControlName="phoneNumber" style="border: none;">
-            <!-- <div *ngIf="registerForm.controls['phoneNumber'].invalid && (registerForm.controls['phoneNumber'].touched || registerForm.controls['email'].dirty)"> -->
               <mat-error *ngIf="registerForm.controls['phoneNumber'].errors?.['required']">* Phonenumber Required</mat-error>
               <mat-error *ngIf="registerForm.controls['phoneNumber'].errors?.['pattern']">
                 Invalid phone number format.
               </mat-error>
-
-              <!-- </div> -->
-
             </mat-form-field>
-          </p>
-          <p>
+      
             <mat-form-field>
               <mat-label>Password</mat-label>
               <input matInput formControlName="password" type="password" style="border: none;">
@@ -52,17 +40,14 @@
              <mat-error *ngIf="registerForm.controls['password'].errors?.['whitespace']">*Enter valid password</mat-error>
 
             </mat-form-field>
-          </p>
-          <p>
+
             <mat-form-field *ngIf="!otpField">
               <mat-label>Confirm Password</mat-label>
               <input matInput formControlName="confirmPassword" type="password" style="border: none;">
               <small *ngIf="registerForm.get('confirmPassword')?.touched && !passwordMatch()" class="text-red-500">*
                 Password and confirm password should same</small>
             </mat-form-field>
-          </p>
-          <p>
-         
+     
           <div class="flex flex-col" *ngIf="otpField">
             <div class="relative">
               <input formControlName="otp"
@@ -74,10 +59,6 @@
           </div>
 
         </mat-card-content>
-
-          
-
-
         <mat-card-footer>
           <div class="flex flex-col justify-center items-center">
 
@@ -91,7 +72,7 @@
           </ng-template>
 
           <a  *ngIf="!otpField" [routerLink]="['/auth']"
-            class="inline-flex items-center font-bold text-blue-700 hover:text-red-950 text-xs text-center">
+            class="inline-flex items-center font-bold text-white hover:text-slate-400 text-xs text-center">
             <span class="ml-2">Already have an account?</span>
           </a>
 
@@ -102,8 +83,5 @@
     </form>
   </div>
 
-  <div class="w-3/5 min-h-screen hidden md:block">
-    <img [src]="imgPath">
-
-  </div>
+  
 </div>

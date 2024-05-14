@@ -66,9 +66,7 @@ export class AuthEffects {
             map((data) => {
               console.log(data, 'response data');
               const role = data.user.role;
-              // this.authService.saveUserRoleInLocalStorage(role);
               if (data.user.role === 'USER') {
-                this.tost.success(data.user.name, 'loggedIn');
                 this.router.navigateByUrl('user/home');
               } else {
                 this.router.navigateByUrl('admin');
@@ -91,7 +89,6 @@ export class AuthEffects {
               const role = data.user.role;
               this.authService.saveUserRoleInLocalStorage(role);
               if (data.user.role === 'USER') {
-                this.tost.success(data.user.userName, 'loggedIn');
                 this.router.navigateByUrl('user/home');
               } else {
                 this.router.navigateByUrl('admin');

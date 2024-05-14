@@ -21,6 +21,8 @@ import { AddFeedsComponent } from './components/add-feeds/add-feeds.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { ContentComponent } from './components/user-home/content/content.component';
+import { OfferComponent } from './components/offer/offer.component';
 
 
 
@@ -41,6 +43,8 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
     AddFeedsComponent,
     ChatComponent,
     ContactUsComponent,
+    ContentComponent,
+    OfferComponent,
     
 
  

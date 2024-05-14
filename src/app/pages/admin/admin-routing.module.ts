@@ -21,6 +21,8 @@ import { AdminLoginComponent } from "./components/admin-login/admin-login.compon
 import { UsersListComponent } from "./components/users-list/users-list.component";
 import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
 import { ChatListComponent } from "./components/chat-list/chat-list.component";
+import { OfferComponent } from "../user/components/offer/offer.component";
+import { OffersComponent } from "./components/offers/offers.component";
 
 
 
@@ -45,7 +47,8 @@ const routes: Routes = [
         {path: 'kitchenCrew-team',component: KitchenCrewTeamsComponent},
         {path: 'all-users',component:UsersListComponent},
         {path: 'employees',component:EmployeeListComponent},
-        {path: 'chat',component:ChatListComponent}
+        {path: 'chat',component:ChatListComponent},
+        {path: 'offer',component:OffersComponent}
       ],
     },
   ];

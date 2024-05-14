@@ -1,17 +1,12 @@
-<div class="flex justify-center items-center min-h-screen bg-red-300">
+<div class="flex justify-center items-center min-h-screen body bg-slate-950">
 
-  <div class="w-3/5 min-h-screen hidden md:block lg:block">
-    <img [src]="imgPath">
-  </div>
-
-  <div class=" w-2/5 h-full flex flex-col justify-center items-center">
+  <div class=" w-2/3 flex flex-col justify-center items-center">
     <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
 
     <form [formGroup]="loginForm" (ngSubmit)="onLoginUser()">
       <mat-card>
-        <h1 class="text-black font-extrabold">Login</h1>
+        <h1>Login</h1>
         <mat-card-content>
-          <p>
             <mat-form-field>
               <mat-label>Enter Your Email</mat-label>
               <input matInput formControlName="email" style="border: none;">
@@ -19,19 +14,17 @@
                 *Email Required</mat-error>
               <mat-icon matSuffix> email</mat-icon>
             </mat-form-field>
-          </p>
 
-          <p>
             <mat-form-field>
               <mat-label>Enter Your Password</mat-label>
               <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" style="border: none;">
-              <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <a mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </a>
               <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
                 * Password Required</mat-error>
             </mat-form-field>
-          </p>
 
         </mat-card-content>
 
@@ -39,16 +32,18 @@
 
           <div class="flex flex-col items-center justify-center">
             <button mat-raised-button type="submit">Login</button>
-            <a [routerLink]="['/auth/register']"
-              class="inline-flex items-center font-bold text-blue-700 hover:text-red-950 text-xs text-center pb-4">
-              <span class="ml-2">You don't have an account?</span>
-            </a>
             <div id="google-btn" class="text-center"></div>
+            <a [routerLink]="['/auth/register']"
+              class="inline-flex items-center font-bold text-white hover:text-slate-400 text-xs text-center pb-4">
+              <span class="m-3">You don't have an account?</span>
+            </a>
           </div>
-
         </mat-card-footer>
       </mat-card>
 
     </form>
+  </div>
+  <div class="w-3/5 min-h-screen hidden md:block lg:block">
+    <!-- <img [src]="imgPath"> -->
   </div>
 </div>

@@ -1,0 +1,32 @@
+<div>
+    <form [formGroup]="offerForm" (ngSubmit)="onCreateOffer()">
+        <div mat-dialog-content>
+    
+          <mat-form-field class="mat-50">
+            <mat-label>Select Combo</mat-label>
+            <mat-select formControlName="comboId">
+              <mat-option [value]="combo.id"
+                *ngFor="let combo of foodCombos ">{{combo.comboName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>offerName</mat-label>
+              <input formControlName="offerName" matInput>
+              <mat-error *ngIf="offerForm.controls['offerName'].errors?.['whitespace']">*Enter valid Name</mat-error>
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Discount</mat-label>
+              <input formControlName="discount" matInput type="number">
+              <mat-error *ngIf="offerForm.controls['discount'].errors?.['whitespace']">*Enter valid discount</mat-error>
+          </mat-form-field>
+      
+          
+      
+        </div>
+        <div mat-dialog-actions>
+          <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+          <button mat-raised-button color="primary" type="submit">save</button>  
+        </div>
+        </form>
+</div>

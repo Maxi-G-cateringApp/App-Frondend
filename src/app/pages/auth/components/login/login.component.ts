@@ -52,42 +52,16 @@ export class LoginComponent implements OnInit {
 
   handleLogin(response: any) {
     if (response) {
-      // this.masterService.googleLogin(response.credential).subscribe((data) => {
-      //   const user = data.user;
       const token = response.credential;
         this.store.dispatch(googleLogin({ token }));
-        // localStorage.setItem('user', JSON.stringify(user));
-        // this.router.navigate(['user/home']);
-      // });
     }
   }
 
   onLoginUser() {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    // this.store.dispatch(setLoadingSpinner({ status: true }));
     this.store.dispatch(loginStart({ email, password }));
   }
-
-  // this.getUrl()
-  // getUrl(){
-  //   this.masterService.getUrl().subscribe((data: any)=>{
-  //     this.url = data.url;
-  //     console.log(this.url);
-
-  //   })
-  // }
-  // onGoogleLogin(){
-  //   this.getUrl()
-  // }
-
-  // private decodeToken(token: string){
-  //   return JSON.parse(atob(token.split(".")[1]));
-
-  // }
-
-  // const user = this.decodeToken(response.credential)
-  //     localStorage.setItem('user',JSON.stringify(user))
 
 
 

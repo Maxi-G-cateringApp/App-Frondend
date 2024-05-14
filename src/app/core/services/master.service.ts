@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../pages/auth/models/user.model';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { LoginData } from '../../pages/auth/models/loginReq.model';
 import { AuthResponse } from '../../pages/auth/models/authResponse.model';
 import { VerificationResponse } from '../../pages/auth/models/verificationResponse.model';
@@ -21,6 +21,7 @@ import { UpdateUser } from '../../pages/user/models/update-user.model';
 import { Employee } from '../../pages/admin/models/employee.model';
 import { Feed } from '../../pages/admin/models/feed.model';
 import { Partner } from '../../pages/admin/models/partner.model';
+import { Offer } from '../../pages/admin/models/offer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -342,6 +343,21 @@ export class MasterService {
 
   deleteEmp(id: number): Observable<any>{
     return this.http.delete<any>(`/delete/emp?id=${id}`)
+  }
+
+
+  // offer
+  createOffer(offer: Offer):Observable<any>{
+    return this.http.post<any>('/admin/create-offer',offer)
+  }
+  getAllOffers():Observable<Offer[]>{
+    return this.http.get<Offer[]>('/admin/get-offers')
+  }
+  enableOffer(id:number):Observable<any>{
+    return this.http.post<any>(`/admin/enable-offer?id=${id}`,null)
+  }
+  disableeOffer(id:number):Observable<any>{
+    return this.http.post<any>(`/admin/disable-offer?id=${id}`,null)
   }
 }
 

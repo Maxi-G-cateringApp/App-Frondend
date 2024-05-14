@@ -39,6 +39,8 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ViewUserComponent } from './components/view-user/view-user.component';
 import { CreatePartnerComponent } from './components/create-partner/create-partner.component';
+import { OffersComponent } from './components/offers/offers.component';
+import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { CreatePartnerComponent } from './components/create-partner/create-partn
     ChatListComponent,
     ViewUserComponent,
     CreatePartnerComponent,
+    OffersComponent,
+    AddOfferComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule],
 })

@@ -1,44 +1,38 @@
- @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+img {
+  min-height: inherit;
+}
 
-/* *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}  */
-
-/* body{
-    background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-} */
-
- img{
-    min-height: inherit;
- }
-
- input.ng-invalid.ng-touched{
-    border: red 1px solid;
+input.ng-invalid.ng-touched {
+  border: red 1px solid;
 }
 mat-card {
-    background:rgb(241, 195, 30);
-    height: 25rem;
-    width: 25rem;
-    padding: 3rem;
+  margin: 2%;
+  padding: 15%;
+  height: 30rem;
+  width: 25rem;
+  background-color:#0f101c;
+  
 }
 button {
-    margin: 4%;
+  margin: 4%;
 }
-
-
-
-
-
-
-
-
- 
+button:hover{
+    background-color: #212231;
+    color: white;
+}
+.body {
+  background-image: url("/assets/bkg-img10.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+h1 {
+    margin: 6%;
+    text-align: center;;
+    font-family: 'Montez', cursive;
+    font-size: xx-large;
+    color: #fcda9a;
+}
+.mat-mdc-form-field{
+    background-color: transparent;
+}

@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Suranna&display=swap');
+p {
+    font-family: 'Montserrat-UltraLight';
+    font-weight: Normal;
+    font-style: normal;
+    color: #777;
+}
+   
+.centre-content {
+    border: 10px solid black;
+}
+
+h3 {
+    font-size: 36px;
+    font-family: Suranna;
+    font-weight: normal;
+    font-style: normal;
+    color: #161d27;
+    
+    
+}
+h3 span {
+    font-size: 20px;
+    font-family: 'Montez', cursive;
+    text-transform: none;
+    color: #b48c80;
+    
+}
+.body {
+    background-image: url('/assets/bkg-img1.jpeg');
+}

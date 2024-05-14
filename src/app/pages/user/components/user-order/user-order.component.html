@@ -106,14 +106,14 @@
                         <ng-container *ngFor="let foodCombo of foodComboFormArray?.controls; let i = index">
                             <mat-card class="selected-items">
                                 <label>Combo Name: {{ foodCombo?.value.comboName }}</label>
-                                <label>Combo Price: {{ foodCombo?.value.comboPrice }}</label>
+                                <label *ngIf="!foodCombo?.value.offer?.enabled">Combo Price: {{ foodCombo?.value.comboPrice }}</label>
+                                <label *ngIf="foodCombo?.value.offer?.enabled">Combo Price: <del>{{ foodCombo?.value.comboPrice }}</del></label>
+                                <label *ngIf="foodCombo?.value.offer?.enabled">Offer Price: {{ foodCombo?.value.offerPrice }}</label>
                                 <label>Description: {{ foodCombo?.value.description }}</label>
                             </mat-card>
                         </ng-container>
-
                     </mat-card-content>
                 </mat-card>
-                
             </div>
         </div>
     </form>

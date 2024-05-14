@@ -1,6 +1,5 @@
-<div class=" bg-slate-900 relative h-screen">
-  <div class="body flex justify-center absolute top-[5rem] w-full">
-
+<div class=" bg-slate-950 relative h-screen">
+  <div class="body flex justify-center absolute top-[5rem] w-full flex-col md:flex-row items-center md:items-start">
     <div class="h-auto w-1/2 post-container">
       <ng-container *ngIf="user?.partner === true">
         <form enctype="multipart/form-data" [formGroup]="feedForm" (ngSubmit)="addFeed()">
@@ -25,8 +24,8 @@
         </form>
       </ng-container>
     </div>
-    <div class="feeds-container w-1/2">
-      <div class=" rounded-lg shadow-md  py-1 px-2">
+    <div class="feeds-container w-1/2 h-screen m-3">
+      <div class="rounded-lg shadow-md  py-1 px-2">
         <ng-container *ngFor="let feed of feeds">
           <div class="feed-item border-b-2 border-gray-200 pb-4 mb-4">
             <div class="flex items-center space-x-3 p-4 outline rounded-md">
@@ -40,14 +39,15 @@
             <div class="px-4 py-3 outline">
               <p class="text-white">{{ feed.content }}</p>
             </div>
-            <div class="px-4 py-3 flex items-center justify-between">
+            <!-- <div class="px-4 py-3 flex items-center justify-between">
               <div class="flex space-x-1 ">
                 <button><mat-icon>favorite_border</mat-icon></button>
               </div>
-            </div>
+            </div> -->
           </div>
         </ng-container>
       </div>
     </div>
   </div>
 </div>
+<app-content></app-content>

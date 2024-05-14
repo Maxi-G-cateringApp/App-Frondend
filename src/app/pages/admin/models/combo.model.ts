@@ -4,8 +4,8 @@ export interface FoodCombo{
     comboName: string;
     description: string;
     comboPrice: number;
+    offerPrice?: number;
     categoryId: number;
-    // file: File;
   
 
 }

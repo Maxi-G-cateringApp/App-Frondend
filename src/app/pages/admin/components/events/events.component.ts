@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './events.component.css',
 })
 export class EventsComponent implements OnInit {
+  
   displayedColumns: string[] = ['eventName', 'action'];
   dataSource: any;
   events: Events[] = [];
