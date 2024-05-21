@@ -61,6 +61,7 @@ export class AddItemComponent implements OnInit, AfterViewInit {
         this.masterService
           .addFoodItem(this.addItemForm.value)
           .subscribe((response) => {
+            this.tost.success('Item Added','Successfully added food Item')
             this.closePopup();
           });
       } else {
@@ -84,7 +85,12 @@ export class AddItemComponent implements OnInit, AfterViewInit {
     this.masterService
       .editFoodItem(id, this.addItemForm.value)
       .subscribe((response) => {
+        if(response.status === true){
+        this.tost.success('Updated','Successfully update food Item')
         this.closePopup();
+        }else{
+          this.tost.error('Something Wrong','Invalid Data or data Already Exist')
+        }
       });
   }
 

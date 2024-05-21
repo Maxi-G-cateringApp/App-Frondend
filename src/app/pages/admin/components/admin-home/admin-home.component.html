@@ -1,2 +1,35 @@
-
-
+<div class="h-full w-full flex justify-center">
+    <div class="w-1/2 h-1/2 p-5">
+        <label for="timePeriod" class="m-2 text-lg font-semibold">Show Graph</label>
+        <select name="select" id="timePeriod" (change)="onShowGraph($event)"
+            class="mb-5 p-2 border border-gray-300 rounded">
+            <option disabled selected value="">Monthy Data</option>
+            <option [value]="period" *ngFor="let period of timePeriodList">{{ period}}</option>
+        </select>
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="w-1/2 h-1/2 p-5 mt-8">
+        <label class="m-2 text-lg font-semibold">Show Sales</label>
+        <canvas id="allTimeSalesChart"></canvas>
+       
+    </div>
+</div>
+<h3 class="font-bold outline">View Sales Report</h3>
+<div class="flex justify-evenly">
+    <div class="custom-select">
+        <label>Select Period</label>
+        <select name="select" id="timePeriod" (change)="onSubmitTimePeriod($event)" class="mb-5 p-2 border border-gray-300 rounded">
+            <option disabled selected>Select</option>
+            <option [value]="period" *ngFor="let period of timePeriodList">{{ period }}</option>
+        </select>
+    </div>
+    <div class="date-range-picker ">
+    <form [formGroup]="showReportForm" (ngSubmit)="onShowReport()">
+        <label for="start-date">Start Date</label>
+        <input type="date" formControlName="startDate">
+        <label for="end-date">End Date</label>
+        <input type="date" formControlName="endDate">
+        <button type="submit" mat-raised-button color="primary"> View Report</button>
+    </form>
+    </div>
+</div>

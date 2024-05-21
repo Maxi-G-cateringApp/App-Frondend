@@ -43,6 +43,18 @@ export class OffersComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Offer>(this.offers);
     });
   }
+  toggleOffer(element: Offer){
+    if(element.id !== undefined && element.enabled !== undefined){
+    if(element.enabled){
+      this.enableOffer(element.id)
+    }else{
+      this.disableOffer(element.id)
+    }
+  }else{
+    console.error("element undefined")
+  }
+
+  }
   enableOffer(id: number) {
     this.masterService.enableOffer(id).subscribe((data) => {
       this.getAllOffers();

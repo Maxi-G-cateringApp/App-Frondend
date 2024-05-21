@@ -1,4 +1,5 @@
-<mat-toolbar  class="mat-elevation-z8">
+
+<mat-toolbar class="mat-elevation-z8">
 	<button (click)="drawer.toggle()">
 		<mat-icon>menu</mat-icon>
 	</button>
@@ -6,68 +7,23 @@
 	<button mat-raised-button [routerLink]="['/admin/home']"> Home</button>
 	<button mat-raised-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
 </mat-toolbar>
+
 <mat-drawer-container autosize>
+
 	<mat-drawer #drawer opened="true" mode="side">
 		<mat-nav-list>
-
-			<mat-list-item>
-				<button  mat-button [routerLink]="['/admin/home']" ><mat-icon>dashboard</mat-icon> Dashboard</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/all_combos']">Food Combos</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/all-users']">Users</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/food-items']">Food Items</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/categories']">Food Categories</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/events']">Event</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/orders']">Orders</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/employees']">Employees</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/serve-team']">ServeTeam</button>
-			</mat-list-item>
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/offer']">Offers</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/decor-team']">DecorationTeam</button>
-			</mat-list-item>
-
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/kitchenCrew-team']">KitchenCrewTeam</button>
-			</mat-list-item>
-			<mat-list-item>
-				<button mat-button [routerLink]="['/admin/chat']">Chats</button>
-			</mat-list-item>
-			
-
-		</mat-nav-list>		
+			<a mat-list-item *ngFor="let item of menuItem()" [routerLink]="item.route" routerLinkActive
+				#rla="routerLinkActive" [activated]="rla.isActive" >
+				<mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+				<span matListItemTitle *ngIf="!sideNavCollapsed()">{{ item.label }}</span>
+			</a>
+		</mat-nav-list>
 	</mat-drawer>
+	
 	<mat-drawer-content>
 		<div style="text-align: center;min-height: 600px;">
-            <router-outlet></router-outlet>
-            </div>
+			<router-outlet></router-outlet>
+		</div>
 	</mat-drawer-content>
+
 </mat-drawer-container>
-
-

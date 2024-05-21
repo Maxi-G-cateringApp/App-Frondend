@@ -1,9 +1,7 @@
 
 
 <form [formGroup]="addCategoryForm" enctype="multipart/form-data" (ngSubmit)="onaddCategory()">
-  <h1 mat-dialog-title>Add Category</h1>
-  
-
+  <h1 mat-dialog-title>{{ inputData.title }}</h1>
     <div mat-dialog-content>
 
       <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>

@@ -26,7 +26,6 @@ import { KitchenCrewTeamsComponent } from './components/team/kitchen-crew-teams/
 import { AddKitchenCrewTeamComponent } from './components/team/kitchen-crew-teams/add-kitchen-crew-team/add-kitchen-crew-team.component';
 import { AddKitchenCrewEmployeesComponent } from './components/team/kitchen-crew-teams/add-kitchen-crew-employees/add-kitchen-crew-employees.component';
 import { OrderProcessingComponent } from './components/order-processing/order-processing.component';
-import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AddComboPicComponent } from './components/add-food-combo/add-combo-pic/add-combo-pic.component';
 import { LocationDisplayComponent } from './components/order-details/location-display/location-display.component';
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -41,6 +40,7 @@ import { ViewUserComponent } from './components/view-user/view-user.component';
 import { CreatePartnerComponent } from './components/create-partner/create-partner.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
+import { ShowSalesReportComponent } from './components/show-sales-report/show-sales-report.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,6 @@ import { AddOfferComponent } from './components/offers/add-offer/add-offer.compo
     AddKitchenCrewTeamComponent,
     AddKitchenCrewEmployeesComponent,
     OrderProcessingComponent,
-    AdminLoginComponent,
     AddComboPicComponent,
     LocationDisplayComponent,
     PlaceAutoCompleteComponent,
@@ -80,6 +79,7 @@ import { AddOfferComponent } from './components/offers/add-offer/add-offer.compo
     CreatePartnerComponent,
     OffersComponent,
     AddOfferComponent,
+    ShowSalesReportComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule],
 })

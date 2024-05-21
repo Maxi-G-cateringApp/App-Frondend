@@ -1,0 +1,73 @@
+.date-range-picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.date-range-picker input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.date-range-picker input[type="date"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.date-range-picker label {
+    font-size: 16px;
+    color: #333;
+    margin: 0 5px;
+}
+
+.custom-select {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.custom-select select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.custom-select select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    outline: none;
+}
+
+.custom-select::after {
+    content: '\25BC'; /* Down arrow */
+    position: absolute;
+    top: 22%;
+    right: 40px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 16px;
+    color: #333;
+}
+button {
+    margin: 1%;
+}

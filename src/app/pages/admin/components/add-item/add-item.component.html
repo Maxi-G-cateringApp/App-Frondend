@@ -23,9 +23,6 @@
           <input formControlName="itemPrice" matInput type="number">
           <mat-error *ngIf="addItemForm.controls['itemPrice'].errors?.['whitespace']">*Enter valid Price</mat-error>
       </mat-form-field>
-  
-      
-  
     </div>
     <div mat-dialog-actions>
       <a (click)="closePopup()" mat-raised-button color="warn">Close</a>

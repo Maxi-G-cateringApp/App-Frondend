@@ -25,7 +25,13 @@ export class EventsComponent implements OnInit {
     this.loadEvents();
   }
 
-  addEvent() {this.openPopup();}
+  addEvent() {
+    this.openPopup(0,'Add Event');
+  }
+
+  editEvent(id: number){
+    this.openPopup(id,'Edit Event',true)
+  }
 
   deleteEvent(id: number) {
     if(id != null){
@@ -37,9 +43,14 @@ export class EventsComponent implements OnInit {
     }
   }
 
-  openPopup() {
+  openPopup(id:number,title: string,isEdit: boolean= false) {
     var _popup = this.dialog.open(AddEventComponent, {
       width: '40%',
+      data: {
+        id: id,
+        title: title,
+        isEdit: isEdit
+      }
     });
     _popup.afterClosed().subscribe((data) => {
       this.loadEvents();

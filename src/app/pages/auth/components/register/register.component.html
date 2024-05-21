@@ -47,16 +47,13 @@
               <small *ngIf="registerForm.get('confirmPassword')?.touched && !passwordMatch()" class="text-red-500">*
                 Password and confirm password should same</small>
             </mat-form-field>
-     
-          <div class="flex flex-col" *ngIf="otpField">
-            <div class="relative">
-              <input formControlName="otp"
-                class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
-                placeholder="Enter Otp" />
-            </div>
-            <small *ngIf="!registerForm.get('otp')?.value && registerForm.get('otp')?.touched" class="text-red-500">
-              *otp Required</small>
-          </div>
+
+            <mat-form-field *ngIf="otpField">
+              <mat-label>Otp</mat-label>
+              <input matInput formControlName="otp" style="border: none;">
+              <small *ngIf="!registerForm.get('otp')?.value && registerForm.get('otp')?.touched" class="text-red-500">
+                *otp Required</small>
+            </mat-form-field>
 
         </mat-card-content>
         <mat-card-footer>

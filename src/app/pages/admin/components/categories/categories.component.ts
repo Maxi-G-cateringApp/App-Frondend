@@ -34,17 +34,28 @@ export class CategoriesComponent implements OnInit {
 
 
   addCategory() {
-    this.openPopup();
+    this.openPopup(0,'Add Category');
+  }
+  onEdit(id:number){
+    console.log(id);
+    
+    this.openPopup(id,'Edit Category',true)
   }
   
-  openPopup() {
+  openPopup(id:number,title: string,isEdit: boolean = false) {
     var _popup = this.dialog.open(AddCategoriesComponent, {
       width: '40%',
+      data: {
+        id:id,
+        title: title,
+        isEdit: isEdit,
+      }
     });
     _popup.afterClosed().subscribe((data) => {
       this.loadCategories();
     });
   }
+  
 
   deleteCategories(id: number) {
     if (id != null) {

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserMenubarComponent } from './user-menubar.component';
+import { ShowSalesReportComponent } from './show-sales-report.component';
 
-describe('UserMenubarComponent', () => {
-  let component: UserMenubarComponent;
-  let fixture: ComponentFixture<UserMenubarComponent>;
+describe('ShowSalesReportComponent', () => {
+  let component: ShowSalesReportComponent;
+  let fixture: ComponentFixture<ShowSalesReportComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserMenubarComponent]
+      declarations: [ShowSalesReportComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UserMenubarComponent);
+    fixture = TestBed.createComponent(ShowSalesReportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

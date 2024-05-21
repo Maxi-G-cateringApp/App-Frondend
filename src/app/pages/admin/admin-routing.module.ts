@@ -11,17 +11,12 @@ import { EventsComponent } from "./components/events/events.component";
 import { AddEventComponent } from "./components/add-event/add-event.component";
 import { OrderComponent } from "./components/order/order.component";
 import { OrderDetailsComponent } from "./components/order-details/order-details.component";
-import { AddServingTeamComponent } from "./components/team/serving-teams/add-serving-team/add-serving-team.component";
 import { ServingTeamsComponent } from "./components/team/serving-teams/serving-teams.component";
-import { AddServingEmployeesComponent } from "./components/team/serving-teams/add-serving-employees/add-serving-employees.component";
 import { DecorationTeamsComponent } from "./components/team/decoration-teams/decoration-teams.component";
 import { KitchenCrewTeamsComponent } from "./components/team/kitchen-crew-teams/kitchen-crew-teams.component";
-import { RoleGuard } from "../../guards/guard";
-import { AdminLoginComponent } from "./components/admin-login/admin-login.component";
 import { UsersListComponent } from "./components/users-list/users-list.component";
 import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
 import { ChatListComponent } from "./components/chat-list/chat-list.component";
-import { OfferComponent } from "../user/components/offer/offer.component";
 import { OffersComponent } from "./components/offers/offers.component";
 
 
@@ -30,7 +25,6 @@ const routes: Routes = [
     {
       path: '',
       children: [
-        {path: 'login',component:AdminLoginComponent},
         {path: 'home', component:AdminHomeComponent},
         {path: 'all_combos', component: ComboItemsComponent},
         {path: 'add_combo', component: AddFoodComboComponent },

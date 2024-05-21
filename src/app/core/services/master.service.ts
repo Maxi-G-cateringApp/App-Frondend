@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../pages/auth/models/user.model';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { LoginData } from '../../pages/auth/models/loginReq.model';
 import { AuthResponse } from '../../pages/auth/models/authResponse.model';
 import { VerificationResponse } from '../../pages/auth/models/verificationResponse.model';
@@ -22,6 +22,7 @@ import { Employee } from '../../pages/admin/models/employee.model';
 import { Feed } from '../../pages/admin/models/feed.model';
 import { Partner } from '../../pages/admin/models/partner.model';
 import { Offer } from '../../pages/admin/models/offer.model';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root',
@@ -123,8 +124,19 @@ export class MasterService {
   getAllcategories(): Observable<any> {
     return this.http.get('/all-categories');
   }
+
+  getCategoryById(id: number):Observable<Categories>{
+    return this.http.get<Categories>(`/get/category?id=${id}`)
+  }
+  editCategory(id: number, category: Categories): Observable<any> {
+    return this.http.put<any>(`/edit/category?id=${id}`, category);
+  }
   getAllEvents(): Observable<Events[]> {
     return this.http.get<Events[]>('/events');
+  }
+
+  editEvent(id: number, event: Events): Observable<any> {
+    return this.http.put<any>(`/edit/event?id=${id}`, event);
   }
 
   getUserImage(userId: string): Observable<Blob> {
@@ -145,6 +157,9 @@ export class MasterService {
 
   addEvent(event: Events): Observable<any> {
     return this.http.post<any>('/add-event', event);
+  }
+  getEventById(id: number):Observable<Events>{
+    return this.http.get<Events>(`/get/event?id=${id}`)
   }
 
   saveOrder(orderData: OrderDetails): Observable<any> {
@@ -359,6 +374,45 @@ export class MasterService {
   disableeOffer(id:number):Observable<any>{
     return this.http.post<any>(`/admin/disable-offer?id=${id}`,null)
   }
+
+
+  //sales
+
+  getOneMonthSales(){
+    return this.http.get('/sales/one-month')
+  }
+
+  showGraph(timePeriod: string){
+    return this.http.get(`/show/graph?timePeriod=${timePeriod}`)
+  }
+  showAllTimeGraph(){
+    return this.http.get('/show/total-sale/graph')
+  }
+  getSalesReport(timePeriod: string){
+    return this.http.get(`/sales-report/timePeriod?timePeriod=${timePeriod}`)
+  }
+  getSalesReportByDates(dates: any):Observable<any>{
+    return this.http.post<any>('/sales-report/date',dates)
+  }
+  downloadPDF(timePeriod: string){
+    const params = { timePeriod };
+    const headers = new HttpHeaders({ 'Accept': 'application/pdf' });
+    return this.http.get('/sales-report/download',{headers,params,responseType:'blob'}).pipe(
+      map((response:Blob)=>{const fileName = 'sales-report.pdf';
+        saveAs(response,fileName);
+      })
+    )
+  }
+  downloadPDFBydates(dates: any){
+    const headers = new HttpHeaders({ 'Accept': 'application/pdf' });
+    return this.http.post('/sales-report/dates/download',dates ,{headers,responseType:'blob'}).pipe(
+      map((response:Blob)=>{const fileName = 'sales-report.pdf';
+        saveAs(response,fileName);
+      })
+    )
+  }
 }
+
+
 
 

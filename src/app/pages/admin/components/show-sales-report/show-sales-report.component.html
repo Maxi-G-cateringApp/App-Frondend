@@ -1,0 +1,67 @@
+<div class="h-full w-full">
+    <div class="relative overflow-x-auto m-3">
+        <h1 class="text-black text-center font-extrabold uppercase outline">Sales Report</h1>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Sl No</th>
+                    <th scope="col" class="px-6 py-3">
+                        Event Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        User
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Order Status
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        People Count
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Price
+                    </th>
+                </tr>
+            </thead>
+            <ng-container *ngFor="let data of saleReportData; let i = index">
+                <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ i + 1 }}
+                        </th>
+                        <th scope="row" class="px-6 py-4">
+                            {{ data.events.eventName }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ data.user.name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ data.date }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ data.status }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ data.peopleCount }}
+                        </td>
+                        <td class="px-6 py-4">
+                            ₹ {{ data.totalAmount }}
+                        </td>
+                    </tr>
+                </tbody>
+            </ng-container>
+        </table>
+    </div>
+    <div class="w-full mt-1 p-4 bg-gray-700 shadow-lg">
+        <p class="text-lg font-semibold text-gray-300">Total Sales For Selected Period: <span class="text-xl text-white">₹ {{ totalSales }}</span></p>
+        <p class="text-lg font-semibold text-gray-300">Total Order Count For Selected Period: <span class="text-xl text-white">{{ orderCount }}</span></p>
+
+    </div>
+    <div class="mt-4">
+        <button (click)="closePopup()" mat-raised-button color="warn">Close</button>
+        <button *ngIf="timePeriod" (click)="downloadPdf()" mat-raised-button color="primary">Download</button>
+        <button *ngIf="dates" (click)="downloadPdfBydates()" mat-raised-button color="primary">Download</button>
+    </div>
+</div>

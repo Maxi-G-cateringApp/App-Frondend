@@ -77,7 +77,7 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
           .addFoodCombo(comboData, this.selectedFile)
           .subscribe((response) => {
             if (response.status == true) {
-              this.tost.success('FoodCombo Added', 'Success');
+              this.tost.success('FoodCombo Added', 'Successfully added food combo');
               this.closePopup();
             } else {
               this.tost.error(
@@ -98,17 +98,21 @@ export class AddFoodComboComponent implements OnInit, AfterViewInit {
     });
   }
   onEdit(id: number) {
-    // if (this.foodComboForm.valid) {
     const formData = { ...this.foodComboForm.value };
     delete formData.file;
     this.masterService.editFoodCombo(id, formData).subscribe({
       next: (respose) => {
-        this.closePopup();
+        console.log(respose);
+        
+        if(respose.status === true){
+          this.tost.success('updated','Successfully update food Combo')
+          this.closePopup();
+        }else{
+          this.tost.error('Enter valid Data or Data already Exist', 'Something Wrong');
+        }
       },
     });
-    // } else {
-    //   this.tost.error('Enter valid Data', 'Invalid');
-    // }
+   
   }
 
   setPopupdata(id: number) {
