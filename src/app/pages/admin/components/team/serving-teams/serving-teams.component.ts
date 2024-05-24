@@ -7,6 +7,7 @@ import { AddServingEmployeesComponent } from './add-serving-employees/add-servin
 import { ServingEmpl } from '../teamModels/servingEmpl.model';
 import TeamModel from '../teamModels/team.model';
 import Swal from 'sweetalert2';
+import { MembersComponent } from './members/members.component';
 
 @Component({
   selector: 'app-serving-teams',
@@ -74,6 +75,57 @@ export class ServingTeamsComponent implements OnInit {
       this.dataSourceSE = new MatTableDataSource<ServingEmpl>(this.servingEmp);
     });
   }
+
+  viewMembers(id: number){
+    this.openViewMemberPopup(id);
+  }
+
+
+  openViewMemberPopup(id: number){
+    this.dialog.open(MembersComponent,{
+      width: '40%',
+      position:{
+        top:'10%',
+        left:'60%'
+      },
+      data:{
+        id: id,
+      }
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   deleteServingTeam(id: number) {
     Swal.fire({

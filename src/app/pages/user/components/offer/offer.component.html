@@ -1,5 +1,22 @@
-<div class="h-1/4 bg-slate-950">
-    <div>
-        
+<div *ngIf="offers.length > 0" class="h-1/4 text-white p-6 offer-container">
+    <h1>Available Offers</h1>
+    <div class="flex flex-col justify-center space-y-4">
+        <ng-container *ngFor="let offer of offers">
+            <div class="p-4 bg-slate-950 hover:bg-slate-900 rounded-lg shadow-md">
+                <h2>{{ offer.foodItemCombo?.comboName }}</h2>
+                <h3 class="text-xl font-bold text-yellow-400">{{ offer.offerName }}</h3>
+                <div class="text-lg">
+                    <h2>{{ offer.discount }}% Offer</h2>
+                    <span class="text-xl font-bold">Offer price / Combo</span>
+                    <span class="line-through text-red-500"> ₹ {{ offer.foodItemCombo?.comboPrice }}</span>
+                    <span class="ml-2"> ₹ {{ offer.foodItemCombo?.offerPrice }}</span>
+                </div>
+               
+                <div class="flex justify-end">
+                    <button [routerLink]="['/user/user-order']"
+				class="text-orange-300 font-semibold hover:text-white">order Now</button>
+                </div>
+            </div>
+        </ng-container>
     </div>
 </div>

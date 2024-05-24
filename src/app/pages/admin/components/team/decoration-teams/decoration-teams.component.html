@@ -1,9 +1,9 @@
-<div class="flex justify-around m-2">
-    <div class="w-1/2">
+<div class="flex justify-start m-2 ml-12">
+  <div class="w-2/3">
       <mat-card> 
         <mat-card-content>
           <mat-card-header>
-            <button mat-raised-button color="primary" (click)="addDecorTeam()">AddTeam</button>
+            <!-- <button mat-raised-button color="primary" (click)="addDecorTeam()">AddTeam</button> -->
     
           </mat-card-header>
     
@@ -21,8 +21,8 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef> Action</th>
               <td mat-cell *matCellDef="let element">
-      
-                <button (click)="deleteTeam(element.id)" mat-raised-button color="warn">Delete</button>              </td>
+                <button (click)="viewMembers(element.id)" mat-raised-button color="primary">view</button>              
+              </td>
             </ng-container>
      
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -33,7 +33,11 @@
       </mat-card>
     </div>
   
-    <div class="w-1/2">
+    <div class="w-1/3">
+      <button class="m-5 py-3 px-3 rounded-lg bg-slate-950 text-white" (click)="addDecorTeam()"> AddTeam</button>
+      <button class="m-5 py-3 px-3 rounded-lg bg-slate-950 text-white" (click)="addDecorEmployees()"> AddEmployee</button>
+     
+    <!-- <div class="w-1/2">
       <mat-card> 
         <mat-card-content>
           <mat-card-header>
@@ -59,5 +63,6 @@
         </mat-card-content>
       </mat-card>
   
+    </div> -->
     </div>
   </div>

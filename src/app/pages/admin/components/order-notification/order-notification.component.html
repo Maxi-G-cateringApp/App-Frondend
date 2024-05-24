@@ -1,0 +1,26 @@
+<div class="flex justify-center items-center">
+    <div class="w-full max-w-lg">
+        <div class="flex justify-end">
+            <button class="m-2" (click)="closePopup()"><mat-icon>clear</mat-icon></button>
+        </div>
+        <div class="flex flex-col">
+            <div class="mr-5 ml-5 text-left">
+                <h3>Notifications</h3>
+            </div>
+            <ng-container *ngFor="let notification of notifications">
+                <ul class="p-2 m-1 flex justify-center">
+                    <li class="text-slate-950 font-sans shadow-lg p-3 flex items-center w-full">
+                        {{ notification.message }}
+                        <div class="flex">
+                            <button *ngIf="notification.open === false" (click)="viewOrder(notification.id)"
+                                class="py-1 px-3 text-white font-bold m-3 bg-slate-900 rounded-xl">View</button>
+                            <button class="ml-2" (click)="deleteNotification(notification.id)">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </ng-container>
+        </div>
+    </div>
+</div>

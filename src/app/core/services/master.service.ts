@@ -23,6 +23,7 @@ import { Feed } from '../../pages/admin/models/feed.model';
 import { Partner } from '../../pages/admin/models/partner.model';
 import { Offer } from '../../pages/admin/models/offer.model';
 import { saveAs } from 'file-saver';
+import { Notifications } from '../../pages/admin/models/notification.model';
 
 @Injectable({
   providedIn: 'root',
@@ -111,6 +112,9 @@ export class MasterService {
 
   getAllCombos(): Observable<FoodCombo[]> {
     return this.http.get<FoodCombo[]>('/admin/all-combos');
+  }
+  getAllCombosWithoutOffer(): Observable<FoodCombo[]> {
+    return this.http.get<FoodCombo[]>('/admin/combos/no-offer');
   }
 
   getAllCombosByCategory(id: number): Observable<FoodCombo[]> {
@@ -228,7 +232,16 @@ export class MasterService {
     return this.http.delete<any>(`/delete-serve_team?id=${id}`)
   }
 
-  // Decoration Team
+  getServTeamMembersByTeamId(id: number):Observable<any[]>{
+    return this.http.get<any[]>(`/get/team-members?id=${id}`)
+
+  }
+
+  inactiveMemberFromTeam(empId: number):Observable<any>{
+    return this.http.put<any>(`/inactive/member/${empId}`,null)
+  }
+
+  // Decoration Team  ${this.baseUrl}/${servingTeamId}/employees/${servingEmpId}`
 
   getAllDecorationTeams(): Observable<any> {
     return this.http.get<any>('/decor_teams');
@@ -247,6 +260,9 @@ export class MasterService {
 
   deleteDecorationTeam(id: number):Observable<any>{
     return this.http.delete<any>(`/delete-dec_team?id=${id}`)
+  }
+  getDecorationMembersByTeamId(id: number):Observable<DecorImpl[]>{
+    return this.http.get<DecorImpl[]>(`/get/dec-emp?id=${id}`)
   }
 
   // kitchenCrew Team
@@ -269,6 +285,10 @@ export class MasterService {
     return this.http.delete<any>(`/delete-kitchen_crew?id=${id}`)
   }
 
+  getKitchenMembersByTeamId(id: number):Observable<any[]>{
+    return this.http.get<any[]>(`/get/kitchen-team-members?id=${id}`)
+
+  }
   
 
   cancelOrder(orderId: string): Observable<any> {
@@ -324,6 +344,13 @@ export class MasterService {
   getAllEmployees():Observable<Employee[]>{
     return this.http.get<Employee[]>('/all-employees');
   }
+  inactivateEmp(id: number): Observable<any>{
+    return this.http.put<any>(`/inactive/emp?id=${id}`,null)
+  }
+  activateEmp(id: number): Observable<any>{
+    return this.http.put<any>(`/active/emp?id=${id}`,null)
+  }
+
 
   getEmployeesWithoutTeam():Observable<Employee[]>{
     return this.http.get<Employee[]>('/employees/without-team');
@@ -363,19 +390,28 @@ export class MasterService {
 
   // offer
   createOffer(offer: Offer):Observable<any>{
-    return this.http.post<any>('/admin/create-offer',offer)
+    return this.http.post<any>('/create-offer',offer)
   }
   getAllOffers():Observable<Offer[]>{
-    return this.http.get<Offer[]>('/admin/get-offers')
+    return this.http.get<Offer[]>('/get-offers')
   }
   enableOffer(id:number):Observable<any>{
-    return this.http.post<any>(`/admin/enable-offer?id=${id}`,null)
+    return this.http.post<any>(`/enable-offer?id=${id}`,null)
   }
   disableeOffer(id:number):Observable<any>{
-    return this.http.post<any>(`/admin/disable-offer?id=${id}`,null)
+    return this.http.post<any>(`/disable-offer?id=${id}`,null)
+  }
+  getOfferById(id: number):Observable<Offer>{
+    return this.http.get<Offer>(`/get/offer?id=${id}`)
+  }
+  editOffer(id: number,offerData: Offer):Observable<any>{
+    return this.http.put<any>(`/edit/offer?id=${id}`,offerData)
   }
 
-
+  getAllEnabledOffers():Observable<Offer[]>{
+    return this.http.get<Offer[]>('/get/enabled/offers')
+  }
+  
   //sales
 
   getOneMonthSales(){
@@ -410,6 +446,20 @@ export class MasterService {
         saveAs(response,fileName);
       })
     )
+  }
+
+
+  //notifications
+  getAllNotifications():Observable<Notifications[]>{
+    return this.http.get<Notifications[]>('/get/notifications')
+  }
+
+  deleteNotification(id: number){
+    return this.http.delete(`/delete/notification?id=${id}`)
+  }
+
+  viewNotification(id: number):Observable<any>{
+    return this.http.post(`/view/notification?id=${id}`,null)
   }
 }
 

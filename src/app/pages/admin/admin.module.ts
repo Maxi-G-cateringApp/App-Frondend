@@ -41,6 +41,12 @@ import { CreatePartnerComponent } from './components/create-partner/create-partn
 import { OffersComponent } from './components/offers/offers.component';
 import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
 import { ShowSalesReportComponent } from './components/show-sales-report/show-sales-report.component';
+import { OrderNotificationComponent } from './components/order-notification/order-notification.component';
+import { PrimeNgModules } from '../../shared/prime-ng/prime-ng.module';
+import { PrimeNGConfig } from 'primeng/api';
+import { MembersComponent } from './components/team/serving-teams/members/members.component';
+import { KitchenCrewMembersComponent } from './components/team/kitchen-crew-teams/kitchen-crew-members/kitchen-crew-members.component';
+import { DecorationMembersComponent } from './components/team/decoration-teams/decoration-members/decoration-members.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +86,11 @@ import { ShowSalesReportComponent } from './components/show-sales-report/show-sa
     OffersComponent,
     AddOfferComponent,
     ShowSalesReportComponent,
+    OrderNotificationComponent,
+    MembersComponent,
+    KitchenCrewMembersComponent,
+    DecorationMembersComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule,PrimeNgModules],
 })
 export class AdminModule {}

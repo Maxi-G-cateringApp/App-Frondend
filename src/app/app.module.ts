@@ -27,6 +27,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ToastrModule.forRoot(),
     MaterialModule,
     GoogleMapsModule,
-    [SweetAlert2Module.forRoot()]
+    [SweetAlert2Module.forRoot()],
   ],
   exports:[NavbarComponent,FooterComponent],
   providers: [

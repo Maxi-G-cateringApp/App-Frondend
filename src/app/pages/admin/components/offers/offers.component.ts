@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class OffersComponent implements OnInit {
   offers!: Offer[];
-  displayedColumns: string[] = ['offerName', 'discount', 'action'];
+  displayedColumns: string[] = ['offerName', 'discount','comboName', 'action'];
   dataSource: any;
 
   constructor(
@@ -25,21 +25,31 @@ export class OffersComponent implements OnInit {
   }
 
   addOffer() {
-    this.openPopup();
+    this.openPopup(0,'Add Offer');
   }
 
-  openPopup() {
+  openPopup(id:number,title: string, isEdit:boolean=false) {
     var _popup = this.dialog.open(AddOfferComponent, {
       width: '40%',
+      data: {
+        id: id,
+        title: title,
+        isEdit: isEdit
+      }
     });
     _popup.afterClosed().subscribe((data) => {
       this.getAllOffers();
     });
   }
+  editOffer(id: number){
+    this.openPopup(id,'Edit Offer',true);
+  }
 
   getAllOffers() {
     this.masterService.getAllOffers().subscribe((data) => {
       this.offers = data;
+      console.log(this.offers);
+      
       this.dataSource = new MatTableDataSource<Offer>(this.offers);
     });
   }

@@ -1,11 +1,8 @@
 <mat-card> 
     <mat-card-content>
       <mat-card-header>
-
-        <button (click)="addEmpl()" mat-raised-button color="primary">Add Food Item</button>
-
+        <button (click)="addEmpl()" mat-raised-button color="primary">Add Employee</button>
       </mat-card-header>
-
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="emp_name">
@@ -17,13 +14,20 @@
           <th mat-header-cell *matHeaderCellDef>Price</th>
           <td mat-cell *matCellDef="let element">{{ element.expertise }}</td>
         </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Emp Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef>Emp Phone</th>
+          <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
+        </ng-container>
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action</th>
           <td mat-cell *matCellDef="let element">
-  
-              <!-- <button (click)="editItem(element.id)" mat-raised-button color="primary">Edit</button> --->
-              <button (click)="removeEmp(element.id)" mat-raised-button color="warn">Delete</button>
+                <button *ngIf="element.active === true " (click)="inactiveEmp(element.id)" mat-raised-button color="warn">inactive</button>
+              <button  *ngIf="element.active === false "(click)="activeEmp(element.id)" mat-raised-button color="primary">Active</button>
           </td>
         </ng-container>
 

@@ -5,6 +5,8 @@
 	</button>
 	<span class="example-spacer">Maxi- G Admin</span>
 	<button mat-raised-button [routerLink]="['/admin/home']"> Home</button>
+	<!-- <app-order-notification></app-order-notification> -->
+	<button (click)="openNotification()"><mat-icon>notification_important</mat-icon></button>
 	<button mat-raised-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
 </mat-toolbar>
 

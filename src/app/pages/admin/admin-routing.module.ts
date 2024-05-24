@@ -18,6 +18,7 @@ import { UsersListComponent } from "./components/users-list/users-list.component
 import { EmployeeListComponent } from "./components/employee-list/employee-list.component";
 import { ChatListComponent } from "./components/chat-list/chat-list.component";
 import { OffersComponent } from "./components/offers/offers.component";
+import { OrderNotificationComponent } from "./components/order-notification/order-notification.component";
 
 
 
@@ -42,7 +43,8 @@ const routes: Routes = [
         {path: 'all-users',component:UsersListComponent},
         {path: 'employees',component:EmployeeListComponent},
         {path: 'chat',component:ChatListComponent},
-        {path: 'offer',component:OffersComponent}
+        {path: 'offer',component:OffersComponent},
+        {path: 'notifications',component:OrderNotificationComponent}
       ],
     },
   ];

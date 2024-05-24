@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AuthState } from '../../../auth/state/auth.state';
 import { logout } from '../../../auth/state/auth.action';
 import { isAuthenticated } from '../../../auth/state/auth.selector';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderNotificationComponent } from '../order-notification/order-notification.component';
 
 export type MenuItem = {
   icon: string;
@@ -16,8 +18,9 @@ export type MenuItem = {
   styleUrl: './admin-menubar.component.css',
 })
 export class AdminMenubarComponent implements OnInit {
+[x: string]: any;
   isAuthenticated: Observable<boolean> | undefined;
-  constructor(private store: Store<AuthState>) {}
+  constructor(private store: Store<AuthState>,private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.isAuthenticated = this.store.select(isAuthenticated);
@@ -75,5 +78,16 @@ export class AdminMenubarComponent implements OnInit {
   onLogout(event: Event) {
     event.preventDefault();
     this.store.dispatch(logout());
+  }
+
+  openNotification(){
+    this.dialog.open(OrderNotificationComponent,{
+      width:'30%',
+      height:'70%',
+      position: {
+        top: '8%',
+        right:'1%'
+      }
+    })
   }
 }

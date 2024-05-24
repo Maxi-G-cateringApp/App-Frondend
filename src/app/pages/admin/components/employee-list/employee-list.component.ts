@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
-  displayedColumns: string[] = ['emp_name', 'expertise', 'action'];
+  displayedColumns: string[] = ['emp_name', 'expertise','email','phoneNumber','action'];
   dataSource: any;
   itemId!: number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,12 +44,39 @@ export class EmployeeListComponent implements OnInit {
   getAllEmployees() {
     this.masterService.getAllEmployees().subscribe((data) => {
       this.employeeList = data;
+      console.log(this.employeeList);
+      
       this.dataSource = new MatTableDataSource<Employee>(this.employeeList);
       this.dataSource.paginator = this.paginator
     });
       
     
   }
+
+  inactiveEmp(id: number){
+    this.masterService.inactivateEmp(id).subscribe((res)=>{
+      console.log(res);
+      
+      this.getAllEmployees();
+    })
+  }
+
+  activeEmp(id: number){
+    this.masterService.activateEmp(id).subscribe((res)=>{
+      console.log(res);
+      this.getAllEmployees();
+    })
+  }
+
+
+
+
+
+
+
+
+
+
 
   removeEmp(id: number){
     Swal.fire({

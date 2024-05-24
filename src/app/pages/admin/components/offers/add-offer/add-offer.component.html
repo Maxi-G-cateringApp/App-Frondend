@@ -1,8 +1,8 @@
-<div>
+<div class="flex flex-col justify-center items-center">
     <form [formGroup]="offerForm" (ngSubmit)="onCreateOffer()">
         <div mat-dialog-content>
     
-          <mat-form-field class="mat-50">
+          <mat-form-field *ngIf="!inputData.isEdit">
             <mat-label>Select Combo</mat-label>
             <mat-select formControlName="comboId">
               <mat-option [value]="combo.id"

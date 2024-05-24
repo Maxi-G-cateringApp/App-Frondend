@@ -7,6 +7,7 @@ import { AddKitchenCrewEmployeesComponent } from './add-kitchen-crew-employees/a
 import { AddKitchenCrewTeamComponent } from './add-kitchen-crew-team/add-kitchen-crew-team.component';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
+import { KitchenCrewMembersComponent } from './kitchen-crew-members/kitchen-crew-members.component';
 
 @Component({
   selector: 'app-kitchen-crew-teams',
@@ -20,8 +21,8 @@ export class KitchenCrewTeamsComponent implements OnInit{
   kitchenCrewTeam!: TeamModel[];
   kitchenCrewEmp!: KitchenCrewEmpl[];
 
-  displayedSEColumns: string[] = ['empName', 'teamName'];
-  dataSourceSE: any;
+  // displayedSEColumns: string[] = ['empName', 'teamName'];
+  // dataSourceSE: any;
 
   constructor(
     private dialog: MatDialog,
@@ -29,7 +30,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.loadKitchenCrewEmployees();
+    // this.loadKitchenCrewEmployees();
     this.loadKitchenCrewTeams();
       
   }
@@ -40,8 +41,24 @@ export class KitchenCrewTeamsComponent implements OnInit{
     });
     _popup.afterClosed().subscribe((data) => {
       this.loadKitchenCrewTeams();
-      this.loadKitchenCrewEmployees();
+      // this.loadKitchenCrewEmployees();
     });
+  }
+
+  viewMembers(id:number){
+    this.openViewMemberPopup(id);
+  }
+  openViewMemberPopup(id: number){
+    var _pop = this.dialog.open(KitchenCrewMembersComponent,{
+      width: '40%',
+      position:{
+        top:'10%',
+        left:'60%'
+      },
+      data:{
+        id: id,
+      }
+    })
   }
 
   openPopup() {
@@ -49,7 +66,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
       width: '40%',
     });
     _popup.afterClosed().subscribe((data) => {
-      this.loadKitchenCrewTeams();
+      // this.loadKitchenCrewTeams();
     });
   }
 
@@ -59,15 +76,15 @@ export class KitchenCrewTeamsComponent implements OnInit{
   addKitchenCrewEmployees(){
     this.openAddEmplPopup();
   }
-  loadKitchenCrewEmployees(){
-    this.masterService.getAlllKitchenCrewEmployees().subscribe((response) => {
-      console.log(response);
+  // loadKitchenCrewEmployees(){
+  //   this.masterService.getAlllKitchenCrewEmployees().subscribe((response) => {
+  //     console.log(response);
       
-      this.kitchenCrewEmp = response;
+  //     this.kitchenCrewEmp = response;
 
-      this.dataSourceSE = new MatTableDataSource<KitchenCrewEmpl>(this.kitchenCrewEmp);
-    });
-  }
+      // this.dataSourceSE = new MatTableDataSource<KitchenCrewEmpl>(this.kitchenCrewEmp);
+    // });
+  // }
   loadKitchenCrewTeams(){
     this.masterService.getAllKitchenCrewTeams().subscribe((response) => {
       console.log(response);
@@ -75,6 +92,44 @@ export class KitchenCrewTeamsComponent implements OnInit{
       this.dataSource = new MatTableDataSource<TeamModel>(this.kitchenCrewTeam);
     });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   deleteKitchenCrewt(id: number){
     Swal.fire({
@@ -88,7 +143,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.masterService.deleteKitchenCrewTeam(id).subscribe((response)=>{
-          this.loadKitchenCrewEmployees();
+          // this.loadKitchenCrewEmployees();
           this.loadKitchenCrewTeams()
         })
         Swal.fire({

@@ -7,6 +7,7 @@ import { AddDecorationTeamComponent } from './add-decoration-team/add-decoration
 import TeamModel from '../teamModels/team.model';
 import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
+import { DecorationMembersComponent } from './decoration-members/decoration-members.component';
 
 @Component({
   selector: 'app-decoration-teams',
@@ -19,8 +20,7 @@ export class DecorationTeamsComponent implements OnInit {
   decorationTeam!: TeamModel[];
   decorationEmp!: DecorImpl[];
 
-  displayedDEColumns: string[] = ['empName', 'teamName'];
-  dataSourceDE: any;
+
 
   constructor(
     private dialog: MatDialog,
@@ -29,7 +29,7 @@ export class DecorationTeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDecorTeams();
-    this.loadDecorEmployees();
+    // this.loadDecorEmployees();
   }
 
   addDecorTeam() {
@@ -44,7 +44,7 @@ export class DecorationTeamsComponent implements OnInit {
       width: '40%',
     });
     _popup.afterClosed().subscribe((data) => {
-      this.loadDecorEmployees();
+      // this.loadDecorEmployees();
       this.loadDecorTeams();
     });
   }
@@ -68,15 +68,38 @@ export class DecorationTeamsComponent implements OnInit {
       },
     });
   }
-
-  loadDecorEmployees() {
-    this.masterService.getAllDecorationEmployees().subscribe({
-      next: (response) => {
-        this.decorationEmp = response;
-        this.dataSourceDE = new MatTableDataSource<DecorImpl>(this.decorationEmp);
-      },
-    });
+  viewMembers(id: number){
+    this.openMemberPopup(id);
   }
+
+  openMemberPopup(id: number){
+    var _popup = this.dialog.open(DecorationMembersComponent,{
+      width: '40%',
+      position:{
+        top:'10%',
+        left:'60%'
+      },
+      data:{
+        id: id,
+      }
+    })
+
+  }
+
+  // loadDecorEmployees() {
+  //   this.masterService.getAllDecorationEmployees().subscribe({
+  //     next: (response) => {
+  //       this.decorationEmp = response;
+  //       this.dataSourceDE = new MatTableDataSource<DecorImpl>(this.decorationEmp);
+  //     },
+  //   });
+  // }
+
+
+
+
+
+
 
   deleteTeam(id: number){
     Swal.fire({
@@ -90,7 +113,7 @@ export class DecorationTeamsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.masterService.deleteDecorationTeam(id).subscribe((respose)=>{
-          this.loadDecorEmployees()
+          // this.loadDecorEmployees()
           this.loadDecorTeams()
         })
         Swal.fire({
