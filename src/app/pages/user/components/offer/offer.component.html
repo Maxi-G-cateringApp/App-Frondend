@@ -1,4 +1,5 @@
-<div *ngIf="offers.length > 0" class="h-1/4 text-white p-6 offer-container">
+@if (offers.length >= 0) {
+<div class="h-1/4 text-white p-6 offer-container">
     <h1>Available Offers</h1>
     <div class="flex flex-col justify-center space-y-4">
         <ng-container *ngFor="let offer of offers">
@@ -20,3 +21,4 @@
         </ng-container>
     </div>
 </div>
+}

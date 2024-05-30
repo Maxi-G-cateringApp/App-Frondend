@@ -13,18 +13,19 @@ export class DecorationMembersComponent implements OnInit{
 
 
   inputData: any;
-  displayedSEColumns: string[] = ['empName', 'teamName','action'];
-  dataSourceSE: any;
   decorationEmpl!: DecorImpl[];
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,private masterService: MasterService){}
 
 
-  displayedDEColumns: string[] = ['empName', 'teamName'];
+  displayedDEColumns: string[] = ['emp_name', 'teamName'];
   dataSourceDE: any;
 
 
   ngOnInit(): void {
-      
+    console.log(" component");
+    this.inputData = this.data
+      console.log(this.inputData);
+      this.getTeamMemberByTeamName(this.inputData.id)
   }
 
 
@@ -33,7 +34,7 @@ export class DecorationMembersComponent implements OnInit{
     this.masterService.getDecorationMembersByTeamId(id).subscribe((data)=>{
       console.log(data);
       this.decorationEmpl = data;
-      this.dataSourceSE = new MatTableDataSource<DecorImpl>(this.decorationEmpl);
+      this.dataSourceDE = new MatTableDataSource<DecorImpl>(this.decorationEmpl);
       
     })
   }

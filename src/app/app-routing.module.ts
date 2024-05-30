@@ -6,35 +6,46 @@ import { AdminComponent } from './layouts/admin/components.component';
 import { UserComponent } from './layouts/user/user.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { AuthGuard } from './guards/guard';
-
-
+import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layout.component';
 
 const routes: Routes = [
-  {path: '',component:HomePageComponent},
-
+  { path: '', component: HomePageComponent },
 
   {
     path: 'auth',
     component: AuthComponent,
-    loadChildren: ()=> import('./pages/auth/auth.module').then((m) => m.AuthModule)
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'admin',
-    component: AdminComponent,canActivate:[AuthGuard],
-      loadChildren: ()=> import('./pages/admin/admin.module').then((m) => m.AdminModule)
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/admin/admin.module').then((m) => m.AdminModule),
   },
-  { 
-    path: 'user', canActivate:[AuthGuard],
+  {
+    path: 'user',
+    canActivate: [AuthGuard],
     component: UserComponent,
-    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule) 
+    loadChildren: () =>
+      import('./pages/user/user.module').then((m) => m.UserModule),
   },
-  {path: '**', component: NotFoundComponent}
-  
+  {
+    path: 'employees',
+    canActivate: [AuthGuard],
+    component: EmployeeLayoutComponent, 
+    loadChildren: () =>
+      import('./pages/employees/employees.module').then(
+        (m) => m.EmployeesModule
+      ),
+  },
 
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

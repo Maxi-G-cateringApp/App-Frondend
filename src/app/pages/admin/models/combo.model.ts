@@ -1,3 +1,5 @@
+import { Offer } from "./offer.model";
+
 export interface FoodCombo{
 
     id?: number;
@@ -6,6 +8,7 @@ export interface FoodCombo{
     comboPrice: number;
     offerPrice?: number;
     categoryId: number;
+    offer?: Offer;
   
 
 }

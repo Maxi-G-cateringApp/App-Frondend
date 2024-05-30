@@ -9,7 +9,7 @@ import { Offer } from '../../../admin/models/offer.model';
 })
 export class OfferComponent implements OnInit{
 
-  offers!: Offer[];
+  offers: Offer[]= [];
 
   constructor(private masterService: MasterService){}
 

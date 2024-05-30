@@ -1,5 +1,7 @@
 export interface ChatMessage {
-
+    
+    id: number;
+    seen: boolean;
     ms_id?: number; 
     content: string; 
     senderId: string; 

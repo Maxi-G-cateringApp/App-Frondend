@@ -4,10 +4,10 @@
 		<mat-icon>menu</mat-icon>
 	</button>
 	<span class="example-spacer">Maxi- G Admin</span>
-	<button mat-raised-button [routerLink]="['/admin/home']"> Home</button>
-	<!-- <app-order-notification></app-order-notification> -->
-	<button (click)="openNotification()"><mat-icon>notification_important</mat-icon></button>
-	<button mat-raised-button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)">Logout</button>
+	<button [routerLink]="['/admin/home']" matTooltip="Home"><mat-icon>home</mat-icon></button>
+	<button (click)="openNotification()"  matTooltip="Notifications"><mat-icon>notifications</mat-icon></button>
+	<button (click)="openChat()"  matTooltip="Chats"><mat-icon>chat</mat-icon></button>
+	<button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)"  matTooltip="Logout"><mat-icon>power_settings_new</mat-icon></button>
 </mat-toolbar>
 
 <mat-drawer-container autosize>

@@ -66,9 +66,12 @@ export class AuthEffects {
             map((data) => {
               console.log(data, 'response data');
               const role = data.user.role;
-              if (data.user.role === 'USER') {
+              if (role === 'USER'|| role === 'PARTNER') {
                 this.router.navigateByUrl('user/home');
-              } else {
+              } else if(role === 'EMPLOYEE'){
+                this.router.navigateByUrl('employees');
+              }
+              else {
                 this.router.navigateByUrl('admin');
               }
               const user = this.authService.formatUser(data);
@@ -88,7 +91,7 @@ export class AuthEffects {
             map((data) => {
               const role = data.user.role;
               this.authService.saveUserRoleInLocalStorage(role);
-              if (data.user.role === 'USER') {
+              if (role === 'USER') {
                 this.router.navigateByUrl('user/home');
               } else {
                 this.router.navigateByUrl('admin');

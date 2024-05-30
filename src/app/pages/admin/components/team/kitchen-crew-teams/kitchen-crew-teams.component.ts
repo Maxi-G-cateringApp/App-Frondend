@@ -66,7 +66,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
       width: '40%',
     });
     _popup.afterClosed().subscribe((data) => {
-      // this.loadKitchenCrewTeams();
+      this.loadKitchenCrewTeams();
     });
   }
 

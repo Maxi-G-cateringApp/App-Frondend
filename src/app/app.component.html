@@ -1,4 +1,4 @@
-<app-navbar *ngIf="role === 'USER'"></app-navbar>
+<app-navbar *ngIf="role !== 'ADMIN' && role !== 'EMPLOYEE'"></app-navbar>
 <router-outlet></router-outlet>
 <app-loading-spinner *ngIf="showLoading | async"></app-loading-spinner>
 <app-footer></app-footer>

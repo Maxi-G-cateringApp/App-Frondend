@@ -41,6 +41,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   loadOrder() {
+    
     this.masterService.getOrderById(this.orderId).subscribe({
       next: (response) => {
         console.log(response);
@@ -83,13 +84,13 @@ export class OrderDetailsComponent implements OnInit {
       },
     });
     _popup.afterClosed().subscribe((data) => {
-      
+      this.loadOrder();
     });
   }
   orderComplete(orderId: string){
     this.masterService.orderComplete(orderId).subscribe({next: (response)=>{
       console.log(response);
-      
+      this.loadOrder();
     }})
     
 

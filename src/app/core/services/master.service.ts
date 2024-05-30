@@ -461,6 +461,14 @@ export class MasterService {
   viewNotification(id: number):Observable<any>{
     return this.http.post(`/view/notification?id=${id}`,null)
   }
+
+  getEmployeeByEmail(email: string){
+    return this.http.get(`/get-emp/email?email=${email}`)
+  }
+
+  getEmployeesTeam(id: number){
+    return this.http.get(`/get/team/order?id=${id}`)
+  }
 }
 
 

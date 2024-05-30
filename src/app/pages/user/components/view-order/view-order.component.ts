@@ -42,7 +42,6 @@ export class ViewOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.inputdata = this.data;
-    console.log(this.inputdata);
     this.getAmount();
     this.loadOrder();
   }
@@ -51,8 +50,6 @@ export class ViewOrderComponent implements OnInit {
     this.masterService
       .getTotalAmount(this.inputdata.orderId)
       .subscribe((response) => {
-        console.log(response, 'may be amount');
-
         this.amount = response.amount;
         this.advanceAmount = (this.amount * 25) / 100;
       });

@@ -1,4 +1,4 @@
-.chat-list {
+/* .chat-list {
     list-style: none;
     padding: 0;
   }
@@ -13,7 +13,7 @@
   
   .chat-list button:focus {
     outline: none;
-  }
+  } */
   
   .chat-window {
     height: 80vh;
@@ -79,7 +79,6 @@
     background-color: #6b696c;
   }
   
-  /* Hide default file input */
   input[type="file"] {
     display: none;
   }

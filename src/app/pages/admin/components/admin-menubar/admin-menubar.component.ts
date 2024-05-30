@@ -6,6 +6,8 @@ import { logout } from '../../../auth/state/auth.action';
 import { isAuthenticated } from '../../../auth/state/auth.selector';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderNotificationComponent } from '../order-notification/order-notification.component';
+import { ChatListComponent } from '../chat-list/chat-list.component';
+import { ChatService } from '../../../../core/services/chat.service';
 
 export type MenuItem = {
   icon: string;
@@ -18,12 +20,17 @@ export type MenuItem = {
   styleUrl: './admin-menubar.component.css',
 })
 export class AdminMenubarComponent implements OnInit {
-[x: string]: any;
+// [x: string]: any;
   isAuthenticated: Observable<boolean> | undefined;
-  constructor(private store: Store<AuthState>,private dialog: MatDialog) {}
+  unreadMessagesCount = 0;
+  constructor(private store: Store<AuthState>,private dialog: MatDialog, private chatService: ChatService) {}
 
   ngOnInit(): void {
     this.isAuthenticated = this.store.select(isAuthenticated);
+
+    // this.chatService.unreadMessageCount$.subscribe((count) => {
+    //   this.unreadMessagesCount = count;
+    // });
   }
 
   menuItem = signal<MenuItem[]>([
@@ -63,7 +70,7 @@ export class AdminMenubarComponent implements OnInit {
       label: 'ServeTeam',
       route: '/admin/serve-team',
     },
-    { icon: 'chat_bubble', label: 'Chats', route: '/admin/chat' },
+    // { icon: 'chat_bubble', label: 'Chats', route: '/admin/chat' },
   ]);
 
   sideNavCollapsed = signal(false);
@@ -71,6 +78,16 @@ export class AdminMenubarComponent implements OnInit {
   //  collapse(val: boolean) {
   //   this.sideNavCollapsed.set(val);
   // }
+
+  openChat(){
+    this.dialog.open(ChatListComponent,{
+      width: '60%',
+      position: {
+        top:'5%',
+        left:'10%'
+      }
+    })
+  }
   
   collapsed = signal(true);
   sideNavWidth = computed(() => (this.collapsed() ? '65px' : '250px'));
@@ -90,4 +107,7 @@ export class AdminMenubarComponent implements OnInit {
       }
     })
   }
+
+
+  
 }

@@ -1,0 +1,70 @@
+<div class="h-full w-full flex justify-around">
+
+    <div class="p-5 m-5 flex flex-col">
+        <div class="p-5 m-5">
+            <ng-container *ngIf="employee">
+                <h4>Employee Name : {{ employee.emp_name }}</h4>
+                <h4>Phone : {{ employee.phoneNumber }}</h4>
+                <h4>Email : {{ employee.email }}</h4>
+                <h4>Expertise In : {{ employee.expertise }}</h4>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="responseData">
+            <h2>My Team </h2>
+            <h1>{{ responseData.team?.teamName | uppercase }}</h1>
+        </ng-container>
+    </div>
+
+    <div class="p-5 m-5 flex flex-col justify-start main-cont">
+        <div class="m-3 mb-5 work">
+            <h3>Todays Work</h3>
+            @if (todayOrders.length <= 0) {
+                <p>No Orders</p>
+            } 
+            <div *ngFor="let item of todayOrders; let i = index">
+                <p>{{ i + 1 }}. {{ item.events.eventName | uppercase }}<span class="on-text">ON</span> <span>{{
+                        item.date | date }}</span></p>
+            </div>
+        </div>
+
+        <div class="m-3 mb-5 work">
+            <h3>Upcoming Work</h3>
+            @if (upcomingOrders.length <= 0) {
+                <p>No Orders</p>
+            } 
+            <div *ngFor="let item of upcomingOrders; let i = index">
+                <p>{{ i + 1 }}. {{ item.events.eventName | uppercase }}<span class="on-text">ON</span> <span>{{
+                        item.date | date }}</span></p>
+            </div>
+        </div>
+
+        <div class="m-3 mb-5 work">
+            <h3>Past Works</h3>
+            @if (pastOrders.length <= 0) {
+                <p>No Orders</p>
+            } 
+            <div *ngFor="let item of pastOrders; let i = index">
+                <p>{{ i + 1 }}. {{ item.events.eventName | uppercase }}<span class="on-text">ON</span> <span>{{
+                        item.date | date }}</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- 
+<div>
+    <ng-container *ngIf="responseData">
+    <div >
+        <p>{{ responseData.team?.teamName | uppercase }}</p>
+    </div>
+</ng-container>
+    @for (item of orders; track $index) {
+        <p>{{ item.date | date }}</p>
+        <p>{{ item.events.eventName | uppercase }}</p>
+    }
+</div> -->

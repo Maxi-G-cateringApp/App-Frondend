@@ -1,0 +1,16 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button><mat-icon>menu</mat-icon></button>
+    <span class="example-spacer">Employees</span>
+    <button [routerLink]="['/employees']" matTooltip="Home"><mat-icon>home</mat-icon></button>
+    <button [routerLink]="['/employees/home']" matTooltip="My Dashboard"><mat-icon>dashboard</mat-icon></button>
+    <button *ngIf="(isAuthenticated | async)" (click)="onLogout($event)"
+        matTooltip="Logout"><mat-icon>power_settings_new</mat-icon></button>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+    <mat-drawer-content>
+        <div style="text-align: center;min-height: 600px;" class="img-cont">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

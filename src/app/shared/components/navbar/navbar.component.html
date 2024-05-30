@@ -33,7 +33,9 @@
 				<li *ngIf="(isAuthenticated | async)">
 					<button [routerLink]="['user/chat']"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
-						Chats</button>
+						Chats</button><div class="notification-badge">
+							<span>{{ unreadMessagesCount }}</span>
+						  </div>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">

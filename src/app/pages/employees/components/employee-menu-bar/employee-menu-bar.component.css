@@ -1,0 +1,19 @@
+.example-spacer {
+    flex: 1 1 auto;
+    color: white;
+}
+button {
+    margin: 1%;
+}
+mat-toolbar {
+    background-color: rgb(10, 10, 34);
+}
+mat-icon {
+    color: white;
+}
+.img-cont {
+    background-image: url("/assets/bkg-img7.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

@@ -1,26 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatService } from '../../../../core/services/chat.service';
 import { AppState } from '../../../../shared/app.state';
 import { Store } from '@ngrx/store';
 import { getUser } from '../../../auth/state/auth.selector';
 import { MasterService } from '../../../../core/services/master.service';
 import { User } from '../../../auth/models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit , OnDestroy{
   user!: any;
   admin!: User;
   roomName?: string;
   newMessage: string = '';
-  chatMessages: { sender: string; content: string; timestamp: string;}[] = [];
-  currentDate: any = Date.now();
+  chatMessages: {
+    sender: string;
+    content: string;
+    timestamp: string;
+    seen: boolean;
+  }[] = [];
   chatRoomName!: string;
-  messageList: any[] = [];
+  file!: File;
+  private newMessageSubscription: Subscription | undefined;
   showEmojiPicker = false;
+  unreadMessages: number = 0;
+  unreadMessagesCount = 0;
   sets = [
     'native',
     'google',
@@ -31,9 +39,9 @@ export class ChatComponent implements OnInit {
     'messenger',
   ];
   set: 'google' | 'twitter' | 'facebook' | 'apple' = 'twitter';
+  showChatIndicator = false;
 
   toggleEmojiPicker() {
-    console.log(this.showEmojiPicker);
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 
@@ -44,13 +52,17 @@ export class ChatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    // this.chatService.unreadMessageCount$.subscribe(count => {
+    //   this.unreadMessagesCount = count;
+    // });
+
     this.masterService.getUserByRole().subscribe({
       next: (data) => {
         this.admin = data;
         this.store.select(getUser).subscribe((data) => {
           if (data) {
             this.user = data;
-
             const chatRoomName = this.chatService.generateChatroomName(
               this.user.id,
               this.admin.id
@@ -62,15 +74,23 @@ export class ChatComponent implements OnInit {
                   sender: msg.senderId,
                   content: msg.content,
                   timestamp: msg.t_stamp,
-                  type: msg.type
+                  seen: msg.seen
                 }));
+
+                data.forEach((msg) => {
+                  if (!msg.seen) {
+                    this.chatService.markMessageAsSeen(msg.id);
+                  }
+                });
               });
             this.chatService.initConectionSocket(chatRoomName);
             this.lisenerMessage();
+            
           }
         });
       },
     });
+
   }
 
   sendMsg() {
@@ -78,45 +98,56 @@ export class ChatComponent implements OnInit {
       const content = this.newMessage.trim();
       const senderId = this.user.id;
       const recipientId = this.admin.id;
-      const chatRoomName = this.chatService.generateChatroomName(
-        senderId,
-        recipientId
-      );
+      const chatRoomName = this.chatService.generateChatroomName(senderId,recipientId);
+      const message = { senderId,chatRoomName,content: content}
 
-      this.chatService.sentPrivateMessage(senderId, chatRoomName, content);
+      this.chatService.sentPrivateMessage(message);
       this.chatMessages.push({
         sender: senderId,
         content: content,
         timestamp: '',
+        seen: false
       });
       this.newMessage = '';
     }
   }
 
-
   lisenerMessage() {
-    this.chatService.message$.subscribe((message) => {
-      console.log('Received message:', message);
-
+    this.newMessageSubscription = this.chatService.message$.subscribe((message) => {
       const receivedMessage = JSON.parse(message);
       if (receivedMessage.senderId !== this.user.id) {
-        console.log('Processed message in user side:', receivedMessage);
         this.chatMessages.push({
           sender: receivedMessage.senderId,
           content: receivedMessage.content,
           timestamp: receivedMessage.timestamp,
+          seen: receivedMessage.seen
         });
+        this.chatService.markMessageAsSeen(receivedMessage.id)
+        this.unreadMessages++;
       }
     });
   }
 
+
   addEmoji(event: any) {
-    console.log(this.newMessage);
     const { newMessage } = this;
-    console.log(newMessage);
-    console.log(`${event.emoji.native}`);
     const message = `${newMessage}${event.emoji.native}`;
     this.newMessage = message;
     this.showEmojiPicker = false;
+  }
+
+  ngOnDestroy(): void {
+    if (this.newMessageSubscription) {
+      this.newMessageSubscription.unsubscribe();
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+  
+  }
+
+  markAllMessagesAsRead(){
+    this.unreadMessages = 0;
   }
 }

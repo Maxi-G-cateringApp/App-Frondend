@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
         // this.notificationService.getNotification(roomname).subscribe((data) => {
         //   this.notification = data;
         // });
-        this.notificationService.connect(roomname);
+        // this.notificationService.connect(roomname);
       },
     });
   }

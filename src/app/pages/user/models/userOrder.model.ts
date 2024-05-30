@@ -24,4 +24,5 @@ export interface UserOrder {
     isPaymentComplete:boolean;
     review: ReviewModel
     decorationOption?: string;
+    totalAmount: number;
 }

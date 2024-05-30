@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { Feed } from '../../../admin/models/feed.model';
 import { User } from '../../../auth/models/user.model';
+import { ChatService } from '../../../../core/services/chat.service';
 
 @Component({
   selector: 'app-user-home',
@@ -13,56 +14,64 @@ import { User } from '../../../auth/models/user.model';
   styleUrl: './user-home.component.css',
 })
 export class UserHomeComponent implements OnInit {
-  
-
+  admin!: any;
   userId!: string;
-  feeds!: Feed[]
+  feeds!: Feed[];
   profilePictureUrl!: string;
   feedForm!: FormGroup;
   selectedFile!: File;
   imageSrc!: any;
   user: User | null = null;
+  chatRoomName!: string;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private masterService: MasterService
+    private masterService: MasterService,
+    private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
     this.getFeeds();
+    this.getUserByRole();
 
-  
     this.store.select(getuserId).subscribe((data) => {
-      if(data){
-      this.userId = data;
-      
+      if (data) {
+        this.userId = data;
       }
     });
     this.feedForm = this.fb.group({
       content: ['', Validators.required],
       file: [null, Validators.required],
     });
-    this.getUserById() ;
+    this.getUserById();
+    console.log(this.chatRoomName, 'chatroomname');
+  }
+
+  getUserByRole() {
+    this.masterService.getUserByRole().subscribe((data) => {
+      this.admin = data;
+      this.chatRoomName = this.chatService.generateChatroomName(
+        this.userId,
+        this.admin.id
+      );
+      this.chatService.initConectionSocket(this.chatRoomName);
+    });
   }
 
   getUserById() {
     this.masterService.getUserById(this.userId).subscribe((response) => {
       this.user = response;
-      console.log(this.user,'userrrrr');
+      console.log(this.user, 'userrrrr');
     });
   }
 
-    getFeeds() {
+  getFeeds() {
     this.masterService.getAllFeeds().subscribe({
       next: (response) => {
-        console.log(response,'  response');
-        
-        this.feeds = response; 
+        this.feeds = response;
       },
     });
   }
-
-
 
   postImage(event: any) {
     const file = event.target.files[0];
@@ -90,5 +99,4 @@ export class UserHomeComponent implements OnInit {
       },
     });
   }
- 
 }

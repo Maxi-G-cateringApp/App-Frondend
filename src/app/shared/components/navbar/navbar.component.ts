@@ -4,6 +4,7 @@ import { AuthState } from '../../../pages/auth/state/auth.state';
 import { Observable } from 'rxjs';
 import { isAuthenticated } from '../../../pages/auth/state/auth.selector';
 import { logout } from '../../../pages/auth/state/auth.action';
+import { ChatService } from '../../../core/services/chat.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,10 +18,14 @@ export class NavbarComponent implements OnInit{
   isAuthenticated: Observable<boolean> | undefined;
   userName$: Observable<string | undefined> | null = null;
   userName: string | undefined ="";
-  constructor(private store: Store<AuthState>){}
+  unreadMessagesCount = 0;
+  constructor(private store: Store<AuthState>,private chatService: ChatService){}
 
   ngOnInit(): void {
       this.isAuthenticated = this.store.select(isAuthenticated);
+      // this.chatService.unreadMessageCount$.subscribe((count) => {
+      //   this.unreadMessagesCount = count;
+      // });
       // this.userName$ = this.store.select(getuserName)
       // this.userName$.subscribe((user) => {
       //   console.log(user);

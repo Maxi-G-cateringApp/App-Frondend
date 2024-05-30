@@ -15,6 +15,10 @@ export class ChatService {
   private currentRoomId!: string;
 
 
+  // private unreadMessageCount = new BehaviorSubject<number>(0);
+  // public unreadMessageCount$ = this.unreadMessageCount.asObservable()
+
+
   constructor(private http: HttpClient) {}
 
   initConectionSocket(chatRoomId: string): void {
@@ -48,28 +52,30 @@ export class ChatService {
   disconnect() {
     if (this.stompClient && this.stompClient.connected) {
       this.stompClient.disconnect(() => {
-        console.log('Disconnected');
       });
     }
   }
 
   reconnect() {
     if (this.currentRoomId) {
-      console.log('Reconnecting...');
       setTimeout(() => {
         this.initConectionSocket(this.currentRoomId);
       }, 5000);
     }
   }
-  sentPrivateMessage(senderId: string, chatRoomName: string, content: string) {
+
+  sentPrivateMessage(message: any) {
     if (this.stompClient && this.stompClient.connected) {
-      const message = {
-        senderId,
-        chatRoomName,
-        content,
-      };
       this.stompClient.send('/app/send-message', {}, JSON.stringify(message));
     } else {
+      console.error('WebSocket is not initialized.');
+    }
+  }
+
+  markMessageAsSeen(messageId: number){
+    if(this.stompClient && this.stompClient.connected){
+      this.stompClient.send('/app/seen',{},JSON.stringify({ messageId}))
+    }else{
       console.error('WebSocket is not initialized.');
     }
   }
@@ -94,6 +100,22 @@ export class ChatService {
     let names = [senderId, recipientId].sort();
     return names[0] + '_' + names[1];
   }
+
+  //  private updateUnreadMessagesCount() {
+  //   this.getChatRooms().subscribe(chatRooms => {
+  //     let count = 0;
+  //     chatRooms.forEach(chatRoom => {
+  //       this.getMessagesBetweenUserAndAdmin(chatRoom.chatRoomName).subscribe(messages => {
+  //         messages.forEach(msg => {
+  //           if (!msg.seen) {
+  //             count++;
+  //           }
+  //         });
+  //         this.unreadMessageCount.next(count)
+  //       });
+  //     });
+  //   });
+  // }
   
 }
 
@@ -102,22 +124,3 @@ export class ChatService {
 
 
 
-
-
-
-
-
-
-  // sentPrivateFileMessage(senderId: string, chatRoomName: string, content: File,type: string) {
-  //   if (this.stompClient && this.stompClient.connected) {
-  //     const message = {
-  //       senderId,
-  //       chatRoomName,
-  //       content,
-  //       type
-  //     };
-  //     this.stompClient.send('/app/send-message', {}, JSON.stringify(message));
-  //   } else {
-  //     console.error('WebSocket is not initialized.');
-  //   }
-  // }

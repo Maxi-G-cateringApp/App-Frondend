@@ -1,32 +1,32 @@
 <ng-container *ngIf="order">
-    <mat-card>
-        <mat-card-header>
+    <mat-card class="order-card">
+        <mat-card-header class="order-card-header">
             <h1>Order Details</h1>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="order-card-content">
+            <p>{{ order.status }}</p>
             <p>Event : <span>{{ order.events.eventName }}</span></p>
             <p>Venue : <span>{{ order.venue }}</span></p>
+            <p>Amount : <span>{{ order.totalAmount | currency }}</span></p>
             <ng-container *ngFor="let combo of combos">
                 <p>Ordered Food Combos : <span>{{ combo.comboName }}</span></p>
+                <p *ngIf="!combo.offer?.enabled">Combo price: <span>₹ {{ combo.comboPrice }}</span></p>
+                <p *ngIf="combo.offer?.enabled">Combo price: <del>₹ {{ combo.comboPrice }}</del></p>
+                <p *ngIf="combo.offer?.enabled">Offer price: <span>₹ {{ combo.offerPrice }}</span></p>
             </ng-container>
             <ng-container *ngFor="let item of items">
                 <p>Ordered Food Items : <span>{{ item.itemName }}</span></p>
             </ng-container>
         </mat-card-content>
-
         <ng-container *ngIf="order.status === 'COMPLETED' && !order.review">
             <app-review [orderId]="inputdata.orderId"></app-review>
         </ng-container>
-
-        <mat-card-actions>
-            <button *ngIf="order.status ==='ACCEPTED' && !order.isPaymentComplete" (click)="onPayment()"
-                mat-raised-button color="warn">Pay Advance</button>
-            <button *ngIf="order.status ==='PROCESSING' && !order.isPaymentComplete" (click)="onPayment()"
-                mat-raised-button color="warn">Pay Balance</button>
-            <button *ngIf="order.status !=='CANCELLED' && order.status !== 'COMPLETED'" (click)="onCancelOrder()" mat-raised-button
-                color="primary">Cancel Order</button>
+        <mat-card-actions class="order-card-actions">
+            <button *ngIf="order.status === 'ACCEPTED' && !order.isPaymentComplete" (click)="onPayment()" mat-raised-button color="warn">Pay Advance</button>
+            <button *ngIf="order.status === 'PROCESSING' && !order.isPaymentComplete" (click)="onPayment()" mat-raised-button color="warn">Pay Balance</button>
+            <button *ngIf="order.status !== 'CANCELLED' && order.status !== 'COMPLETED'" (click)="onCancelOrder()" mat-raised-button color="primary">Cancel Order</button>
         </mat-card-actions>
-        <div mat-dialog-actions>
+        <div mat-dialog-actions class="order-dialog-actions">
             <button (click)="closePopup()" mat-raised-button color="primary">Close</button>
         </div>
     </mat-card>

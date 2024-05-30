@@ -3,7 +3,7 @@
     <div class="w-full m-3">
       <div class="flex flex-col justify-center items-center">
         <div class="flex flex-col items-center w-36 h-36 object-cover relative">
-          <img [src]="profilePictureUrl">
+          <img [src]="imagePreview || profilePictureUrl">
           <label for="file-upload" class="custom-file-upload">
             <button *ngIf="changeProfileBtn" class="edit-btn" (click)="changeProfilePicClicked()">
               Edit
@@ -13,7 +13,8 @@
         <form [formGroup]="uploadProfilePic" (ngSubmit)="submitProPic()" enctype="multipart/form-data">
           <input id="file-upload" type="file" (change)="handleFileChange($event)">
           <button type="submit" *ngIf="formField"
-            class="flex items-center m-2 justify-center focus:outline-none text-black text-sm sm:text-base bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
+            class="flex items-center m-2 justify-center focus:outline-none text-black text-sm sm:text-base
+             bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
             <span class="uppercase">Submit</span>
           </button>
         </form>
@@ -21,10 +22,10 @@
       </div>
     </div>
     <div class="w-2/4 m-5">
-      <ng-container *ngIf="!user.partner">
+      <ng-container *ngIf="!user?.partner">
         <h1>Welcome User</h1>
-      </ng-container>
-      <ng-container *ngIf="user.partner">
+      </ng-container> 
+      <ng-container *ngIf="user?.partner">
         <h1>Welcome Partner</h1>
       </ng-container>
       <h2>{{user?.name}}</h2>

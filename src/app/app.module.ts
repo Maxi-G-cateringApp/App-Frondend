@@ -28,6 +28,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     NavbarComponent,
     FooterComponent,
     NotFoundComponent,
+ 
 
   ],
   imports: [
@@ -52,7 +54,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     GoogleMapsModule,
     [SweetAlert2Module.forRoot()],
   ],
-  exports:[NavbarComponent,FooterComponent],
   providers: [
     provideClientHydration(),
     {
