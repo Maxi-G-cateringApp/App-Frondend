@@ -34,8 +34,6 @@ export class AddComboPicComponent implements OnInit{
     }
 
 
-
-
   handleFileChange(event: any) {
     this.selectedFile = event.target.files[0];
     this.uploadComboPic.patchValue(this.selectedFile);
@@ -46,33 +44,11 @@ export class AddComboPicComponent implements OnInit{
       this.masterService
         .updateComboPicture(this.selectedFile, this.inputData.id)
         .subscribe((response) => {
-          this.loadComboPicture(this.inputData.id)
           this.closePopup();
           
         });
     }
   }
-
-  loadComboPicture(imgId: number) {
-    this.masterService.getComboImage(imgId).subscribe({
-      next: (data: Blob) => {
-        if (data.size !== 0) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.comboPictureUrls[imgId] = reader.result as string;
-          };
-          reader.readAsDataURL(data);
-        } else {
-          console.log('No picture data received');
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching profile image:', error);
-      },
-    });
-  }
-
-
 
   closePopup() {
     this.ref.close();

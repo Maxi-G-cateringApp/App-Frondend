@@ -9,4 +9,5 @@ export interface User {
     role: string;
     file: string;
     partner?: boolean;
+    imageUrl: string;
 }   

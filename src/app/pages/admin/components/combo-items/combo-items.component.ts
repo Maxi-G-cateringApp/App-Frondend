@@ -24,7 +24,7 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
     'description',
     'comboPrice',
     'action',
-    'image',
+    'imageUrl',
   ];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -54,10 +54,12 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   loadFoodComboItems() {
     this.masterService.getAllCombos().subscribe((response) => {
       this.foodCombos = response;
-      this.foodCombos.forEach((combo) => {
-        this.comboId = combo.id;
-        this.loadComboPicture(this.comboId);
-      });
+      console.log( this.foodCombos, 'food combo');
+      
+      // this.foodCombos.forEach((combo) => {
+      //   this.comboId = combo.id;
+      //   this.loadComboPicture(this.comboId);
+      // });
       this.dataSource = new MatTableDataSource<FoodCombo>(this.foodCombos);
       this.dataSource.paginator = this.paginator;
     });
@@ -118,7 +120,6 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
     this.formField = true;
     this.changeComboBtn = false;
   }
-// refract add combi pic
   changeComboPic(id: any) {
     console.log(id,"clicked id");
     
@@ -137,7 +138,6 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
       this.loadFoodComboItems();
     });
   }
-// refract add combi pic
 
   loadComboPicture(imgId: number) {
     this.masterService.getComboImage(imgId).subscribe({

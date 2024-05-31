@@ -54,7 +54,7 @@ export class MasterService {
   updateComboPicture(file: File, comboId: number): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`/combo-picture/${comboId}`, formData);
+    return this.http.post<any>(`/admin/combo-picture/${comboId}`, formData);
   }
 
   addFoodCombo(combo: FoodCombo, file: File): Observable<any> {

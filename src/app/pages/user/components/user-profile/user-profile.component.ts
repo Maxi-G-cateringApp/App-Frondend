@@ -3,17 +3,12 @@ import { AppState } from '../../../../shared/app.state';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
-import { AuthenticatedUser } from '../../../auth/models/authUser.model';
 import { Observable, Subscription } from 'rxjs';
 import {
   getEmailFromState,
-  getUser,
   getuserId,
 } from '../../../auth/state/auth.selector';
 import { getErrorMessage } from '../../../../shared/store/shared.selector';
-import { User } from '../../../auth/models/user.model';
-import { updateUser } from '../../../auth/state/auth.action';
-import { UpdateUser } from '../../models/update-user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -53,7 +48,6 @@ export class UserProfileComponent {
     });
     this.getUserById();
 
-    this.loadProfilePicture();
     this.uploadProfilePic = this.fb.group({
       file: [null],
     });
@@ -75,17 +69,7 @@ export class UserProfileComponent {
     reader.readAsDataURL(this.selectedImage);
     this.formField = true;
   }
-  // onFileSelected(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   this.selectedImage = file;
 
-  //   // Preview the image
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.imagePreview = reader.result;
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
 
   submitProPic() {
     if (this.userId) {
@@ -94,7 +78,7 @@ export class UserProfileComponent {
       this.masterService
         .changeProfilePicture(this.selectedImage, this.userId)
         .subscribe((response) => {
-          this.loadProfilePicture();
+          this.getUserById()
           this.formField = false;
           this.changeProfileBtn = true;
         });
@@ -103,27 +87,11 @@ export class UserProfileComponent {
     }
   }
 
-  loadProfilePicture() {
-    this.masterService.getUserImage(this.userId).subscribe((data: Blob) => {
-      if (data.size !== 0) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.profilePictureUrl = reader.result as string;
-        };
-        reader.readAsDataURL(data);
-      } else {
-        this.profilePictureUrl = '/assets/icons/Profile-PNG-File.png';
-      }
-    });
-    (error: any) => {
-      console.error('Error fetching profile image:', error);
-    };
-  }
 
   getUserById() {
     this.masterService.getUserById(this.userId).subscribe((response) => {
       this.user = response;
-      console.log(this.user, 'userrrrr');
+    
     });
   }
 }

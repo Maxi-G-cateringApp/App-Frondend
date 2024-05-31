@@ -9,6 +9,8 @@ export interface FoodCombo{
     offerPrice?: number;
     categoryId: number;
     offer?: Offer;
+    imageUrl?: string;
+    imageId?: string;
   
 
 }

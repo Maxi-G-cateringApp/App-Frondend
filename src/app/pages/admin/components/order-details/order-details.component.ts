@@ -66,6 +66,7 @@ export class OrderDetailsComponent implements OnInit {
   acceptOrder(){
     this.masterService.acceptOrder(this.orderId).subscribe({next:(response)=>{
       this.orderAccepted = true;
+      this.loadOrder();
       
     }})
   }
@@ -98,10 +99,7 @@ export class OrderDetailsComponent implements OnInit {
 
   getDirection(){
     this.dialog.open(LocationDisplayComponent,{
-      
-      data: {
 
-      }
     })
   }
 }

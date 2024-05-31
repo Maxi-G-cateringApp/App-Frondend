@@ -44,7 +44,7 @@ export class UserHomeComponent implements OnInit {
       file: [null, Validators.required],
     });
     this.getUserById();
-    console.log(this.chatRoomName, 'chatroomname');
+
   }
 
   getUserByRole() {
@@ -61,7 +61,7 @@ export class UserHomeComponent implements OnInit {
   getUserById() {
     this.masterService.getUserById(this.userId).subscribe((response) => {
       this.user = response;
-      console.log(this.user, 'userrrrr');
+      
     });
   }
 
@@ -69,6 +69,8 @@ export class UserHomeComponent implements OnInit {
     this.masterService.getAllFeeds().subscribe({
       next: (response) => {
         this.feeds = response;
+      
+        
       },
     });
   }
