@@ -15,7 +15,7 @@ export class NotificationService {
   constructor(private http: HttpClient) {}
 
   connect(roomname: string) {
-    const url = '//localhost:8080/ws';
+    const url = 'wss://api.maxigcatering.online/ws';
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
 
