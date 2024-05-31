@@ -25,7 +25,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const BASE_URL = 'http://localhost:8080';
+    const BASE_URL = 'https://api.maxigcatering.online';
 
     let apiRequest = req.clone({
       url: BASE_URL + req.url,
