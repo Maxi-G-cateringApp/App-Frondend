@@ -26,7 +26,7 @@ export class ChatService {
       this.disconnect();
     }
     this.currentRoomId = chatRoomId;
-    const url = 'wss://api.maxigcatering.online/ws';
+    const url = 'https//api.maxigcatering.online/ws';
     // const url = '//localhost:8080/ws';
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
