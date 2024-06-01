@@ -110,8 +110,8 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
 
   openCPPopup(id: any) {
     var _popup = this.dialog.open(AddComboPicComponent, {
-      width: '40%',
-      height:'30%',
+      width: '30%',
+      height:'20%',
       data: {
         id: id,
       },

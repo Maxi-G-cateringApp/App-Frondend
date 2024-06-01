@@ -16,7 +16,7 @@
 			<ul
 				class="font-medium flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
 				<li *ngIf="!(isAuthenticated | async)">
-					<button [routerLink]="['/']" [routerLinkActive]="'active'"
+					<button [routerLink]="['/']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Home</button>
 				</li>
@@ -49,7 +49,7 @@
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
-					<button [routerLink]="['/auth']" [routerLinkActive]="'active'"
+					<button [routerLink]="['/auth']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Login</button>
 
