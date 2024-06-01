@@ -33,14 +33,12 @@ export class ViewUserComponent implements OnInit {
   getUserById() {
     this.masterService.getUserById(this.userId).subscribe((response) => {
       this.user = response;
-      console.log(this.user);
     });
   }
 
   loadUserOrders() {
     this.masterService.getOrderByUser(this.userId).subscribe({
       next: (response) => {
-        console.log(response);
         this.orders = response;
         this.length = this.orders.length;
       },

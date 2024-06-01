@@ -39,11 +39,14 @@ export class PartnerListComponent implements OnInit {
   }
 
   openPopup(userId: string) {
-    this.dialog.open(ViewUserComponent, {
+    var _pop = this.dialog.open(ViewUserComponent, {
       width: '40%',
       data: {
         id: userId,
       },
+    });
+    _pop.afterClosed().subscribe((data) => {
+      this.getPartnerUsers();
     });
   }
 }
