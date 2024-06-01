@@ -1,8 +1,4 @@
 
-<!-- <app-admin-menubar></app-admin-menubar> -->
-<!-- <div class="h-auto w-screen flex flex-row "> -->
- 
-<!-- <div class="h-auto w-full flex ml-5">-->
     <mat-card> 
       <mat-card-content>
         <mat-card-header>
@@ -28,7 +24,15 @@
             <td mat-cell *matCellDef="let element">
     
                 <button (click)="editItem(element.id)" mat-raised-button color="primary">Edit</button>
-                <!-- <button (click)="deleteCombo(element.id)" mat-raised-button color="warn">Delete</button> -->
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="imageUrl">
+            <th mat-header-cell *matHeaderCellDef> Image</th>
+            <td mat-cell *matCellDef="let element">
+              <button  (click)="changeComboPic(element.id)">
+              <img  [src]="element.imageUrl" class="w-8 h-8 rounded-full text-white hover:opacity-40">
+              </button>
             </td>
           </ng-container>
 
@@ -41,8 +45,7 @@
         <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
       </mat-card-footer>
     </mat-card>
-  <!-- </div> -->
-<!-- </div> -->
+
 
 
 

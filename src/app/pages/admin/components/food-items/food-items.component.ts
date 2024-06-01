@@ -12,7 +12,6 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrl: './food-items.component.css',
 })
 export class FoodItemsComponent implements OnInit {
-  
   foodItems!: FoodItems[];
   displayedColumns: string[] = ['itemName', 'itemPrice', 'action'];
   dataSource: any;
@@ -31,7 +30,7 @@ export class FoodItemsComponent implements OnInit {
     this.masterService.getAllFoodItems().subscribe((response) => {
       this.foodItems = response;
       this.dataSource = new MatTableDataSource<FoodItems>(this.foodItems);
-      this.dataSource.paginator = this.paginator
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -49,22 +48,37 @@ export class FoodItemsComponent implements OnInit {
     });
   }
 
-  editItem(id: number){
-    this.openPopup(id,'Edit Item',true)
+  editItem(id: number) {
+    this.openPopup(id, 'Edit Item', true);
   }
 
-  addItem(){
-    this.openPopup(0,'Add Item')
+  addItem() {
+    this.openPopup(0, 'Add Item');
   }
-  deleteCombo(id: number){
-    if(id !== null){
-      this.masterService.deleteItem(id).subscribe((response)=>{
+  deleteCombo(id: number) {
+    if (id !== null) {
+      this.masterService.deleteItem(id).subscribe((response) => {
         this.loadFoodItems();
       });
-    }else{
+    } else {
       console.error();
     }
+  }
 
+  changeComboPic(id: any) {
+    this.openCPPopup(id);
+  }
+
+  openCPPopup(id: any) {
+    var _popup = this.dialog.open(AddItemComponent, {
+      width: '40%',
+      height: '30%',
+      data: {
+        id: id,
+      },
+    });
+    _popup.afterClosed().subscribe((data) => {
+      this.loadFoodItems();
+    });
   }
 }
-
