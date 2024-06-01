@@ -46,6 +46,8 @@ import { MembersComponent } from './components/team/serving-teams/members/member
 import { KitchenCrewMembersComponent } from './components/team/kitchen-crew-teams/kitchen-crew-members/kitchen-crew-members.component';
 import { DecorationMembersComponent } from './components/team/decoration-teams/decoration-members/decoration-members.component';
 import { AddItemPicComponent } from './components/add-item/add-item-pic/add-item-pic.component';
+import { UserListComponent } from './components/users-list/user-list/user-list.component';
+import { PartnerListComponent } from './components/users-list/partner-list/partner-list.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { AddItemPicComponent } from './components/add-item/add-item-pic/add-item
     KitchenCrewMembersComponent,
     DecorationMembersComponent,
     AddItemPicComponent,
+    UserListComponent,
+    PartnerListComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule,PrimeNgModules],
 })
