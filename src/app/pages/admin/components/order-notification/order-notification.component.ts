@@ -12,7 +12,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class OrderNotificationComponent implements OnInit {
   notifications: Notifications[] = [];
-  constructor(private masterService: MasterService, private router: Router,private ref: MatDialogRef<OrderNotificationComponent>) {}
+  constructor(
+    private masterService: MasterService,
+    private router: Router,
+    private ref: MatDialogRef<OrderNotificationComponent>
+  ) {}
 
   ngOnInit(): void {
     this.getAllNotifications();
@@ -21,7 +25,6 @@ export class OrderNotificationComponent implements OnInit {
   getAllNotifications() {
     this.masterService.getAllNotifications().subscribe((data) => {
       this.notifications = data;
-      console.log(this.notifications);
     });
   }
 
@@ -29,17 +32,17 @@ export class OrderNotificationComponent implements OnInit {
     this.masterService.viewNotification(id).subscribe((res) => {
       this.getAllNotifications();
       this.router.navigate(['/admin/orders']);
+      this.closePopup();
     });
   }
 
   deleteNotification(id: number) {
     this.masterService.deleteNotification(id).subscribe((res) => {
-      console.log(res);
       this.getAllNotifications();
     });
   }
 
-  closePopup(){
-    this.ref.close()
+  closePopup() {
+    this.ref.close();
   }
 }

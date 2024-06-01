@@ -55,7 +55,6 @@ export class AddEmployeeComponent implements OnInit {
         phoneNumber:this.employeeForm.value.phoneNumber
       };
       this.masterService.addEmployee(employee).subscribe((response) => {
-        console.log(response);
         this.closePopup();
       });
     } else {

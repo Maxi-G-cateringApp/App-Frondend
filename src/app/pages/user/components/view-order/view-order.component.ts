@@ -8,7 +8,6 @@ import {
 import { MasterService } from '../../../../core/services/master.service';
 import { UserOrder } from '../../models/userOrder.model';
 import { ToastrService } from 'ngx-toastr';
-import { ReviewComponent } from './review/review.component';
 import { ReviewModel } from '../../models/rating.model';
 import { FoodCombo } from '../../../admin/models/combo.model';
 import { FoodItems } from '../../../admin/models/foodItems.model';

@@ -47,16 +47,15 @@ export class AdminHomeComponent implements OnInit {
     this.fetchGraphData();
   }
   onShowReport() {
-    if(this.showReportForm.valid){
-    const dates = {
-      startDate: this.showReportForm.value.startDate,
-      endDate: this.showReportForm.value.endDate
+    if (this.showReportForm.valid) {
+      const dates = {
+        startDate: this.showReportForm.value.startDate,
+        endDate: this.showReportForm.value.endDate,
+      };
+      this.masterService.getSalesReportByDates(dates).subscribe((data) => {
+        this.openPopupS(data, dates);
+      });
     }
-    this.masterService.getSalesReportByDates(dates).subscribe((data)=>{
-      this.openPopupS(data,dates)
-      
-    })
-  }
   }
   openPopupS(saleData: any, dates: any) {
     this.dialog.open(ShowSalesReportComponent, {

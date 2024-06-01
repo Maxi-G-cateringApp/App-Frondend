@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MasterService } from '../../../../core/services/master.service';
 import { FoodCombo } from '../../../admin/models/combo.model';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { FoodItems } from '../../../admin/models/foodItems.model';
 import { Events } from '../../../admin/models/event.model';
 import { Categories } from '../../../admin/models/category.model';
@@ -26,7 +32,7 @@ export class UserOrderComponent implements OnInit {
   selectedItems: any[] = [];
   categoryId!: number;
   venueList: string[] = ['HOUSE', 'AUDITORIUM'];
-  decorationOptionList:string[]=['YES','NO'];
+  decorationOptionList: string[] = ['YES', 'NO'];
   userId!: string;
   orderId!: string;
   foodComboFormArray: FormArray | undefined;
@@ -37,8 +43,10 @@ export class UserOrderComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<AppState>,
     private router: Router,
-    private tost: ToastrService,
-  ) { this.minDate = new Date();}
+    private tost: ToastrService
+  ) {
+    this.minDate = new Date();
+  }
 
   ngOnInit(): void {
     this.orderForm = this.fb.group({
@@ -47,13 +55,14 @@ export class UserOrderComponent implements OnInit {
       categoryControl: ['', Validators.required],
       foodItems: this.fb.array([]),
       event: ['', Validators.required],
-      peopleCount: [0, [Validators.required,Validators.min(0),Validators.max(5000)]],
+      peopleCount: [
+        0,
+        [Validators.required, Validators.min(0), Validators.max(5000)],
+      ],
       venue: ['', Validators.required],
-      timeFrom: ['',Validators.required],
-      timeTo: ['',Validators.required],
-      decorationOption: ['',Validators.required]
-
-
+      timeFrom: ['', Validators.required],
+      timeTo: ['', Validators.required],
+      decorationOption: ['', Validators.required],
     });
 
     this.getAllEvents();
@@ -65,8 +74,8 @@ export class UserOrderComponent implements OnInit {
   filterDates = (d: Date | null): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return d ? d >= today: false;
-  }
+    return d ? d >= today : false;
+  };
 
   onSaveOrder() {
     const data: OrderDetails = {
@@ -79,32 +88,29 @@ export class UserOrderComponent implements OnInit {
       venue: this.orderForm.value.venue,
       timeFrom: this.orderForm.value.timeFrom,
       timeTo: this.orderForm.value.timeTo,
-      userId: this.userId
+      userId: this.userId,
+    };
+    if (this.orderForm.valid) {
+      this.masterService.saveOrder(data).subscribe((response) => {
+        const orderId = response.orderId;
+        if (orderId) {
+          this.router.navigate(['/user/order-confirmation', orderId]);
+        } else {
+          console.error('Order ID is missing in the response');
+        }
+      });
+    } else {
+      this.tost.error('something Wrong', 'check the credentials');
     }
-    if(this.orderForm.valid){
-    this.masterService.saveOrder(data).subscribe((response) => {
-      console.log(response);
-      const orderId = response.orderId;
-      if (orderId) {
-        this.router.navigate(['/user/order-confirmation', orderId]);
-      } else {
-        console.error('Order ID is missing in the response');
-      }
-    });
-  }else{
-    this.tost.error('something Wrong','check the credentials')
-  }
   }
 
   onComboChange(event: any) {
-    const foodComboFormArray = this.orderForm.get('foodCombos') as FormArray; 
-    this.foodComboFormArray = this.orderForm.get('foodCombos') as FormArray; 
-  
+    const foodComboFormArray = this.orderForm.get('foodCombos') as FormArray;
+    this.foodComboFormArray = this.orderForm.get('foodCombos') as FormArray;
+
     foodComboFormArray.clear();
     event.forEach((foodCombos: FoodCombo) => {
       foodComboFormArray.push(this.fb.control(foodCombos));
-      console.log(foodComboFormArray);
-      
     });
   }
 
@@ -113,9 +119,6 @@ export class UserOrderComponent implements OnInit {
     foodItemFormArray.clear();
     event.forEach((foodItems: FoodItems) => {
       foodItemFormArray.push(this.fb.control(foodItems));
-      
-      
-      
     });
   }
 
@@ -125,8 +128,6 @@ export class UserOrderComponent implements OnInit {
       .getAllCombosByCategory(category)
       .subscribe((response) => {
         this.comboItemList = response;
-        console.log(this.comboItemList);
-        
       });
     this.masterService.getAllItemByCategory(category).subscribe((response) => {
       this.itemList = response;
@@ -143,6 +144,4 @@ export class UserOrderComponent implements OnInit {
       this.categories = response;
     });
   }
-
-  
 }

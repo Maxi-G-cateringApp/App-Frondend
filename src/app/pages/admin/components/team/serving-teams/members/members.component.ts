@@ -7,40 +7,33 @@ import { ServingEmpl } from '../../teamModels/servingEmpl.model';
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrl: './members.component.css'
+  styleUrl: './members.component.css',
 })
-export class MembersComponent implements OnInit{
-
+export class MembersComponent implements OnInit {
   inputData: any;
-  displayedSEColumns: string[] = ['empName', 'teamName','action'];
+  displayedSEColumns: string[] = ['empName', 'teamName', 'action'];
   dataSourceSE: any;
   servingEmp!: ServingEmpl[];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private masterService: MasterService){}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private masterService: MasterService
+  ) {}
 
   ngOnInit(): void {
-      this.inputData = this.data;
-      console.log(this.inputData);
-      this.getTeamMenberByTeamName(this.inputData.id);
+    this.inputData = this.data;
+    this.getTeamMenberByTeamName(this.inputData.id);
   }
 
-
-  getTeamMenberByTeamName(id: number){
-    this.masterService.getKitchenMembersByTeamId(id).subscribe((data)=>{
-      console.log(data);
+  getTeamMenberByTeamName(id: number) {
+    this.masterService.getKitchenMembersByTeamId(id).subscribe((data) => {
       this.servingEmp = data;
       this.dataSourceSE = new MatTableDataSource<ServingEmpl>(this.servingEmp);
-      
-    })
+    });
   }
 
-  removeMembers(id: number){
-    console.log(id);
-    this.masterService.inactiveMemberFromTeam(id).subscribe((res)=>{
-      console.log(res);
-      this.getTeamMenberByTeamName(this.inputData.id)
-    })
-    
-
+  removeMembers(id: number) {
+    this.masterService.inactiveMemberFromTeam(id).subscribe((res) => {
+      this.getTeamMenberByTeamName(this.inputData.id);
+    });
   }
-
 }

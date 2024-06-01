@@ -6,7 +6,6 @@ import { AddDecorationEmployeesComponent } from './add-decoration-employees/add-
 import { AddDecorationTeamComponent } from './add-decoration-team/add-decoration-team.component';
 import TeamModel from '../teamModels/team.model';
 import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';
 import { DecorationMembersComponent } from './decoration-members/decoration-members.component';
 
 @Component({
@@ -15,12 +14,10 @@ import { DecorationMembersComponent } from './decoration-members/decoration-memb
   styleUrl: './decoration-teams.component.css',
 })
 export class DecorationTeamsComponent implements OnInit {
-  displayedColumns: string[] = ['teamName','count', 'action'];
+  displayedColumns: string[] = ['teamName', 'count', 'action'];
   dataSource: any;
   decorationTeam!: TeamModel[];
   decorationEmp!: DecorImpl[];
-
-
 
   constructor(
     private dialog: MatDialog,
@@ -29,7 +26,6 @@ export class DecorationTeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDecorTeams();
-    // this.loadDecorEmployees();
   }
 
   addDecorTeam() {
@@ -44,7 +40,6 @@ export class DecorationTeamsComponent implements OnInit {
       width: '40%',
     });
     _popup.afterClosed().subscribe((data) => {
-      // this.loadDecorEmployees();
       this.loadDecorTeams();
     });
   }
@@ -68,61 +63,20 @@ export class DecorationTeamsComponent implements OnInit {
       },
     });
   }
-  viewMembers(id: number){
+  viewMembers(id: number) {
     this.openMemberPopup(id);
   }
 
-  openMemberPopup(id: number){
-    var _popup = this.dialog.open(DecorationMembersComponent,{
+  openMemberPopup(id: number) {
+    var _popup = this.dialog.open(DecorationMembersComponent, {
       width: '40%',
-      position:{
-        top:'10%',
-        left:'60%'
+      position: {
+        top: '10%',
+        left: '60%',
       },
-      data:{
+      data: {
         id: id,
-      }
-    })
-
-  }
-
-  // loadDecorEmployees() {
-  //   this.masterService.getAllDecorationEmployees().subscribe({
-  //     next: (response) => {
-  //       this.decorationEmp = response;
-  //       this.dataSourceDE = new MatTableDataSource<DecorImpl>(this.decorationEmp);
-  //     },
-  //   });
-  // }
-
-
-
-
-
-
-
-  deleteTeam(id: number){
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.masterService.deleteDecorationTeam(id).subscribe((respose)=>{
-          // this.loadDecorEmployees()
-          this.loadDecorTeams()
-        })
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
-        });
-      }
+      },
     });
-    
   }
 }

@@ -28,8 +28,6 @@ export class OrderProcessingComponent implements OnInit {
 
   ngOnInit(): void {
     this.inputData = this.data;
-    console.log(this.inputData.orderId), 'order idddd';
-
     this.loadServingTeam();
     this.loadKitchenCrewTeam();
     this.loadDecorationTeam();
@@ -52,7 +50,6 @@ export class OrderProcessingComponent implements OnInit {
 
     this.masterService.orderProcessing(data).subscribe({
       next: (response) => {
-        console.log(response);
         this.closePopup();
       },
     });
@@ -87,9 +84,7 @@ export class OrderProcessingComponent implements OnInit {
   loadOrder() {
     this.masterService.getOrderById(this.inputData.orderId).subscribe({
       next: (response) => {
-        this.order = response;
-        console.log(this.order);
-        
+        this.order = response;        
       },
     });
   }

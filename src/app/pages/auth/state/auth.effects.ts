@@ -12,9 +12,6 @@ import {
 import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { MasterService } from '../../../core/services/master.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { AuthState } from './auth.state';
-import { Store } from '@ngrx/store';
 import { AuthService } from '../service/auth-service.service';
 import { setErrorMessage } from '../../../shared/store/shared.action';
 
@@ -24,37 +21,8 @@ export class AuthEffects {
     private actions$: Actions,
     private masterService: MasterService,
     private authService: AuthService,
-    private router: Router,
-    private tost: ToastrService,
-    private store: Store<AuthState>
+    private router: Router
   ) {}
-
-  // login$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(loginStart),
-  //     exhaustMap((action) => {
-  //       return this.masterService.login(action.email, action.password).pipe(
-  //         map((data) => {
-  //           const role = data.user.role;
-  //           this.authService.saveUserRoleInLocalStorage(role)
-  //           if (data.user.role === 'USER') {
-  //             this.tost.success(data.user.userName, 'loggedIn');
-  //             this.router.navigateByUrl('user/home');
-  //           }
-  //           else {
-  //             this.router.navigateByUrl('admin');
-  //           }
-  //           const user = this.authService.formatUser(data);
-  //           this.authService.saveUserInLocalStorage(user);
-  //           return loginSuccess({ user });
-  //         }),
-  //         catchError(()=>{
-  //           return of(setErrorMessage({message: "Something went wrong! Incorrect Email or Password"}))
-  //         })
-  //       );
-  //     })
-  //   );
-  // });
 
   login$ = createEffect(() => {
     return this.actions$.pipe(
@@ -64,14 +32,12 @@ export class AuthEffects {
         if (action.type === loginStart.type) {
           return this.masterService.login(action.email, action.password).pipe(
             map((data) => {
-              console.log(data, 'response data');
               const role = data.user.role;
-              if (role === 'USER'|| role === 'PARTNER') {
+              if (role === 'USER' || role === 'PARTNER') {
                 this.router.navigateByUrl('user/home');
-              } else if(role === 'EMPLOYEE'){
+              } else if (role === 'EMPLOYEE') {
                 this.router.navigateByUrl('employees');
-              }
-              else {
+              } else {
                 this.router.navigateByUrl('admin');
               }
               const user = this.authService.formatUser(data);
@@ -140,16 +106,13 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(updateUser),
       exhaustMap((action) =>
-        this.masterService.updateUser(action.user.id,action.user).pipe(
-          map(res => updateUsersuccess({ user: res })),
-        )
+        this.masterService
+          .updateUser(action.user.id, action.user)
+          .pipe(map((res) => updateUsersuccess({ user: res })))
       )
     )
   );
 }
-
-
-
 
 // _updateUser = createEffect(() =>
 //   this.action$.pipe(

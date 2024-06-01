@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class OffersComponent implements OnInit {
   offers!: Offer[];
-  displayedColumns: string[] = ['offerName', 'discount','comboName', 'action'];
+  displayedColumns: string[] = ['offerName', 'discount', 'comboName', 'action'];
   dataSource: any;
 
   constructor(
@@ -25,45 +25,43 @@ export class OffersComponent implements OnInit {
   }
 
   addOffer() {
-    this.openPopup(0,'Add Offer');
+    this.openPopup(0, 'Add Offer');
   }
 
-  openPopup(id:number,title: string, isEdit:boolean=false) {
+  openPopup(id: number, title: string, isEdit: boolean = false) {
     var _popup = this.dialog.open(AddOfferComponent, {
       width: '40%',
       data: {
         id: id,
         title: title,
-        isEdit: isEdit
-      }
+        isEdit: isEdit,
+      },
     });
     _popup.afterClosed().subscribe((data) => {
       this.getAllOffers();
     });
   }
-  editOffer(id: number){
-    this.openPopup(id,'Edit Offer',true);
+  editOffer(id: number) {
+    this.openPopup(id, 'Edit Offer', true);
   }
 
   getAllOffers() {
     this.masterService.getAllOffers().subscribe((data) => {
       this.offers = data;
-      console.log(this.offers);
-      
+
       this.dataSource = new MatTableDataSource<Offer>(this.offers);
     });
   }
-  toggleOffer(element: Offer){
-    if(element.id !== undefined && element.enabled !== undefined){
-    if(element.enabled){
-      this.enableOffer(element.id)
-    }else{
-      this.disableOffer(element.id)
+  toggleOffer(element: Offer) {
+    if (element.id !== undefined && element.enabled !== undefined) {
+      if (element.enabled) {
+        this.enableOffer(element.id);
+      } else {
+        this.disableOffer(element.id);
+      }
+    } else {
+      console.error('element undefined');
     }
-  }else{
-    console.error("element undefined")
-  }
-
   }
   enableOffer(id: number) {
     this.masterService.enableOffer(id).subscribe((data) => {

@@ -7,20 +7,18 @@ import { MaterialModule } from '../../shared/material/material.module';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { UserOrderComponent } from './components/user-order/user-order.component';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
-import { OrderSuccessComponent } from './components/order-success/order-success.component';
 import { UserComponent } from '../../layouts/user/user.component';
 import { UserOrdersComponent } from './components/user-orders/user-orders.component';
 import { ViewOrderComponent } from './components/view-order/view-order.component';
 import { ReviewComponent } from './components/view-order/review/review.component';
 import { RatingComponent } from './components/view-order/rating/rating.component';
-import { GoogleMapsModule } from '@angular/google-maps';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AddFeedsComponent } from './components/add-feeds/add-feeds.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { ContactUsComponent } from './components/contact-us/contact-us.component';
-import { ContentComponent } from './components/user-home/content/content.component';
 import { OfferComponent } from './components/offer/offer.component';
+import { MenuListComponent } from './components/menu-list/menu-list.component';
+
 
 
 
@@ -29,7 +27,6 @@ import { OfferComponent } from './components/offer/offer.component';
     UserHomeComponent,
     UserOrderComponent,
     OrderConfirmationComponent,
-    OrderSuccessComponent,
     UserComponent,
     UserOrdersComponent,
     ViewOrderComponent,
@@ -38,9 +35,8 @@ import { OfferComponent } from './components/offer/offer.component';
     UserProfileComponent,
     AddFeedsComponent,
     ChatComponent,
-    ContactUsComponent,
-    ContentComponent,
     OfferComponent,
+    MenuListComponent
     
 
  

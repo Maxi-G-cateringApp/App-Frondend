@@ -18,7 +18,6 @@ export class OfferComponent implements OnInit{
   }
 
 
-
   getAllOffers(){
     this.masterService.getAllEnabledOffers().subscribe((data)=>{
       this.offers = data;

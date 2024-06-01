@@ -12,7 +12,7 @@ import { ChatService } from '../../../core/services/chat.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
-
+  isMenuOpen = false;
   logo: string = "/assets/logo2.png";
 
   isAuthenticated: Observable<boolean> | undefined;
@@ -23,21 +23,7 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
       this.isAuthenticated = this.store.select(isAuthenticated);
-      // this.chatService.unreadMessageCount$.subscribe((count) => {
-      //   this.unreadMessagesCount = count;
-      // });
-      // this.userName$ = this.store.select(getuserName)
-      // this.userName$.subscribe((user) => {
-      //   console.log(user);
-        
-      //     this.userName = user;
-      // })
-      
-      // this.userName$.subscribe((user)=>{
-      //   if(user){
-      //   this.userName = user 
-      //   }
-      // })
+  
   }
 
   onLogout(event: Event){
@@ -45,18 +31,8 @@ export class NavbarComponent implements OnInit{
     this.store.dispatch(logout())
   }
 
-
-  // getInitial(userName: string):string{
-  //   return userName? userName[0].toUpperCase(): "";
-
-  // }
-
-  // getInitial(userName: string | null | undefined): string {
-  //   if (!userName) return ''; 
-  //   console.log(userName);
-  //   return userName[0]?.toUpperCase() || ''; 
-  // }
-
-  
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
 }

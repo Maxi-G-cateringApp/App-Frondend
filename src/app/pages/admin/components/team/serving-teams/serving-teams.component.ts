@@ -70,62 +70,26 @@ export class ServingTeamsComponent implements OnInit {
   loadServingEmployees() {
     this.masterService.getAllServingEmployees().subscribe((response) => {
       this.servingEmp = response;
-      console.log(this.servingEmp);
-
       this.dataSourceSE = new MatTableDataSource<ServingEmpl>(this.servingEmp);
     });
   }
 
-  viewMembers(id: number){
+  viewMembers(id: number) {
     this.openViewMemberPopup(id);
   }
 
-
-  openViewMemberPopup(id: number){
-    this.dialog.open(MembersComponent,{
+  openViewMemberPopup(id: number) {
+    this.dialog.open(MembersComponent, {
       width: '40%',
-      position:{
-        top:'10%',
-        left:'60%'
+      position: {
+        top: '10%',
+        left: '60%',
       },
-      data:{
+      data: {
         id: id,
-      }
-    })
+      },
+    });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   deleteServingTeam(id: number) {
     Swal.fire({

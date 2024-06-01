@@ -22,7 +22,7 @@ export class OrderDetailsComponent implements OnInit {
   foodCombos: FoodCombo[] = [];
   foodItems: FoodItems[] = [];
   orderAccepted: boolean = false;
-  decorationOption!:string;
+  decorationOption!: string;
   lat: any;
   lng: any;
 
@@ -41,17 +41,14 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   loadOrder() {
-    
     this.masterService.getOrderById(this.orderId).subscribe({
       next: (response) => {
-        console.log(response);
         this.order = response;
         this.orderedCombos = response.orderedCombos;
         this.orderedItems = response.orderedItems;
-        this.lat = response.userLocation.latitude
-        this.lng = response.userLocation.longitude
-        console.log(this.lat,'  ',this.lng);
-        
+        this.lat = response.userLocation.latitude;
+        this.lng = response.userLocation.longitude;
+
         for (const orderedCombo of this.orderedCombos) {
           this.foodCombos.push(orderedCombo.foodCombos);
         }
@@ -62,19 +59,17 @@ export class OrderDetailsComponent implements OnInit {
     });
   }
 
-
-  acceptOrder(){
-    this.masterService.acceptOrder(this.orderId).subscribe({next:(response)=>{
-      this.orderAccepted = true;
-      this.loadOrder();
-      
-    }})
+  acceptOrder() {
+    this.masterService.acceptOrder(this.orderId).subscribe({
+      next: (response) => {
+        this.orderAccepted = true;
+        this.loadOrder();
+      },
+    });
   }
 
-
-  processOrder(id: any){
+  processOrder(id: any) {
     this.openPopup(id);
-
   }
 
   openPopup(orderId: any) {
@@ -88,18 +83,16 @@ export class OrderDetailsComponent implements OnInit {
       this.loadOrder();
     });
   }
-  orderComplete(orderId: string){
-    this.masterService.orderComplete(orderId).subscribe({next: (response)=>{
-      console.log(response);
-      this.loadOrder();
-    }})
-    
-
+  orderComplete(orderId: string) {
+    this.masterService.orderComplete(orderId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.loadOrder();
+      },
+    });
   }
 
-  getDirection(){
-    this.dialog.open(LocationDisplayComponent,{
-
-    })
+  getDirection() {
+    this.dialog.open(LocationDisplayComponent, {});
   }
 }

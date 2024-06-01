@@ -11,6 +11,7 @@ import { EmployeeLayoutComponent } from './layouts/employee-layout/employee-layo
 const routes: Routes = [
   { path: '', component: HomePageComponent },
 
+
   {
     path: 'auth',
     component: AuthComponent,

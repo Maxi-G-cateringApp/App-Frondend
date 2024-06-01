@@ -46,7 +46,6 @@ export class AddDecorationEmployeesComponent implements OnInit {
   getEmployeesWithoutTeam() {
     this.masterService.getEmployeesWithoutTeam().subscribe((data) => {
       this.employees = data;
-      console.log(this.employees);
     });
   }
 
@@ -69,5 +68,4 @@ export class AddDecorationEmployeesComponent implements OnInit {
   closePopup() {
     this.ref.close();
   }
-
 }

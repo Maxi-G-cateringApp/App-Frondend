@@ -37,16 +37,15 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ViewUserComponent } from './components/view-user/view-user.component';
-import { CreatePartnerComponent } from './components/create-partner/create-partner.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { AddOfferComponent } from './components/offers/add-offer/add-offer.component';
 import { ShowSalesReportComponent } from './components/show-sales-report/show-sales-report.component';
 import { OrderNotificationComponent } from './components/order-notification/order-notification.component';
 import { PrimeNgModules } from '../../shared/prime-ng/prime-ng.module';
-import { PrimeNGConfig } from 'primeng/api';
 import { MembersComponent } from './components/team/serving-teams/members/members.component';
 import { KitchenCrewMembersComponent } from './components/team/kitchen-crew-teams/kitchen-crew-members/kitchen-crew-members.component';
 import { DecorationMembersComponent } from './components/team/decoration-teams/decoration-members/decoration-members.component';
+import { AddItemPicComponent } from './components/add-item/add-item-pic/add-item-pic.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +81,6 @@ import { DecorationMembersComponent } from './components/team/decoration-teams/d
     AddEmployeeComponent,
     ChatListComponent,
     ViewUserComponent,
-    CreatePartnerComponent,
     OffersComponent,
     AddOfferComponent,
     ShowSalesReportComponent,
@@ -90,6 +88,7 @@ import { DecorationMembersComponent } from './components/team/decoration-teams/d
     MembersComponent,
     KitchenCrewMembersComponent,
     DecorationMembersComponent,
+    AddItemPicComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,MaterialModule,GoogleMapsModule,FormsModule,PickerModule,PrimeNgModules],
 })

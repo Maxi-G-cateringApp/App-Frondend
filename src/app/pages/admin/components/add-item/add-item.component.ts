@@ -1,5 +1,10 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MasterService } from '../../../../core/services/master.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FoodItems } from '../../models/foodItems.model';
@@ -22,7 +27,7 @@ export class AddItemComponent implements OnInit, AfterViewInit {
   editData!: FoodItems;
   categoryList!: Categories[];
   showErrorMessage!: Observable<string>;
-
+  selectedFile!: File;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +48,7 @@ export class AddItemComponent implements OnInit, AfterViewInit {
     }
     this.loadCategories();
     this.addItemForm = this.fb.group({
-      itemName: ['', [Validators.required,this.whiteSpaceValidator]],
+      itemName: ['', [Validators.required, this.whiteSpaceValidator]],
       itemPrice: ['', Validators.required],
       categoryId: ['', Validators.required],
     });
@@ -53,22 +58,25 @@ export class AddItemComponent implements OnInit, AfterViewInit {
     this.store.dispatch(setLoadingSpinner({ status: false }));
   }
   onaddItem() {
-    
-      if (this.inputData.isEdit) {
-        this.onEdit(this.inputData.id);
-      } else {
-        if (this.addItemForm.valid) {
+    if (this.inputData.isEdit) {
+      this.onEdit(this.inputData.id);
+    } else {
+      if (this.addItemForm.valid) {
+        const itemdata: FoodItems = {
+          itemName: this.addItemForm.value.itemName,
+          itemPrice: this.addItemForm.value.itemPrice,
+          categoryId: this.addItemForm.value.categoryId,
+        };
         this.masterService
-          .addFoodItem(this.addItemForm.value)
+          .addFoodItem(itemdata, this.selectedFile)
           .subscribe((response) => {
-            this.tost.success('Item Added','Successfully added food Item')
+            this.tost.success('Item Added', 'Successfully added food Item');
             this.closePopup();
           });
       } else {
-        this.tost.error('Enter valid Data','Invalid')
+        this.tost.error('Enter valid Data', 'Invalid');
       }
     }
-   
   }
 
   closePopup() {
@@ -85,11 +93,14 @@ export class AddItemComponent implements OnInit, AfterViewInit {
     this.masterService
       .editFoodItem(id, this.addItemForm.value)
       .subscribe((response) => {
-        if(response.status === true){
-        this.tost.success('Updated','Successfully update food Item')
-        this.closePopup();
-        }else{
-          this.tost.error('Something Wrong','Invalid Data or data Already Exist')
+        if (response.status === true) {
+          this.tost.success('Updated', 'Successfully update food Item');
+          this.closePopup();
+        } else {
+          this.tost.error(
+            'Something Wrong',
+            'Invalid Data or data Already Exist'
+          );
         }
       });
   }
@@ -103,6 +114,10 @@ export class AddItemComponent implements OnInit, AfterViewInit {
         itemPrice: this.editData.itemPrice,
       });
     });
+  }
+  handleFileChange(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.addItemForm.patchValue(this.selectedFile);
   }
 
   public whiteSpaceValidator(control: FormControl) {

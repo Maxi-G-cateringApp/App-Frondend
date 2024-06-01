@@ -14,11 +14,6 @@ export class ChatService {
   public message$ = this.messageSubject.asObservable();
   private currentRoomId!: string;
 
-
-  // private unreadMessageCount = new BehaviorSubject<number>(0);
-  // public unreadMessageCount$ = this.unreadMessageCount.asObservable()
-
-
   constructor(private http: HttpClient) {}
 
   initConectionSocket(chatRoomId: string): void {
@@ -28,7 +23,6 @@ export class ChatService {
     this.currentRoomId = chatRoomId;
     const url = 'https://api.maxigcatering.online/wss';
     
-    // const url = '//localhost:8080/ws';
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
 
@@ -102,22 +96,6 @@ export class ChatService {
     let names = [senderId, recipientId].sort();
     return names[0] + '_' + names[1];
   }
-
-  //  private updateUnreadMessagesCount() {
-  //   this.getChatRooms().subscribe(chatRooms => {
-  //     let count = 0;
-  //     chatRooms.forEach(chatRoom => {
-  //       this.getMessagesBetweenUserAndAdmin(chatRoom.chatRoomName).subscribe(messages => {
-  //         messages.forEach(msg => {
-  //           if (!msg.seen) {
-  //             count++;
-  //           }
-  //         });
-  //         this.unreadMessageCount.next(count)
-  //       });
-  //     });
-  //   });
-  // }
   
 }
 

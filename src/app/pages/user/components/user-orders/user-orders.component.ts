@@ -4,13 +4,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { getuserId } from '../../../auth/state/auth.selector';
 import { UserOrder } from '../../models/userOrder.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewOrderComponent } from '../view-order/view-order.component';
-import { ReviewComponent } from '../view-order/review/review.component';
 
-// declare var Razorpay: any;
 @Component({
   selector: 'app-user-orders',
   templateUrl: './user-orders.component.html',
@@ -19,8 +15,7 @@ import { ReviewComponent } from '../view-order/review/review.component';
 export class UserOrdersComponent implements OnInit {
   userId: string = '';
   orders!: UserOrder[];
-  maxRatingArr=[]
-
+  maxRatingArr = [];
 
   constructor(
     private masterService: MasterService,
@@ -39,28 +34,17 @@ export class UserOrdersComponent implements OnInit {
     this.loadUserOrders();
   }
 
-  
-
   loadUserOrders() {
     this.masterService.getOrderByUser(this.userId).subscribe({
       next: (response) => {
-        console.log(response);
         this.orders = response;
       },
     });
   }
 
-
-
-
-
-  
-  
-
   viewOrder(orderId: string) {
-    this.openPopup(orderId)
+    this.openPopup(orderId);
   }
-
 
   openPopup(orderId: string) {
     var _popup = this.dialog.open(ViewOrderComponent, {

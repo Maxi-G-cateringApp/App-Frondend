@@ -12,17 +12,13 @@ import { KitchenCrewMembersComponent } from './kitchen-crew-members/kitchen-crew
 @Component({
   selector: 'app-kitchen-crew-teams',
   templateUrl: './kitchen-crew-teams.component.html',
-  styleUrl: './kitchen-crew-teams.component.css'
+  styleUrl: './kitchen-crew-teams.component.css',
 })
-export class KitchenCrewTeamsComponent implements OnInit{
-
-  displayedColumns: string[] = ['teamName','count', 'action'];
+export class KitchenCrewTeamsComponent implements OnInit {
+  displayedColumns: string[] = ['teamName', 'count', 'action'];
   dataSource: any;
   kitchenCrewTeam!: TeamModel[];
   kitchenCrewEmp!: KitchenCrewEmpl[];
-
-  // displayedSEColumns: string[] = ['empName', 'teamName'];
-  // dataSourceSE: any;
 
   constructor(
     private dialog: MatDialog,
@@ -30,9 +26,7 @@ export class KitchenCrewTeamsComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    // this.loadKitchenCrewEmployees();
     this.loadKitchenCrewTeams();
-      
   }
 
   openAddEmplPopup() {
@@ -41,24 +35,23 @@ export class KitchenCrewTeamsComponent implements OnInit{
     });
     _popup.afterClosed().subscribe((data) => {
       this.loadKitchenCrewTeams();
-      // this.loadKitchenCrewEmployees();
     });
   }
 
-  viewMembers(id:number){
+  viewMembers(id: number) {
     this.openViewMemberPopup(id);
   }
-  openViewMemberPopup(id: number){
-    var _pop = this.dialog.open(KitchenCrewMembersComponent,{
+  openViewMemberPopup(id: number) {
+    var _pop = this.dialog.open(KitchenCrewMembersComponent, {
       width: '40%',
-      position:{
-        top:'10%',
-        left:'60%'
+      position: {
+        top: '10%',
+        left: '60%',
       },
-      data:{
+      data: {
         id: id,
-      }
-    })
+      },
+    });
   }
 
   openPopup() {
@@ -70,22 +63,13 @@ export class KitchenCrewTeamsComponent implements OnInit{
     });
   }
 
-  addKitchenCrewTeam(){
+  addKitchenCrewTeam() {
     this.openPopup();
   }
-  addKitchenCrewEmployees(){
+  addKitchenCrewEmployees() {
     this.openAddEmplPopup();
   }
-  // loadKitchenCrewEmployees(){
-  //   this.masterService.getAlllKitchenCrewEmployees().subscribe((response) => {
-  //     console.log(response);
-      
-  //     this.kitchenCrewEmp = response;
-
-      // this.dataSourceSE = new MatTableDataSource<KitchenCrewEmpl>(this.kitchenCrewEmp);
-    // });
-  // }
-  loadKitchenCrewTeams(){
+  loadKitchenCrewTeams() {
     this.masterService.getAllKitchenCrewTeams().subscribe((response) => {
       console.log(response);
       this.kitchenCrewTeam = response;
@@ -93,67 +77,27 @@ export class KitchenCrewTeamsComponent implements OnInit{
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  deleteKitchenCrewt(id: number){
+  deleteKitchenCrewt(id: number) {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.masterService.deleteKitchenCrewTeam(id).subscribe((response)=>{
+        this.masterService.deleteKitchenCrewTeam(id).subscribe((response) => {
           // this.loadKitchenCrewEmployees();
-          this.loadKitchenCrewTeams()
-        })
+          this.loadKitchenCrewTeams();
+        });
         Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
+          title: 'Deleted!',
+          text: 'Your file has been deleted.',
+          icon: 'success',
         });
       }
     });
-    
   }
-
 }

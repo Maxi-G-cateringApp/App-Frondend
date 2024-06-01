@@ -8,7 +8,7 @@ import { AppState } from '../../../../shared/app.state';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddFoodComboComponent } from '../add-food-combo/add-food-combo.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AddComboPicComponent } from '../add-food-combo/add-combo-pic/add-combo-pic.component';
 2;
 @Component({
@@ -54,12 +54,6 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   loadFoodComboItems() {
     this.masterService.getAllCombos().subscribe((response) => {
       this.foodCombos = response;
-      console.log( this.foodCombos, 'food combo');
-      
-      // this.foodCombos.forEach((combo) => {
-      //   this.comboId = combo.id;
-      //   this.loadComboPicture(this.comboId);
-      // });
       this.dataSource = new MatTableDataSource<FoodCombo>(this.foodCombos);
       this.dataSource.paginator = this.paginator;
     });
@@ -85,22 +79,13 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   addCombo() {
     this.openPopup(0, 'Add Combo');
   }
-  deleteCombo(id: number) {
-    if (id !== null) {
-      this.masterService.deleteCombo(id).subscribe((response) => {
-        this.loadFoodComboItems();
-      });
-    } else {
-      console.error();
-    }
-  }
+
 
   submitComboPic(id: number) {
     if (this.id) {
       this.masterService
         .updateComboPicture(this.selectedFile, this.id)
         .subscribe((response) => {
-          this.loadComboPicture(this.id);
           this.formField = false;
           this.changeComboBtn = true;
         });
@@ -115,14 +100,11 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
   changeComboPicClicked(id: number) {
     this.selectedComboId = id;
     this.id = id;
-    console.log(id, 'selected id for image');
 
     this.formField = true;
     this.changeComboBtn = false;
   }
   changeComboPic(id: any) {
-    console.log(id,"clicked id");
-    
     this.openCPPopup(id)
   }
 
@@ -139,22 +121,4 @@ export class ComboItemsComponent implements OnInit, AfterContentInit {
     });
   }
 
-  loadComboPicture(imgId: number) {
-    this.masterService.getComboImage(imgId).subscribe({
-      next: (data: Blob) => {
-        if (data.size !== 0) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.comboPictureUrls[imgId] = reader.result as string;
-          };
-          reader.readAsDataURL(data);
-        } else {
-          console.log('No picture data received');
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching profile image:', error);
-      },
-    });
-  }
 }

@@ -22,9 +22,7 @@ export class DecorationMembersComponent implements OnInit{
 
 
   ngOnInit(): void {
-    console.log(" component");
     this.inputData = this.data
-      console.log(this.inputData);
       this.getTeamMemberByTeamName(this.inputData.id)
   }
 
@@ -32,7 +30,6 @@ export class DecorationMembersComponent implements OnInit{
 
   getTeamMemberByTeamName(id: number){
     this.masterService.getDecorationMembersByTeamId(id).subscribe((data)=>{
-      console.log(data);
       this.decorationEmpl = data;
       this.dataSourceDE = new MatTableDataSource<DecorImpl>(this.decorationEmpl);
       

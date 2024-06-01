@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewUserComponent } from '../view-user/view-user.component';
-import { CreatePartnerComponent } from '../create-partner/create-partner.component';
 
 @Component({
   selector: 'app-users-list',
@@ -34,7 +33,6 @@ export class UsersListComponent implements OnInit {
 
   getAllUsers() {
     this.masterService.getAllUsers().subscribe((data) => {
-      console.log(data);
       this.userList = data;
       this.dataSource = new MatTableDataSource<User>(this.userList);
       this.dataSource.paginator = this.paginator;
@@ -42,7 +40,6 @@ export class UsersListComponent implements OnInit {
   }
   getPartnerUsers() {
     this.masterService.getAllPartnerUsers().subscribe((data) => {
-      console.log(data);
       this.partnerUserList = data;
       this.dataSourcePartner = new MatTableDataSource<User>(
         this.partnerUserList
@@ -62,18 +59,5 @@ export class UsersListComponent implements OnInit {
         id: userId,
       },
     });
-  }
-
-  createPartnerPopup() {
-    var _popup = this.dialog.open(CreatePartnerComponent, {
-      width: '30%',
-    });
-    _popup.afterClosed().subscribe((data) => {
-      this.getPartnerUsers();
-    });
-  }
-
-  createPartner() {
-    this.createPartnerPopup();
   }
 }

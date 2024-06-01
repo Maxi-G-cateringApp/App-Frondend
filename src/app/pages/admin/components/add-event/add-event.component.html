@@ -1,23 +1,16 @@
-
-
 <form [formGroup]="addEventForm" enctype="multipart/form-data" (ngSubmit)="onaddEvent()">
-    <h1 mat-dialog-title>{{ inputData.title }}</h1>
-      <div mat-dialog-content>
-        <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
-     
-  
-       
-        <mat-form-field>
-          <mat-label>Event Name</mat-label>
-            <input formControlName="eventName" matInput>
-            <mat-error *ngIf="addEventForm.controls['eventName'].errors?.['whitespace']">*Enter valid Eventname</mat-error>
-        </mat-form-field>
-    
-  
-      </div>
-      <div mat-dialog-actions>
-        <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
-        <button mat-raised-button color="primary" type="submit">save</button>
-    
-      </div>
-      </form>
+  <h1 mat-dialog-title>{{ inputData.title }}</h1>
+  <div mat-dialog-content>
+    <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }}</b></mat-error>
+
+    <mat-form-field>
+      <mat-label>Event Name</mat-label>
+      <input formControlName="eventName" matInput>
+      <mat-error *ngIf="addEventForm.controls['eventName'].errors?.['whitespace']">*Enter valid Eventname</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <a (click)="closePopup()" mat-raised-button color="warn">Close</a>
+    <button mat-raised-button color="primary" type="submit">save</button>
+  </div>
+</form>

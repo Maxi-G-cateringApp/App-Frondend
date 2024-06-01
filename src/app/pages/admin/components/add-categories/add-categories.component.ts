@@ -20,7 +20,6 @@ import { Categories } from '../../models/category.model';
   styleUrl: './add-categories.component.css',
 })
 export class AddCategoriesComponent implements OnInit {
-
   showErrorMessage!: Observable<string>;
   addCategoryForm!: FormGroup;
   inputData: any;
@@ -35,9 +34,8 @@ export class AddCategoriesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.inputData = this.data;
-    
+
     if (this.inputData.isEdit) {
       this.setPopupdata(this.inputData.id);
     }
@@ -49,7 +47,7 @@ export class AddCategoriesComponent implements OnInit {
 
   setPopupdata(id: number) {
     this.masterService.getCategoryById(id).subscribe((data) => {
-      this.editData = data;      
+      this.editData = data;
       this.addCategoryForm.patchValue({
         id: this.editData.id,
         categoriesName: this.editData.categoriesName,
@@ -57,33 +55,35 @@ export class AddCategoriesComponent implements OnInit {
     });
   }
 
-  onEdit(id: number){
-    this.masterService.editCategory(id,this.addCategoryForm.value)
-    .subscribe((response)=>{
-      if(response.status === true){
-        console.log(response);
-      this.tost.success('Updated','Successfully update category')
-        this.closePopup();
-      }else{
-        this.tost.error('Something Wrong','Invalid Data or data Already Exist')
-      }
-    })
+  onEdit(id: number) {
+    this.masterService
+      .editCategory(id, this.addCategoryForm.value)
+      .subscribe((response) => {
+        if (response.status === true) {
+          this.tost.success('Updated', 'Successfully update category');
+          this.closePopup();
+        } else {
+          this.tost.error(
+            'Something Wrong',
+            'Invalid Data or data Already Exist'
+          );
+        }
+      });
   }
   onaddCategory() {
-    if(this.inputData.isEdit){
-      this.onEdit(this.inputData.id)
-    }else{
-    if (this.addCategoryForm.valid) {
-      this.masterService
-        .addCategories(this.addCategoryForm.value)
-        .subscribe((response) => {
-          console.log(response);
-          this.closePopup();
-        });
-    }else{
-      this.tost.error('Enter valid Data','Invalid')
+    if (this.inputData.isEdit) {
+      this.onEdit(this.inputData.id);
+    } else {
+      if (this.addCategoryForm.valid) {
+        this.masterService
+          .addCategories(this.addCategoryForm.value)
+          .subscribe((response) => {
+            this.closePopup();
+          });
+      } else {
+        this.tost.error('Enter valid Data', 'Invalid');
+      }
     }
-  }
   }
 
   closePopup() {

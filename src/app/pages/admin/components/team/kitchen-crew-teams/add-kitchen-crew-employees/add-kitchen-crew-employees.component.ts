@@ -30,11 +30,11 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadKitchenCrewTeams();
-    this.getEmployeesWithoutTeam()
+    this.getEmployeesWithoutTeam();
 
     this.kitchenCrewEmployeeForm = this.fb.group({
       kitchenCrewTeamId: ['', Validators.required],
-      emp: ['',Validators.required]
+      emp: ['', Validators.required],
     });
   }
 
@@ -59,17 +59,13 @@ export class AddKitchenCrewEmployeesComponent implements OnInit {
       this.kitchenCrewTeam = response;
     });
   }
-  getEmployeesWithoutTeam(){
-    this.masterService.getEmployeesWithoutTeam().subscribe((data)=>{
+  getEmployeesWithoutTeam() {
+    this.masterService.getEmployeesWithoutTeam().subscribe((data) => {
       this.employees = data;
-      console.log(this.employees);
-      
-    })
+    });
   }
 
   closePopup() {
     this.ref.close();
   }
-
-
 }

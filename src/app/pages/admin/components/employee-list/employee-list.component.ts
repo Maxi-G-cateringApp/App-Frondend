@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { Employee } from '../../models/employee.model';
 import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee-list',
@@ -13,7 +12,13 @@ import Swal from 'sweetalert2';
   styleUrl: './employee-list.component.css',
 })
 export class EmployeeListComponent implements OnInit {
-  displayedColumns: string[] = ['emp_name', 'expertise','email','phoneNumber','action'];
+  displayedColumns: string[] = [
+    'emp_name',
+    'expertise',
+    'email',
+    'phoneNumber',
+    'action',
+  ];
   dataSource: any;
   itemId!: number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -21,7 +26,7 @@ export class EmployeeListComponent implements OnInit {
 
   constructor(
     private masterService: MasterService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -36,69 +41,30 @@ export class EmployeeListComponent implements OnInit {
     var _popup = this.dialog.open(AddEmployeeComponent, {
       width: '40%',
     });
-    _popup.afterClosed().subscribe((data)=>{
+    _popup.afterClosed().subscribe((data) => {
       this.getAllEmployees();
-    })
+    });
   }
 
   getAllEmployees() {
     this.masterService.getAllEmployees().subscribe((data) => {
       this.employeeList = data;
-      console.log(this.employeeList);
-      
+
       this.dataSource = new MatTableDataSource<Employee>(this.employeeList);
-      this.dataSource.paginator = this.paginator
+      this.dataSource.paginator = this.paginator;
     });
-      
-    
   }
 
-  inactiveEmp(id: number){
-    this.masterService.inactivateEmp(id).subscribe((res)=>{
-      console.log(res);
-      
+  inactiveEmp(id: number) {
+    this.masterService.inactivateEmp(id).subscribe((res) => {
       this.getAllEmployees();
-    })
-  }
-
-  activeEmp(id: number){
-    this.masterService.activateEmp(id).subscribe((res)=>{
-      console.log(res);
-      this.getAllEmployees();
-    })
-  }
-
-
-
-
-
-
-
-
-
-
-
-  removeEmp(id: number){
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.masterService.deleteEmp(id).subscribe((res)=>{
-          this.getAllEmployees();
-        })
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success"
-        });
-      }
     });
-    
   }
+
+  activeEmp(id: number) {
+    this.masterService.activateEmp(id).subscribe((res) => {
+      this.getAllEmployees();
+    });
+  }
+
 }

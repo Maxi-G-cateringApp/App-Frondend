@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
       if (this.registerForm.valid && this.passwordMatch()) {
         this.masterService
           .register(this.registerForm.value)
-          .subscribe((response) => {            
+          .subscribe((response) => {
             this.email = response.email;
             if (response !== null) {
               this.tost.success(

@@ -1,10 +1,7 @@
-import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FoodItems } from '../../models/foodItems.model';
 import { MasterService } from '../../../../core/services/master.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../shared/app.state';
-import { setLoadingSpinner } from '../../../../shared/store/shared.action';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,17 +11,15 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './food-items.component.html',
   styleUrl: './food-items.component.css',
 })
-export class FoodItemsComponent implements OnInit, AfterContentInit {
+export class FoodItemsComponent implements OnInit {
   
   foodItems!: FoodItems[];
   displayedColumns: string[] = ['itemName', 'itemPrice', 'action'];
   dataSource: any;
-  itemId!:number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private masterService: MasterService,
-    private store: Store<AppState>,
     private dialog: MatDialog
   ) {}
 
@@ -32,16 +27,9 @@ export class FoodItemsComponent implements OnInit, AfterContentInit {
     this.loadFoodItems();
   }
 
-  ngAfterContentInit(): void {
-    this.store.dispatch(setLoadingSpinner({ status: false }));
-  }
-
   loadFoodItems() {
     this.masterService.getAllFoodItems().subscribe((response) => {
       this.foodItems = response;
-      this.foodItems.forEach((item)=>{
-        this.itemId = item.id;
-      });
       this.dataSource = new MatTableDataSource<FoodItems>(this.foodItems);
       this.dataSource.paginator = this.paginator
     });

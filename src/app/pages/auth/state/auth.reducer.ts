@@ -24,26 +24,8 @@ const _authReducer = createReducer(
      user: { ...state.user, ...user } as unknown as AuthenticatedUser
   }))
   
-    
-  
-
-  // on(updateUsersuccess, (state) => ({
-  //   ...state,
-  //   user: state.user
-  // })),
 );
 
 export function AuthReducer(state: any, action: any) {
   return _authReducer(state, action);
 }
-
-// on(updateUser,(state,action)=>{
-//   const _user = {...action.user}
-//   const updateUser = state.users.map(user => {
-//       return _user.id === user.id?_user:user;
-//   })
-//   return{
-//       ...state,
-//       users:updateUser
-//   }
-// }),

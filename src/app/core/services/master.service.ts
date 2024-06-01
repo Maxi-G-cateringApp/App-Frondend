@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../pages/auth/models/user.model';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { LoginData } from '../../pages/auth/models/loginReq.model';
 import { AuthResponse } from '../../pages/auth/models/authResponse.model';
 import { VerificationResponse } from '../../pages/auth/models/verificationResponse.model';
@@ -19,7 +19,6 @@ import { OrderProcessing } from '../../pages/admin/models/orderProcessing.model'
 import { ReviewModel } from '../../pages/user/models/rating.model';
 import { UpdateUser } from '../../pages/user/models/update-user.model';
 import { Employee } from '../../pages/admin/models/employee.model';
-import { Feed } from '../../pages/admin/models/feed.model';
 import { Partner } from '../../pages/admin/models/partner.model';
 import { Offer } from '../../pages/admin/models/offer.model';
 import { saveAs } from 'file-saver';
@@ -54,18 +53,26 @@ export class MasterService {
   updateComboPicture(file: File, comboId: number): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`/admin/combo-picture/${comboId}`, formData);
+    return this.http.post<any>(`/combo-picture/${comboId}`, formData);
+  }
+  updateItemPicture(file: File, ItemId: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`/item-picture/${ItemId}`, formData);
   }
 
   addFoodCombo(combo: FoodCombo, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('combo', JSON.stringify(combo));
-    return this.http.post<any>('/admin/add-combo', formData);
+    return this.http.post<any>('/add-combo', formData);
   }
 
-  addFoodItem(item: FoodItems): Observable<VerificationResponse> {
-    return this.http.post<VerificationResponse>('/admin/add-item', item);
+  addFoodItem(item: FoodItems, file: File): Observable<VerificationResponse> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('item', JSON.stringify(item));
+    return this.http.post<VerificationResponse>('/add-item', formData);
   }
 
   getComboItem(id: number): Observable<FoodCombo> {
@@ -87,17 +94,17 @@ export class MasterService {
   }
 
   editFoodCombo(id: number, item: FoodCombo): Observable<any> {
-    return this.http.put<any>(`/admin/edit-combo?id=${id}`, item);
+    return this.http.put<any>(`/edit-combo?id=${id}`, item);
   }
   editFoodItem(id: number, Item: FoodItems): Observable<any> {
-    return this.http.put<any>(`/admin/edit-item?id=${id}`, Item);
+    return this.http.put<any>(`/edit-item?id=${id}`, Item);
   }
 
   deleteCombo(id: number): Observable<any> {
-    return this.http.delete<any>(`/admin/delete-combo?id=${id}`);
+    return this.http.delete<any>(`/delete-combo?id=${id}`);
   }
   deleteItem(id: number): Observable<any> {
-    return this.http.delete<any>(`/admin/delete-item?id=${id}`);
+    return this.http.delete<any>(`/delete-item?id=${id}`);
   }
   deletCategories(id: number): Observable<Categories> {
     return this.http.delete<Categories>(`/delete-category?id=${id}`);
@@ -111,10 +118,10 @@ export class MasterService {
   }
 
   getAllCombos(): Observable<FoodCombo[]> {
-    return this.http.get<FoodCombo[]>('/admin/all-combos');
+    return this.http.get<FoodCombo[]>('/all-combos');
   }
   getAllCombosWithoutOffer(): Observable<FoodCombo[]> {
-    return this.http.get<FoodCombo[]>('/admin/combos/no-offer');
+    return this.http.get<FoodCombo[]>('/combos/no-offer');
   }
 
   getAllCombosByCategory(id: number): Observable<FoodCombo[]> {
@@ -129,8 +136,8 @@ export class MasterService {
     return this.http.get('/all-categories');
   }
 
-  getCategoryById(id: number):Observable<Categories>{
-    return this.http.get<Categories>(`/get/category?id=${id}`)
+  getCategoryById(id: number): Observable<Categories> {
+    return this.http.get<Categories>(`/get/category?id=${id}`);
   }
   editCategory(id: number, category: Categories): Observable<any> {
     return this.http.put<any>(`/edit/category?id=${id}`, category);
@@ -162,8 +169,8 @@ export class MasterService {
   addEvent(event: Events): Observable<any> {
     return this.http.post<any>('/add-event', event);
   }
-  getEventById(id: number):Observable<Events>{
-    return this.http.get<Events>(`/get/event?id=${id}`)
+  getEventById(id: number): Observable<Events> {
+    return this.http.get<Events>(`/get/event?id=${id}`);
   }
 
   saveOrder(orderData: OrderDetails): Observable<any> {
@@ -228,20 +235,19 @@ export class MasterService {
   getAllServingEmployees(): Observable<any> {
     return this.http.get<any>('/serving_emp');
   }
-  deleteServingTeam(id: number):Observable<any>{
-    return this.http.delete<any>(`/delete-serve_team?id=${id}`)
+  deleteServingTeam(id: number): Observable<any> {
+    return this.http.delete<any>(`/delete-serve_team?id=${id}`);
   }
 
-  getServTeamMembersByTeamId(id: number):Observable<any[]>{
-    return this.http.get<any[]>(`/get/team-members?id=${id}`)
-
+  getServTeamMembersByTeamId(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`/get/team-members?id=${id}`);
   }
 
-  inactiveMemberFromTeam(empId: number):Observable<any>{
-    return this.http.put<any>(`/inactive/member/${empId}`,null)
+  inactiveMemberFromTeam(empId: number): Observable<any> {
+    return this.http.put<any>(`/inactive/member/${empId}`, null);
   }
 
-  // Decoration Team  ${this.baseUrl}/${servingTeamId}/employees/${servingEmpId}`
+  // Decoration Team  
 
   getAllDecorationTeams(): Observable<any> {
     return this.http.get<any>('/decor_teams');
@@ -258,11 +264,11 @@ export class MasterService {
     return this.http.post<any>('/add/decor_team', teamName);
   }
 
-  deleteDecorationTeam(id: number):Observable<any>{
-    return this.http.delete<any>(`/delete-dec_team?id=${id}`)
+  deleteDecorationTeam(id: number): Observable<any> {
+    return this.http.delete<any>(`/delete-dec_team?id=${id}`);
   }
-  getDecorationMembersByTeamId(id: number):Observable<DecorImpl[]>{
-    return this.http.get<DecorImpl[]>(`/get/dec-emp?id=${id}`)
+  getDecorationMembersByTeamId(id: number): Observable<DecorImpl[]> {
+    return this.http.get<DecorImpl[]>(`/get/dec-emp?id=${id}`);
   }
 
   // kitchenCrew Team
@@ -281,15 +287,13 @@ export class MasterService {
   addlKitchenCrewTeam(teamName: string): Observable<any> {
     return this.http.post<any>('/add/kitchenCrew_team', teamName);
   }
-  deleteKitchenCrewTeam(id: number):Observable<any>{
-    return this.http.delete<any>(`/delete-kitchen_crew?id=${id}`)
+  deleteKitchenCrewTeam(id: number): Observable<any> {
+    return this.http.delete<any>(`/delete-kitchen_crew?id=${id}`);
   }
 
-  getKitchenMembersByTeamId(id: number):Observable<any[]>{
-    return this.http.get<any[]>(`/get/kitchen-team-members?id=${id}`)
-
+  getKitchenMembersByTeamId(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`/get/kitchen-team-members?id=${id}`);
   }
-  
 
   cancelOrder(orderId: string): Observable<any> {
     return this.http.post<any>(`/cancel-order/${orderId}`, null);
@@ -329,148 +333,149 @@ export class MasterService {
     return this.http.post<any>(`/get-chats?user=${adminId}`, null);
   }
 
-  getAllUsers():Observable<User[]>{
+  getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>('/all-users');
   }
-  getAllPartnerUsers():Observable<User[]>{
-    return this.http.get<User[]>('/admin/partner-users');
+  getAllPartnerUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/partner-users');
   }
 
-  addEmployee(employee: Employee): Observable<Employee>{
-    return this.http.post<Employee>('/add-employee',employee);
-
+  addEmployee(employee: Employee): Observable<Employee> {
+    return this.http.post<Employee>('/add-employee', employee);
   }
 
-  getAllEmployees():Observable<Employee[]>{
+  getAllEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>('/all-employees');
   }
-  inactivateEmp(id: number): Observable<any>{
-    return this.http.put<any>(`/inactive/emp?id=${id}`,null)
+  inactivateEmp(id: number): Observable<any> {
+    return this.http.put<any>(`/inactive/emp?id=${id}`, null);
   }
-  activateEmp(id: number): Observable<any>{
-    return this.http.put<any>(`/active/emp?id=${id}`,null)
+  activateEmp(id: number): Observable<any> {
+    return this.http.put<any>(`/active/emp?id=${id}`, null);
   }
 
-
-  getEmployeesWithoutTeam():Observable<Employee[]>{
+  getEmployeesWithoutTeam(): Observable<Employee[]> {
     return this.http.get<Employee[]>('/employees/without-team');
   }
 
-  addFeed(formData: FormData):Observable<any>{
-    return this.http.post<any>('/add-feed',formData)
+  addFeed(formData: FormData): Observable<any> {
+    return this.http.post<any>('/add-feed', formData);
   }
 
-  getAllFeeds():Observable<any[]>{
-    return this.http.get<any[]>('/get-feeds')
+  getAllFeeds(): Observable<any[]> {
+    return this.http.get<any[]>('/get-feeds');
   }
 
-  getUserFeeds(userId: string):Observable<any[]>{
-    return this.http.get<any[]>(`/get-feeds/user?userId=${userId}`)
+  getUserFeeds(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`/get-feeds/user?userId=${userId}`);
   }
 
-  deleteFeed(id: number):Observable<any>{
-    return this.http.delete<any>(`/delete-feed?id=${id}`)
+  deleteFeed(id: number): Observable<any> {
+    return this.http.delete<any>(`/delete-feed?id=${id}`);
   }
 
-  getUserById(userId: string):Observable<any>{
-    return this.http.get<any>(`/get-user?userId=${userId}`)
+  getUserById(userId: string): Observable<any> {
+    return this.http.get<any>(`/get-user?userId=${userId}`);
   }
 
-  addPartner(userId: string):Observable<any>{
-    return this.http.post<any>(`/admin/set-partner?userId=${userId}`,null)
+  addPartner(userId: string): Observable<any> {
+    return this.http.post<any>(`/set-partner?userId=${userId}`, null);
   }
-  createPartner(partnerData: Partner):Observable<any>{
-    return this.http.post<any>('/admin/create/partner',partnerData)
-  }
-
-  deleteEmp(id: number): Observable<any>{
-    return this.http.delete<any>(`/delete/emp?id=${id}`)
+  createPartner(partnerData: Partner): Observable<any> {
+    return this.http.post<any>('/create/partner', partnerData);
   }
 
+  deleteEmp(id: number): Observable<any> {
+    return this.http.delete<any>(`/delete/emp?id=${id}`);
+  }
 
   // offer
-  createOffer(offer: Offer):Observable<any>{
-    return this.http.post<any>('/create-offer',offer)
+  createOffer(offer: Offer): Observable<any> {
+    return this.http.post<any>('/create-offer', offer);
   }
-  getAllOffers():Observable<Offer[]>{
-    return this.http.get<Offer[]>('/get-offers')
+  getAllOffers(): Observable<Offer[]> {
+    return this.http.get<Offer[]>('/get-offers');
   }
-  enableOffer(id:number):Observable<any>{
-    return this.http.post<any>(`/enable-offer?id=${id}`,null)
+  enableOffer(id: number): Observable<any> {
+    return this.http.post<any>(`/enable-offer?id=${id}`, null);
   }
-  disableeOffer(id:number):Observable<any>{
-    return this.http.post<any>(`/disable-offer?id=${id}`,null)
+  disableeOffer(id: number): Observable<any> {
+    return this.http.post<any>(`/disable-offer?id=${id}`, null);
   }
-  getOfferById(id: number):Observable<Offer>{
-    return this.http.get<Offer>(`/get/offer?id=${id}`)
+  getOfferById(id: number): Observable<Offer> {
+    return this.http.get<Offer>(`/get/offer?id=${id}`);
   }
-  editOffer(id: number,offerData: Offer):Observable<any>{
-    return this.http.put<any>(`/edit/offer?id=${id}`,offerData)
+  editOffer(id: number, offerData: Offer): Observable<any> {
+    return this.http.put<any>(`/edit/offer?id=${id}`, offerData);
   }
 
-  getAllEnabledOffers():Observable<Offer[]>{
-    return this.http.get<Offer[]>('/get/enabled/offers')
+  getAllEnabledOffers(): Observable<Offer[]> {
+    return this.http.get<Offer[]>('/get/enabled/offers');
   }
-  
+
   //sales
 
-  getOneMonthSales(){
-    return this.http.get('/sales/one-month')
+  getOneMonthSales() {
+    return this.http.get('/sales/one-month');
   }
 
-  showGraph(timePeriod: string){
-    return this.http.get(`/show/graph?timePeriod=${timePeriod}`)
+  showGraph(timePeriod: string) {
+    return this.http.get(`/show/graph?timePeriod=${timePeriod}`);
   }
-  showAllTimeGraph(){
-    return this.http.get('/show/total-sale/graph')
+  showAllTimeGraph() {
+    return this.http.get('/show/total-sale/graph');
   }
-  getSalesReport(timePeriod: string){
-    return this.http.get(`/sales-report/timePeriod?timePeriod=${timePeriod}`)
+  getSalesReport(timePeriod: string) {
+    return this.http.get(`/sales-report/timePeriod?timePeriod=${timePeriod}`);
   }
-  getSalesReportByDates(dates: any):Observable<any>{
-    return this.http.post<any>('/sales-report/date',dates)
+  getSalesReportByDates(dates: any): Observable<any> {
+    return this.http.post<any>('/sales-report/date', dates);
   }
-  downloadPDF(timePeriod: string){
+  downloadPDF(timePeriod: string) {
     const params = { timePeriod };
-    const headers = new HttpHeaders({ 'Accept': 'application/pdf' });
-    return this.http.get('/sales-report/download',{headers,params,responseType:'blob'}).pipe(
-      map((response:Blob)=>{const fileName = 'sales-report.pdf';
-        saveAs(response,fileName);
-      })
-    )
+    const headers = new HttpHeaders({ Accept: 'application/pdf' });
+    return this.http
+      .get('/sales-report/download', { headers, params, responseType: 'blob' })
+      .pipe(
+        map((response: Blob) => {
+          const fileName = 'sales-report.pdf';
+          saveAs(response, fileName);
+        })
+      );
   }
-  downloadPDFBydates(dates: any){
-    const headers = new HttpHeaders({ 'Accept': 'application/pdf' });
-    return this.http.post('/sales-report/dates/download',dates ,{headers,responseType:'blob'}).pipe(
-      map((response:Blob)=>{const fileName = 'sales-report.pdf';
-        saveAs(response,fileName);
+  downloadPDFBydates(dates: any) {
+    const headers = new HttpHeaders({ Accept: 'application/pdf' });
+    return this.http
+      .post('/sales-report/dates/download', dates, {
+        headers,
+        responseType: 'blob',
       })
-    )
+      .pipe(
+        map((response: Blob) => {
+          const fileName = 'sales-report.pdf';
+          saveAs(response, fileName);
+        })
+      );
   }
-
 
   //notifications
-  getAllNotifications():Observable<Notifications[]>{
-    return this.http.get<Notifications[]>('/get/notifications')
+  getAllNotifications(): Observable<Notifications[]> {
+    return this.http.get<Notifications[]>('/get/notifications');
   }
 
-  deleteNotification(id: number){
-    return this.http.delete(`/delete/notification?id=${id}`)
+  deleteNotification(id: number) {
+    return this.http.delete(`/delete/notification?id=${id}`);
   }
 
-  viewNotification(id: number):Observable<any>{
-    return this.http.post(`/view/notification?id=${id}`,null)
+  viewNotification(id: number): Observable<any> {
+    return this.http.post(`/view/notification?id=${id}`, null);
   }
 
-  getEmployeeByEmail(email: string){
-    return this.http.get(`/get-emp/email?email=${email}`)
+  getEmployeeByEmail(email: string) {
+    return this.http.get(`/get-emp/email?email=${email}`);
   }
 
-  getEmployeesTeam(id: number){
-    return this.http.get(`/get/team/order?id=${id}`)
+  getEmployeesTeam(id: number) {
+    return this.http.get(`/get/team/order?id=${id}`);
   }
 }
-
-
-
-

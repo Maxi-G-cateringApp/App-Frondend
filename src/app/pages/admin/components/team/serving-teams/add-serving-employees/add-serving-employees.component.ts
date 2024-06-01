@@ -30,11 +30,11 @@ export class AddServingEmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadServingTeams();
-    this.getEmployeesWithoutTeam()
+    this.getEmployeesWithoutTeam();
 
     this.servingEmployeeForm = this.fb.group({
       servingTeamId: ['', Validators.required],
-      emp:['',Validators.required]
+      emp: ['', Validators.required],
     });
   }
 
@@ -42,7 +42,7 @@ export class AddServingEmployeesComponent implements OnInit {
     if (this.servingEmployeeForm.valid) {
       const data: ServingEmpl = {
         servingTeamId: this.servingEmployeeForm.value.servingTeamId,
-        emp: this.servingEmployeeForm.value.emp
+        emp: this.servingEmployeeForm.value.emp,
       };
       this.masterService.addServingEmpl(data).subscribe({
         next: (response) => {
@@ -60,18 +60,13 @@ export class AddServingEmployeesComponent implements OnInit {
     });
   }
 
-
-  getEmployeesWithoutTeam(){
-    this.masterService.getEmployeesWithoutTeam().subscribe((data)=>{
+  getEmployeesWithoutTeam() {
+    this.masterService.getEmployeesWithoutTeam().subscribe((data) => {
       this.employees = data;
-      console.log(this.employees);
-      
-    })
+    });
   }
-
 
   closePopup() {
     this.ref.close();
   }
-
 }

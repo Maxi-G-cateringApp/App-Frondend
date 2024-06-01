@@ -12,7 +12,11 @@ import { NotificationService } from '../../../../core/services/notification.serv
   styleUrl: './order.component.css',
 })
 export class OrderComponent implements OnInit {
-  constructor(private masterService: MasterService, private router: Router,private notification: NotificationService) {}
+  constructor(
+    private masterService: MasterService,
+    private router: Router,
+    private notification: NotificationService
+  ) {}
   orders!: OrderDetails[];
   displayedColumns: string[] = [
     'eventName',
@@ -43,11 +47,7 @@ export class OrderComponent implements OnInit {
     this.router.navigate(['/admin/view-order', orderId]);
   }
 
-  lisenerNotification(){
-this.notification.notification$.subscribe((notification)=>{
-  console.log(notification);
-
-  
-})
+  lisenerNotification() {
+    this.notification.notification$.subscribe((notification) => {});
   }
 }

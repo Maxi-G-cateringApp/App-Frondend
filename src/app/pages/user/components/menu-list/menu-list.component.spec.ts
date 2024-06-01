@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderSuccessComponent } from './order-success.component';
+import { MenuListComponent } from './menu-list.component';
 
-describe('OrderSuccessComponent', () => {
-  let component: OrderSuccessComponent;
-  let fixture: ComponentFixture<OrderSuccessComponent>;
+describe('MenuListComponent', () => {
+  let component: MenuListComponent;
+  let fixture: ComponentFixture<MenuListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OrderSuccessComponent]
+      declarations: [MenuListComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(OrderSuccessComponent);
+    fixture = TestBed.createComponent(MenuListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

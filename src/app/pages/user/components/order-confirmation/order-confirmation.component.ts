@@ -6,7 +6,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { SearchPlaceResult } from '../../models/search-place.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MasterService } from '../../../../core/services/master.service';
@@ -30,8 +35,7 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
   amount!: number;
   result!: SearchPlaceResult;
   userId!: any;
-  loc:any;
- 
+  loc: any;
 
   autoComplete: google.maps.places.Autocomplete | undefined;
 
@@ -55,36 +59,32 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
     this.getAmount();
 
     this.addressForm = this.fb.group({
-      address: ['',[ Validators.required,this.whiteSpaceValidator]],
-      place: ['', [Validators.required,this.whiteSpaceValidator]],
-      district: ['', [Validators.required,this.whiteSpaceValidator]],
-      
+      address: ['', [Validators.required, this.whiteSpaceValidator]],
+      place: ['', [Validators.required, this.whiteSpaceValidator]],
+      district: ['', [Validators.required, this.whiteSpaceValidator]],
     });
   }
 
-  
   public whiteSpaceValidator(control: FormControl) {
-    return (control.value || '').trim().length? null : { 'whitespace': true };       
-}
+    return (control.value || '').trim().length ? null : { whitespace: true };
+  }
 
-  getAmount(){
-    this.masterService.getTotalAmount(this.orderId).subscribe((response)=>{
-      console.log(response,'may be amount');
-      
+  getAmount() {
+    this.masterService.getTotalAmount(this.orderId).subscribe((response) => {
+      console.log(response, 'may be amount');
+
       this.amount = response.amount;
-      this.advanceAmount = this.amount * 25 /100;
-    })
+      this.advanceAmount = (this.amount * 25) / 100;
+    });
   }
 
   ngAfterViewInit(): void {
     this.autoComplete = new google.maps.places.Autocomplete(
       this.inputField.nativeElement
     );
-   
-    
+
     this.autoComplete.addListener('place_changed', () => {
       const place = this.autoComplete?.getPlace();
-      console.log(place);
       this.result = {
         latitude: place?.geometry?.location?.lat(),
         longitude: place?.geometry?.location?.lng(),
@@ -94,16 +94,13 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
     });
   }
 
-
-
-
   onConfirmOrder() {
     Swal.fire({
-      title: "Do you want to confirm the order?",
+      title: 'Do you want to confirm the order?',
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: "Save Order",
-      denyButtonText: `Don't save`
+      confirmButtonText: 'Save Order',
+      denyButtonText: `Don't save`,
     }).then((result) => {
       if (result.isConfirmed) {
         const data = {
@@ -116,10 +113,10 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
           userId: this.userId,
           orderId: this.orderId,
         };
-        
+
         this.masterService.addLocation(data).subscribe({
           next: (response) => {
-            Swal.fire("Order Placed!", "", "success");
+            Swal.fire('Order Placed!', '', 'success');
             this.router.navigate(['/user/orders']);
           },
           error: (error) => {
@@ -127,10 +124,8 @@ export class OrderConfirmationComponent implements OnInit, AfterViewInit {
           },
         });
       } else if (result.isDenied) {
-        Swal.fire("Order Not Placed", "", "info");
+        Swal.fire('Order Not Placed', '', 'info');
       }
     });
   }
-  
-  
 }

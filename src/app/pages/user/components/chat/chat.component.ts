@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
-export class ChatComponent implements OnInit , OnDestroy{
+export class ChatComponent implements OnInit, OnDestroy {
   user!: any;
   admin!: User;
   roomName?: string;
@@ -52,7 +52,6 @@ export class ChatComponent implements OnInit , OnDestroy{
   ) {}
 
   ngOnInit(): void {
-
     // this.chatService.unreadMessageCount$.subscribe(count => {
     //   this.unreadMessagesCount = count;
     // });
@@ -74,7 +73,7 @@ export class ChatComponent implements OnInit , OnDestroy{
                   sender: msg.senderId,
                   content: msg.content,
                   timestamp: msg.t_stamp,
-                  seen: msg.seen
+                  seen: msg.seen,
                 }));
 
                 data.forEach((msg) => {
@@ -85,12 +84,10 @@ export class ChatComponent implements OnInit , OnDestroy{
               });
             this.chatService.initConectionSocket(chatRoomName);
             this.lisenerMessage();
-            
           }
         });
       },
     });
-
   }
 
   sendMsg() {
@@ -98,36 +95,40 @@ export class ChatComponent implements OnInit , OnDestroy{
       const content = this.newMessage.trim();
       const senderId = this.user.id;
       const recipientId = this.admin.id;
-      const chatRoomName = this.chatService.generateChatroomName(senderId,recipientId);
-      const message = { senderId,chatRoomName,content: content}
+      const chatRoomName = this.chatService.generateChatroomName(
+        senderId,
+        recipientId
+      );
+      const message = { senderId, chatRoomName, content: content };
 
       this.chatService.sentPrivateMessage(message);
       this.chatMessages.push({
         sender: senderId,
         content: content,
         timestamp: '',
-        seen: false
+        seen: false,
       });
       this.newMessage = '';
     }
   }
 
   lisenerMessage() {
-    this.newMessageSubscription = this.chatService.message$.subscribe((message) => {
-      const receivedMessage = JSON.parse(message);
-      if (receivedMessage.senderId !== this.user.id) {
-        this.chatMessages.push({
-          sender: receivedMessage.senderId,
-          content: receivedMessage.content,
-          timestamp: receivedMessage.timestamp,
-          seen: receivedMessage.seen
-        });
-        this.chatService.markMessageAsSeen(receivedMessage.id)
-        this.unreadMessages++;
+    this.newMessageSubscription = this.chatService.message$.subscribe(
+      (message) => {
+        const receivedMessage = JSON.parse(message);
+        if (receivedMessage.senderId !== this.user.id) {
+          this.chatMessages.push({
+            sender: receivedMessage.senderId,
+            content: receivedMessage.content,
+            timestamp: receivedMessage.timestamp,
+            seen: receivedMessage.seen,
+          });
+          this.chatService.markMessageAsSeen(receivedMessage.id);
+          this.unreadMessages++;
+        }
       }
-    });
+    );
   }
-
 
   addEmoji(event: any) {
     const { newMessage } = this;
@@ -144,10 +145,9 @@ export class ChatComponent implements OnInit , OnDestroy{
 
   onFileSelected(event: any) {
     this.file = event.target.files[0];
-  
   }
 
-  markAllMessagesAsRead(){
+  markAllMessagesAsRead() {
     this.unreadMessages = 0;
   }
 }
