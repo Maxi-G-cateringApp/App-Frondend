@@ -13,7 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class FoodItemsComponent implements OnInit {
   foodItems!: FoodItems[];
-  displayedColumns: string[] = ['itemName', 'itemPrice', 'action'];
+  displayedColumns: string[] = ['itemName', 'itemPrice', 'action','imageUrl'];
   dataSource: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
