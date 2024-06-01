@@ -6,31 +6,28 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-item-pic',
   templateUrl: './add-item-pic.component.html',
-  styleUrl: './add-item-pic.component.css'
+  styleUrl: './add-item-pic.component.css',
 })
-export class AddItemPicComponent implements OnInit{
-
+export class AddItemPicComponent implements OnInit {
   foodItemForm!: FormGroup;
   selectedFile!: File;
   inputData: any;
   editId: number = 0;
   uploadComboPic!: FormGroup;
 
-  constructor(private masterService: MasterService,
+  constructor(
+    private masterService: MasterService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private ref: MatDialogRef<AddItemPicComponent>,
+    private ref: MatDialogRef<AddItemPicComponent>
+  ) {}
 
-    ){}
+  ngOnInit(): void {
+    this.inputData = this.data;
 
-    ngOnInit(): void {
-      this.inputData = this.data;
-
-      this.uploadComboPic = new FormGroup({
-        file: new FormControl(null),
-      });
-      
-    }
-
+    this.uploadComboPic = new FormGroup({
+      file: new FormControl(null),
+    });
+  }
 
   handleFileChange(event: any) {
     this.selectedFile = event.target.files[0];
@@ -43,7 +40,6 @@ export class AddItemPicComponent implements OnInit{
         .updateItemPicture(this.selectedFile, this.inputData.id)
         .subscribe((response) => {
           this.closePopup();
-          
         });
     }
   }
@@ -51,6 +47,4 @@ export class AddItemPicComponent implements OnInit{
   closePopup() {
     this.ref.close();
   }
-
-
 }

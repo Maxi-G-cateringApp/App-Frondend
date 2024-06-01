@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { AddItemPicComponent } from '../add-item/add-item-pic/add-item-pic.component';
 
 @Component({
   selector: 'app-food-items',
@@ -70,7 +71,7 @@ export class FoodItemsComponent implements OnInit {
   }
 
   openCPPopup(id: any) {
-    var _popup = this.dialog.open(AddItemComponent, {
+    var _popup = this.dialog.open(AddItemPicComponent, {
       width: '40%',
       height: '30%',
       data: {
