@@ -20,8 +20,6 @@ export class HomePageComponent implements OnInit {
   }
 
   imagePath2: String ="/assets/Home.jpg"
-    // '/assets/vegetarian-kerala-meals-on-banana-leaf-2BMT9DB.png';
-  // logo: string = "/assets/Brown_Simple_Minimalist_Cuisine_Logo-removebg-preview (1).png"
   imagePath: String =
     '/assets/vegetarian-kerala-meals-on-banana-leaf-2BMT9DB.png';
 
@@ -34,4 +32,3 @@ export class HomePageComponent implements OnInit {
   }
 }
 
-// src/assets/vegetarian-kerala-meals-on-banana-leaf-2BMT9DB.png

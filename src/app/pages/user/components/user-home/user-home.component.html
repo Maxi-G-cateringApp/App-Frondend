@@ -1,6 +1,6 @@
 <div class=" bg-slate-950 relative h-screen">
   <div class="body flex justify-center absolute top-[5rem] w-full flex-col md:flex-row items-center md:items-start">
-    <div class="h-auto w-1/2 post-container">
+    <div class="h-full w-full lg:w-1/2 md:w-1/2 post-container">
       <ng-container *ngIf="user?.role === 'PARTNER' ">
         <form enctype="multipart/form-data" [formGroup]="feedForm" (ngSubmit)="addFeed()">
           <h1>Post Your Feed</h1>
@@ -26,7 +26,8 @@
       
       <app-offer></app-offer>
     </div>
-    <div class="feeds-container w-1/2 h-screen m-3">
+    <div class="feeds-container w-full lg:w-1/2 md:w-1/2 h-screen m-3">
+      <h1>UserFeeds</h1>
       <div class="rounded-lg shadow-md  py-1 px-2">
         <ng-container *ngFor="let feed of feeds">
           <div class="feed-item border-b-2 border-gray-200 pb-4 mb-4">

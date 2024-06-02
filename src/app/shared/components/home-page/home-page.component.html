@@ -1,37 +1,26 @@
-<!-- <app-navbar></app-navbar> -->
-<!-- <div class="flex relative">
-    <div>
-        <img [src]="imagePath2">
-    </div>
-    <div class="absolute right-[32rem] bottom-[22rem]">
-        <h3>Discover</h3>
-        <h1>Maxi -G</h1>
-        <h2>Events & Catering Service</h2>
-      
-    </div>
- 
-</div> -->
 <app-navbar></app-navbar>
-<div class="flex-container">
-    <div class="flex relative">
-      <div>
-        <img [src]="imagePath2">
-      </div>
-      <div class="content">
-        <div class="m-5">
-            <h3>Discover</h3>
-        </div>
+<div class="flex-container flex justify-center items-center h-screen">
+    <div class="relative flex md:justify-center md:items-center  bg-slate-950">
         <div>
-            <h1>Maxi -G</h1>
-            <h2>Events & Catering Service</h2>
+            <img [src]="imagePath2" class="w-full h-full object-fill">
         </div>
-        
-      </div>
-    </div>
-  </div>
-  
-
-
+        <div class="content absolute flex flex-col justify-center items-center text-center w-full h-full">
+            <div class="m-5">
+                <h3>Discover</h3>
+            </div>
+            <div>
+                <h1>Maxi -G</h1>
+                <h2>Events & Catering Service</h2>
+                <div>
+                    <button
+                        class="text-yellow-500 text-xl mt-2 md:text-2xl lg:text-2xl font-extrabold shadow-xl md:px-3 md:py-2 lg:py-2 lg:px-3 rounded-full md:border-2 md:border-yellow-500 md:mt-3 lg:mt-3 hover:bg-slate-950 hover:text-white transition duration-300 ease-in-out"
+                        [routerLink]="['/user/user-order']">Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
 <bottom-session></bottom-session>
 
 

@@ -1,9 +1,8 @@
-<div class="relative bg-slate-900 h-full md:h-1/2 ">
-  <div class="flex justify-start absolute top-[6rem] w-1/4">
-    <div class="w-full m-3">
+<div class="relative  bg-slate-900 h-full w-full lg:h-1/2 md:h-1/2">
+  <div class="flex-col md:flex lg:flex justify-start absolute top-[6rem] w-full md:w-1/4 lg:w-1/4">
+    <div class="w-full md:m-3 lg:m-3">
       <div class="flex flex-col justify-center items-center">
         <div class="flex flex-col items-center w-36 h-36 object-cover relative">
-        
           <img [src]="imagePreview || user.imageUrl || '/assets/icons/Profile-PNG-File.png'" alt="Profile Picture">
           <label for="file-upload" class="custom-file-upload">
             <button *ngIf="changeProfileBtn" class="edit-btn" (click)="changeProfilePicClicked()">
@@ -13,8 +12,7 @@
         </div>
         <form [formGroup]="uploadProfilePic" (ngSubmit)="submitProPic()" enctype="multipart/form-data">
           <input id="file-upload" type="file" (change)="handleFileChange($event)">
-          <button type="submit" *ngIf="formField"
-            class="flex items-center m-2 justify-center focus:outline-none text-black text-sm sm:text-base
+          <button type="submit" *ngIf="formField" class="flex items-center m-2 justify-center focus:outline-none text-black text-sm sm:text-base
              bg-yellow-400 hover:bg-yellow-500 rounded py-2 w-full transition duration-150 ease-in">
             <span class="uppercase">Submit</span>
           </button>
@@ -22,11 +20,11 @@
         <mat-error *ngIf="showErrorMessage | async as error"> <b>{{ error }} </b></mat-error>
       </div>
     </div>
-    <div class="w-2/4 m-5">
+    <div class="w-full md:w-2/4 md:m-5 ">
       <ng-container *ngIf="user?.role === 'USER'">
         <h1>Welcome User</h1>
-      </ng-container> 
-      <ng-container  *ngIf="user?.role === 'PARTNER'">
+      </ng-container>
+      <ng-container *ngIf="user?.role === 'PARTNER'">
         <h1>Welcome Partner</h1>
       </ng-container>
       <h2>{{user?.name}}</h2>

@@ -52,9 +52,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.chatService.unreadMessageCount$.subscribe(count => {
-    //   this.unreadMessagesCount = count;
-    // });
 
     this.masterService.getUserByRole().subscribe({
       next: (data) => {

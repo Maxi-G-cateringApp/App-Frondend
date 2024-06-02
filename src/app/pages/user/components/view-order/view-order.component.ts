@@ -30,13 +30,13 @@ export class ViewOrderComponent implements OnInit {
   items: FoodItems[] = [];
   orderedCombos!: any[];
   orderedItems!: any[];
+  uniqueCombos!: any[];
 
   constructor(
     private ref: MatDialogRef<ViewOrderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private masterService: MasterService,
-    private toster: ToastrService,
-    private dialog: MatDialog
+    private toster: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -57,19 +57,26 @@ export class ViewOrderComponent implements OnInit {
   loadOrder() {
     this.masterService.getOrderById(this.inputdata.orderId).subscribe({
       next: (response) => {
-        console.log(response, 'order details');
-
         this.orderReview = response.review;
         this.order = response;
         this.orderedCombos = response.orderedCombos;
         this.orderedItems = response.orderedItems;
 
-        for (const orderedCombo of this.orderedCombos) {
-          this.combos.push(orderedCombo.foodCombos);
-        }
-        for (const orderedItem of this.orderedItems) {
-          this.items.push(orderedItem.foodItems);
-        }
+        this.combos = this.orderedCombos.map(
+          (orderedCombo) => orderedCombo.foodCombos
+        );
+        this.items = this.orderedItems.map(
+          (orderedItem) => orderedItem.foodItems
+        );
+
+        this.uniqueCombos = this.orderedCombos.map((orderedCombo) => ({
+          comboName: orderedCombo.foodCombos.comboName,
+          comboPrice: orderedCombo.foodCombos.comboPrice,
+          offerPrice: orderedCombo.foodCombos.offer?.enabled
+            ? orderedCombo.foodCombos.offerPrice
+            : null,
+          hasOffer: orderedCombo.foodCombos.offer?.enabled,
+        }));
       },
     });
   }
@@ -77,7 +84,6 @@ export class ViewOrderComponent implements OnInit {
   onCancelOrder() {
     this.masterService.cancelOrder(this.inputdata.orderId).subscribe({
       next: (response) => {
-        console.log(response);
         if (response.status === true) {
           this.toster.success('order cancelled', response.message);
         } else {
@@ -91,7 +97,6 @@ export class ViewOrderComponent implements OnInit {
     this.masterService
       .createTransaction(this.inputdata.orderId)
       .subscribe((response) => {
-        console.log(response);
         this.openTransactionModel(response);
       }),
       (error: any) => {
@@ -107,7 +112,7 @@ export class ViewOrderComponent implements OnInit {
       curency: response.currency,
       name: 'Maxi-G',
       description: 'Payment for Order',
-      image: '/assets/logo2_processed.png',
+      image: '/assets/logo2.png',
       handler: (response: any) => {
         if (response != null && response.razorpay_payment_id != null) {
           this.processResponse(response);
@@ -143,18 +148,66 @@ export class ViewOrderComponent implements OnInit {
       advanceAmount: this.advanceAmount,
       transactionId: transactionId,
     };
-    console.log(data, 'success data');
     this.masterService.orderSuccess(data).subscribe({
       next: (response) => {
         Swal.fire({
-          title: "Good job!",
-          text: "Payment Success!",
-          icon: "success"
+          title: 'Good job!',
+          text: 'Payment Success!',
+          icon: 'success',
         });
         this.closePopup();
-       
       },
     });
+  }
+
+  onPayBalanceAmount() {
+    this.masterService
+      .createBalancePaymentTransaction(this.inputdata.orderId)
+      .subscribe((response) => {
+        this.openBalanceTransactionModel(response);
+      }),
+      (error: any) => {
+        console.log(error);
+      };
+  }
+  openBalanceTransactionModel(response: any) {
+    var options = {
+      order_id: response.orderId,
+      key: response.key,
+      amount: response.amount,
+      curency: response.currency,
+      name: 'Maxi-G',
+      description: 'Payment for Order',
+      image: '/assets/logo2_processed.png',
+      handler: (response: any) => {
+        if (response != null && response.razorpay_payment_id != null) {
+          this.processPaymentResponse();
+        } else {
+          this.toster.error('Failed', 'Payment failed! Something Wrong');
+        }
+      },
+      prefill: {
+        name: 'Maxi-G Admin',
+        email: 'maxigcaters@gmail.com',
+        contact: '9876543210',
+      },
+      note: {
+        address: 'online orders',
+      },
+      theme: {
+        color: '#060e3d',
+      },
+    };
+
+    var razorpayObject = new Razorpay(options);
+    razorpayObject.open();
+  }
+  processPaymentResponse() {
+    this.masterService
+      .paymentConfirm(this.inputdata.orderId)
+      .subscribe((res) => {
+        this.loadOrder();
+      });
   }
 
   closePopup() {

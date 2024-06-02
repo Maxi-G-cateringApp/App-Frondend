@@ -214,6 +214,17 @@ export class MasterService {
       })
     );
   }
+  createBalancePaymentTransaction(orderId: string): Observable<any> {
+    return this.http.post<any>(`/payment/balance/${orderId}`, null).pipe(
+      catchError((error) => {
+        console.error('Error occurred while fetching orders:', error);
+        throw error;
+      })
+    );
+  }
+  paymentConfirm(orderId: string): Observable<any> {
+    return this.http.post<any>(`/payment/confirm/${orderId}`, null);
+  }
 
   orderSuccess(data: OrderSuccess): Observable<any> {
     return this.http.post<any>('/order-success', data);
@@ -247,7 +258,7 @@ export class MasterService {
     return this.http.put<any>(`/inactive/member/${empId}`, null);
   }
 
-  // Decoration Team  
+  // Decoration Team
 
   getAllDecorationTeams(): Observable<any> {
     return this.http.get<any>('/decor_teams');

@@ -21,7 +21,7 @@ export interface UserOrder {
     venue: string;
     status: string;
     transactionId: string;
-    isPaymentComplete:boolean;
+    payFullAmount:boolean;
     review: ReviewModel
     decorationOption?: string;
     totalAmount: number;

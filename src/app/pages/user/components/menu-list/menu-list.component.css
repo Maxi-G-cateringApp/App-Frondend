@@ -1,22 +1,25 @@
 .container {
-  max-width: 1200px;
   margin: auto;
   overflow-y: auto;
   height: 80vh;
+  width: -webkit-fill-available;
   background-image: url("/assets/page-title-5-1920x704.jpeg");
-  background-size: contain;
-  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
+  
 }
-h1 {  
-  align-items: center;
-  padding: 1%;
-  text-align: center;
-  font-family: "Montez", cursive;
-  font-size: xx-large;
-  font-weight: 900;
-  color: wheat;
-}
+h1 {
+    align-items: center;
+    padding: 1%;
+    text-align: center;
+    font-family: "Montez", cursive;
+    font-size: xx-large;
+    font-weight: 900;
+    color:wheat;
+  }
+
+
+
 
 @media (min-width: 768px) {
   .md\:grid-cols-2 {
