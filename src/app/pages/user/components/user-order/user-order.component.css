@@ -4,7 +4,6 @@ mat-card{
     text-align: left;
     border-radius: 3%;
     background-color: transparent;
-    margin: 2%;
     padding: 2%;
 }
 label {
@@ -67,6 +66,7 @@ button{
   }
 
 .order-form {
+    width: -webkit-fill-available;
     background-image: url('/assets/page-title-3.jpeg');
     background-size: cover;
     background-position: center;

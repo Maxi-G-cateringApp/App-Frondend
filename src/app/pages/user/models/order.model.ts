@@ -9,7 +9,7 @@ export type OrderDetails = {
     foodCombos: FoodCombo[],
     foodItems: FoodItems[],
     eventId:number,
-    // orderDate:Date,
+    orderDate?:Date,
     peopleCount:number,
     venue: string,
     timeFrom: string,

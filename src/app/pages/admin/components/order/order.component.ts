@@ -21,6 +21,7 @@ export class OrderComponent implements OnInit {
   displayedColumns: string[] = [
     'eventName',
     'date',
+    'orderDate',
     'venue',
     'peopleCount',
     'action',
