@@ -427,26 +427,26 @@ export class MasterService {
   //sales
 
   getOneMonthSales() {
-    return this.http.get('/admin/sales/one-month');
+    return this.http.get('/sales/one-month');
   }
 
   showGraph(timePeriod: string) {
-    return this.http.get(`/admin/show/graph?timePeriod=${timePeriod}`);
+    return this.http.get(`/show/graph?timePeriod=${timePeriod}`);
   }
   showAllTimeGraph() {
-    return this.http.get('/admin/show/total-sale/graph');
+    return this.http.get('/show/total-sale/graph');
   }
   getSalesReport(timePeriod: string) {
-    return this.http.get(`/admin/sales-report/timePeriod?timePeriod=${timePeriod}`);
+    return this.http.get(`/sales-report/timePeriod?timePeriod=${timePeriod}`);
   }
   getSalesReportByDates(dates: any): Observable<any> {
-    return this.http.post<any>('/admin/sales-report/date', dates);
+    return this.http.post<any>('/sales-report/date', dates);
   }
   downloadPDF(timePeriod: string) {
     const params = { timePeriod };
     const headers = new HttpHeaders({ Accept: 'application/pdf' });
     return this.http
-      .get('/admin/sales-report/download', { headers, params, responseType: 'blob' })
+      .get('/sales-report/download', { headers, params, responseType: 'blob' })
       .pipe(
         map((response: Blob) => {
           const fileName = 'sales-report.pdf';
@@ -457,7 +457,7 @@ export class MasterService {
   downloadPDFBydates(dates: any) {
     const headers = new HttpHeaders({ Accept: 'application/pdf' });
     return this.http
-      .post('/admin/sales-report/dates/download', dates, {
+      .post('/sales-report/dates/download', dates, {
         headers,
         responseType: 'blob',
       })
