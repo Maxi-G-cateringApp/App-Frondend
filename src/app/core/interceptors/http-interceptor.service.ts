@@ -84,7 +84,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       }),
       finalize(() => {
         if (req.method === 'POST' || (req.method === 'DELETE' && !skipLoader)) {
-          this.store.dispatch(setLoadingSpinner({ status: true }));
+          this.store.dispatch(setLoadingSpinner({ status: false }));
         }
       })
     );
