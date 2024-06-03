@@ -6,6 +6,7 @@ import { getUser } from '../../../auth/state/auth.selector';
 import { MasterService } from '../../../../core/services/master.service';
 import { User } from '../../../auth/models/user.model';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-chat',
@@ -16,30 +17,32 @@ export class ChatComponent implements OnInit, OnDestroy {
   user!: any;
   admin!: User;
   roomName?: string;
-  newMessage: string = '';
+  newMessage: string = "";
   chatMessages: {
     sender: string;
     content: string;
+    imageUrl?: string;
     timestamp: string;
     seen: boolean;
   }[] = [];
   chatRoomName!: string;
-  file!: File;
+  file: File | null = null;
   private newMessageSubscription: Subscription | undefined;
   showEmojiPicker = false;
   unreadMessages: number = 0;
   unreadMessagesCount = 0;
   sets = [
-    'native',
-    'google',
-    'twitter',
-    'facebook',
-    'emojione',
-    'apple',
-    'messenger',
+    "native",
+    "google",
+    "twitter",
+    "facebook",
+    "emojione",
+    "apple",
+    "messenger",
   ];
-  set: 'google' | 'twitter' | 'facebook' | 'apple' = 'twitter';
+  set: "google" | "twitter" | "facebook" | "apple" = "twitter";
   showChatIndicator = false;
+  imageSent: boolean = false;
 
   toggleEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -48,11 +51,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(
     private chatService: ChatService,
     private store: Store<AppState>,
-    private masterService: MasterService
+    private masterService: MasterService,
+    private dialogue: MatDialog
   ) {}
 
   ngOnInit(): void {
-
     this.masterService.getUserByRole().subscribe({
       next: (data) => {
         this.admin = data;
@@ -88,7 +91,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   sendMsg() {
-    if (this.newMessage.trim() && this.admin && this.user) {
+    if (this.newMessage.trim() || (this.file && this.admin && this.user)) {
       const content = this.newMessage.trim();
       const senderId = this.user.id;
       const recipientId = this.admin.id;
@@ -96,17 +99,36 @@ export class ChatComponent implements OnInit, OnDestroy {
         senderId,
         recipientId
       );
-      const message = { senderId, chatRoomName, content: content };
-
-      this.chatService.sentPrivateMessage(message);
-      this.chatMessages.push({
-        sender: senderId,
-        content: content,
-        timestamp: '',
-        seen: false,
-      });
-      this.newMessage = '';
+      const message: any = { senderId, chatRoomName };
+      if (this.newMessage.trim()) {
+        message.content = this.newMessage.trim();
+      }
+      if (this.file) {
+        this.imageSent = true;
+        const formData = new FormData();
+        formData.append("file", this.file);
+        this.chatService.sentImage(formData).subscribe((res: any) => {
+          message.content = res.imageUrl;
+          this.file = null;
+          this.imageSent = false;
+          this.sentMessage(message);
+        });
+      } else {
+        this.sentMessage(message);
+      }
+      this.newMessage = "";
     }
+  }
+
+  sentMessage(message: any) {
+    this.chatService.sentPrivateMessage(message);
+    this.chatMessages.push({
+      sender: message.senderId,
+      content: message.content,
+      timestamp: "",
+      seen: false,
+    });
+    this.isImageUrl(message.content);
   }
 
   lisenerMessage() {
@@ -142,9 +164,17 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     this.file = event.target.files[0];
+    this.imageSent = true;
+    this.sendMsg()
+
+    
   }
 
   markAllMessagesAsRead() {
     this.unreadMessages = 0;
   }
+
+  isImageUrl(content: string): boolean {
+    return content.match(/\.(jpeg|jpg|gif|png|webp)$/) !== null;
+}
 }

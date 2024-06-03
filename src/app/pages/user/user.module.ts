@@ -36,7 +36,7 @@ import { MenuListComponent } from './components/menu-list/menu-list.component';
     AddFeedsComponent,
     ChatComponent,
     OfferComponent,
-    MenuListComponent
+    MenuListComponent,
     
 
  

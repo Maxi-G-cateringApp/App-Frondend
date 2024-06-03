@@ -24,6 +24,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   providers: [
@@ -54,6 +55,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTooltipModule,
     MatSlideToggleModule,
     MatTabsModule,
+    MatProgressBarModule,
   ],
   declarations: [],
   imports: [CommonModule],

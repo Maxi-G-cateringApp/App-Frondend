@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.css',
 })
-export class ChatListComponent implements OnInit,OnDestroy {
+export class ChatListComponent implements OnInit, OnDestroy {
   admin: any;
   chatRoom?: any[];
   chatMessages: {
@@ -21,21 +21,23 @@ export class ChatListComponent implements OnInit,OnDestroy {
     timestamp: string;
     seen: boolean;
   }[] = [];
-  newMessage: string = '';
+  file: File | null = null;
+  newMessage: string = "";
   selectedChatRoom?: any;
   userChatRoomId!: any;
   private newMessageSubscription?: Subscription;
   showEmojiPicker = false;
+  imageSent: boolean = false;
   sets = [
-    'native',
-    'google',
-    'twitter',
-    'facebook',
-    'emojione',
-    'apple',
-    'messenger',
+    "native",
+    "google",
+    "twitter",
+    "facebook",
+    "emojione",
+    "apple",
+    "messenger",
   ];
-  set: 'google' | 'twitter' | 'facebook' | 'apple' = 'twitter';
+  set: "google" | "twitter" | "facebook" | "apple" = "twitter";
 
   toggleEmojiPicker() {
     console.log(this.showEmojiPicker);
@@ -59,24 +61,23 @@ export class ChatListComponent implements OnInit,OnDestroy {
   }
 
   lisenerMessage() {
-    this.newMessageSubscription = this.chatService.message$.subscribe((message) => {
-      const receivedMessage = JSON.parse(message);
-      console.log(receivedMessage, 'receved message admin side');
+    this.newMessageSubscription = this.chatService.message$.subscribe(
+      (message) => {
+        const receivedMessage = JSON.parse(message)
+         if (receivedMessage.senderId === this.selectedChatRoom.user.id) {
 
-      if (receivedMessage.senderId === this.selectedChatRoom.user.id) {
-        console.log(receivedMessage.senderId,'sender,',this.selectedChatRoom.user.id,'user id');
-        
-        this.chatMessages.push({
-          sender: receivedMessage.senderId,
-          content: receivedMessage.content,
-          timestamp: receivedMessage.timestamp,
-          seen: receivedMessage.seen,
-        });
-        this.chatService.markMessageAsSeen(receivedMessage.id);
-      } else {
-        console.log('chatrooms not eqal');
+          this.chatMessages.push({
+            sender: receivedMessage.senderId,
+            content: receivedMessage.content,
+            timestamp: receivedMessage.timestamp,
+            seen: receivedMessage.seen,
+          });
+          this.chatService.markMessageAsSeen(receivedMessage.id);
+        } else {
+          console.log("chatrooms not eqal");
+        }
       }
-    });
+    );
   }
 
   selectChatRoom(chat: any) {
@@ -99,9 +100,19 @@ export class ChatListComponent implements OnInit,OnDestroy {
         });
       });
   }
+  sentMessage(message: any) {
+    this.chatService.sentPrivateMessage(message);
+    this.chatMessages.push({
+      sender: message.senderId,
+      content: message.content,
+      timestamp: "",
+      seen: false,
+    });
+    this.isImageUrl(message.content);
+  }
 
   sendMsg() {
-    if (this.newMessage.trim()) {
+    if (this.newMessage.trim() || this.file) {
       const content = this.newMessage.trim();
       const senderId = this.admin.id;
       const recipientId = this.selectedChatRoom.user.id;
@@ -109,21 +120,27 @@ export class ChatListComponent implements OnInit,OnDestroy {
         senderId,
         recipientId
       );
-      const message = {
-        senderId,
-        chatRoomName,
-        content,
-      };
-      this.chatService.sentPrivateMessage(message);
-      this.chatMessages.push({
-        sender: senderId,
-        content,
-        timestamp: '',
-        seen: false,
-      });
-      this.newMessage = '';
+      const message: any = { senderId, chatRoomName };
+      if (this.newMessage.trim()) {
+        message.content = this.newMessage.trim();
+      }
+      if (this.file) {
+        this.imageSent = true;
+        const formData = new FormData();
+        formData.append("file", this.file);
+        this.chatService.sentImage(formData).subscribe((res: any) => {
+          message.content = res.imageUrl;
+          this.file = null;
+          this.imageSent = false;
+          this.sentMessage(message);
+        });
+      } else {
+        this.sentMessage(message);
+      }
+      this.newMessage = "";
     }
   }
+  
 
   getRecipientId(userId: string) {
     let recId: string;
@@ -147,8 +164,18 @@ export class ChatListComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-      if(this.newMessageSubscription){
-        this.newMessageSubscription.unsubscribe()
-      }
+    if (this.newMessageSubscription) {
+      this.newMessageSubscription.unsubscribe();
+    }
+  }
+
+  isImageUrl(content: string): boolean {
+    return content.match(/\.(jpeg|jpg|gif|png|webp)$/) !== null;
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
+    this.imageSent = true;
+    this.sendMsg()
   }
 }

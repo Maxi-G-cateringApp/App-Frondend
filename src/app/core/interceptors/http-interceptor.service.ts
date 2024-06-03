@@ -9,7 +9,10 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../shared/app.state';
-import { setErrorMessage, setLoadingSpinner } from '../../shared/store/shared.action';
+import {
+  setErrorMessage,
+  setLoadingSpinner,
+} from '../../shared/store/shared.action';
 import { AuthService } from '../../pages/auth/service/auth-service.service';
 
 @Injectable({
@@ -33,7 +36,6 @@ export class HttpInterceptorService implements HttpInterceptor {
     let accToken = this.authService.getTokenFromLocalStorage();
 
     if (accToken) {
-      
       apiRequest = apiRequest.clone({
         setHeaders: {
           authorization: `Bearer ${accToken}`,
@@ -41,25 +43,31 @@ export class HttpInterceptorService implements HttpInterceptor {
       });
     }
 
-    if (req.method === 'POST' || req.method === 'DELETE') {
+    const skipLoader = req.headers.get('X-Skip-Loader');
+
+    if (req.method === 'POST' || (req.method === 'DELETE' && !skipLoader)) {
       this.store.dispatch(setLoadingSpinner({ status: true }));
     }
 
     return next.handle(apiRequest).pipe(
       catchError((error) => {
         if (error.status === 403) {
-          this.store.dispatch(setErrorMessage({message:"Something Went Wrong"}))
+          this.store.dispatch(
+            setErrorMessage({ message: 'Something Went Wrong' })
+          );
         }
         if (error.status === 409) {
-          this.store.dispatch(setErrorMessage({message:"Data already present"}))
+          this.store.dispatch(
+            setErrorMessage({ message: 'Data already present' })
+          );
         }
-        return throwError(error); 
+        return throwError(error);
       }),
       tap({
         next: (event) => {
           if (event instanceof HttpResponse && event.status === 200) {
             const { token, refreshToken } = event.body;
-    
+
             if (token) {
               this.authService.setTokenInLocalStorage(token);
               apiRequest = apiRequest.clone({
@@ -75,10 +83,10 @@ export class HttpInterceptorService implements HttpInterceptor {
         },
       }),
       finalize(() => {
-        if (req.method === 'POST' || req.method === 'DELETE') {
-          this.store.dispatch(setLoadingSpinner({ status: false }));
+        if (req.method === 'POST' || (req.method === 'DELETE' && !skipLoader)) {
+          this.store.dispatch(setLoadingSpinner({ status: true }));
         }
       })
-    );  
-}
+    );
+  }
 }

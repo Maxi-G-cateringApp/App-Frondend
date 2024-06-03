@@ -3,7 +3,7 @@ import { Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { ChatMessage } from '../../pages/user/models/chat.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +21,8 @@ export class ChatService {
       this.disconnect();
     }
     this.currentRoomId = chatRoomId;
-    const url = 'https://api.maxigcatering.online/wss';
-    
+    const url = '//localhost:8080/ws';
+
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
 
@@ -47,8 +47,7 @@ export class ChatService {
 
   disconnect() {
     if (this.stompClient && this.stompClient.connected) {
-      this.stompClient.disconnect(() => {
-      });
+      this.stompClient.disconnect(() => {});
     }
   }
 
@@ -68,14 +67,19 @@ export class ChatService {
     }
   }
 
-  markMessageAsSeen(messageId: number){
-    if(this.stompClient && this.stompClient.connected){
-      this.stompClient.send('/app/seen',{},JSON.stringify({ messageId}))
-    }else{
+  sentImage(formdata: FormData): Observable<any> {
+    const headers = new HttpHeaders().set('X-Skip-Loader', 'true');
+    return this.http.post<any>('/sent-image', formdata, { headers });
+  }
+
+  markMessageAsSeen(messageId: number) {
+    if (this.stompClient && this.stompClient.connected) {
+      this.stompClient.send('/app/seen', {}, JSON.stringify({ messageId }));
+    } else {
       console.error('WebSocket is not initialized.');
     }
   }
-  
+
   getMessageSubject() {
     return this.messageSubject.asObservable();
   }
@@ -83,9 +87,11 @@ export class ChatService {
   getMessagesBetweenUserAndAdmin(
     chatRoomName: string
   ): Observable<ChatMessage[]> {
+    const headers = new HttpHeaders().set('X-Skip-Loader', 'true');
     return this.http.post<ChatMessage[]>(
       `/get-messages?chatRoomName=${chatRoomName}`,
-      null
+      null,
+      { headers }
     );
   }
   getChatRooms(): Observable<any[]> {
@@ -96,11 +102,9 @@ export class ChatService {
     let names = [senderId, recipientId].sort();
     return names[0] + '_' + names[1];
   }
-  
+
+  viewImage(imageUrl: string): Observable<any> {
+    const headers = new HttpHeaders().set('X-Skip-Loader', 'true');
+    return this.http.get(`/view/image?imageUrl=${imageUrl}`, { headers });
+  }
 }
-
-
-
-
-
-

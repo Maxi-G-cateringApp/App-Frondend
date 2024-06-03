@@ -12,8 +12,15 @@
             <li [ngClass]="{'flex justify-end': message.sender === admin.id, 
             'flex justify-start': message.sender === admin.id}" class="mb-2">
               <span [ngClass]="{'sender-message': message.sender === admin.id, 
-              'receiver-message': message.sender !== admin.id}" class="chat-message p-2 m-1 rounded-lg">{{
-                message.content }}</span>
+              'receiver-message': message.sender !== admin.id}" class="chat-message p-2 m-1 rounded-lg">
+              <ng-container *ngIf="isImageUrl(message.content)">
+                  <div class="w-36 h-36">
+                   <img [src]="message.content" alt="Image" />
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!isImageUrl(message.content)">
+                  {{ message.content }}
+                </ng-container></span>
               <span class="timestamp">{{ message.timestamp | date: 'MMMM d, y, h:mm a'}}</span>
               <div *ngIf="message.sender === admin.id">
                 <span *ngIf="message.seen"><mat-icon>done_all</mat-icon></span>
@@ -23,15 +30,16 @@
           </ng-container>
         </ul>
       </div>
-      <div class="chat-input flex items-center p-3 m-4 bg-slate-200 rounded-full shadow-xl">
+      <mat-progress-bar *ngIf="imageSent" mode="indeterminate"></mat-progress-bar>
+      <div class="chat-input flex items-center p-3 bg-slate-950 rounded-full">
         <button (click)="toggleEmojiPicker()"
           class="emoji-button bg-white rounded-full p-2 mr-2 hover:bg-slate-400 transition">😀</button>
         <input type="text" [(ngModel)]="newMessage" placeholder="Enter a message..."
           class="flex-1 px-4 py-2 mx-2 rounded-l-lg input-field border-none">
-        <!-- <label for="file-upload" class="custom-file-upload">
+        <label for="file-upload">
           <mat-icon>add_a_photo</mat-icon>
         </label>
-        <input id="file-upload" type="file" (change)="sendImage($event)"/> -->
+        <input id="file-upload" type="file" (change)="onFileSelected($event)" />
         <button (click)="sendMsg()" class="send-button mr-2">Send</button>
       </div>
       <div class="emoji-picker-container" *ngIf="showEmojiPicker">
