@@ -1,19 +1,4 @@
-/* .chat-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .chat-list button {
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
-  
-  .chat-list button:hover {
-    background-color: #f4f4f4;
-  }
-  
-  .chat-list button:focus {
-    outline: none;
-  } */
+
   
   .chat-window {
     height: 80vh;
@@ -50,11 +35,13 @@
     border-radius: 4px;
     outline: none;
   }
+  .chat-input {
+    width: fit-content;
+  }
   
   .chat-input label {
-    border: 1px solid #ccc;
     display: inline-block;
-    padding: 6px 12px;
+    padding: 3px 10px;
     cursor: pointer;
   }
   
@@ -81,4 +68,7 @@
   
   input[type="file"] {
     display: none;
+  }
+  mat-icon {
+    color: white;
   }
