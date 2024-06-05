@@ -103,8 +103,8 @@ export class ChatService {
     return names[0] + '_' + names[1];
   }
 
-  viewImage(imageUrl: string): Observable<any> {
-    const headers = new HttpHeaders().set('X-Skip-Loader', 'true');
-    return this.http.get(`/view/image?imageUrl=${imageUrl}`, { headers });
+  viewImage(id: number):Observable<any>{
+    return this.http.get(`/view/image?id=${id}`)
   }
+  
 }

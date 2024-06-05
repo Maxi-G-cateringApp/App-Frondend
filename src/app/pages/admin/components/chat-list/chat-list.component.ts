@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../shared/app.state';
 import { getUser } from '../../../auth/state/auth.selector';
 import { ChatService } from '../../../../core/services/chat.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { ViewImageComponent } from '../../../user/components/chat/view-image/view-image.component';
 
 @Component({
   selector: 'app-chat-list',
@@ -15,7 +16,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   admin: any;
   chatRoom?: any[];
   chatMessages: {
-    id?: number;
+    id: number;
     sender: string;
     content: string;
     timestamp: string;
@@ -47,6 +48,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   constructor(
     private chatService: ChatService,
     private store: Store<AppState>,
+    private dialog: MatDialog,
     private ref: MatDialogRef<ChatListComponent>
   ) {}
 
@@ -67,6 +69,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
          if (receivedMessage.senderId === this.selectedChatRoom.user.id) {
 
           this.chatMessages.push({
+            id: receivedMessage.id,
             sender: receivedMessage.senderId,
             content: receivedMessage.content,
             timestamp: receivedMessage.timestamp,
@@ -87,6 +90,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
       .getMessagesBetweenUserAndAdmin(this.selectedChatRoom.chatRoomName)
       .subscribe((data) => {
         this.chatMessages = data.map((msg) => ({
+          id: msg.id,
           content: msg.content,
           sender: msg.senderId,
           timestamp: msg.t_stamp,
@@ -103,6 +107,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   sentMessage(message: any) {
     this.chatService.sentPrivateMessage(message);
     this.chatMessages.push({
+      id: message.id,
       sender: message.senderId,
       content: message.content,
       timestamp: "",
@@ -177,5 +182,18 @@ export class ChatListComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0];
     this.imageSent = true;
     this.sendMsg()
+  }
+  viewImage(id: number) {
+    this.openImageViewPopup(id);
+  }
+
+  openImageViewPopup(id: number) {
+    this.dialog.open(ViewImageComponent, {
+      width: "60%",
+      height: "60%",
+      data: {
+        id: id,
+      },
+    });
   }
 }

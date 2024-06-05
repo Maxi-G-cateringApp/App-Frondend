@@ -18,6 +18,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { OfferComponent } from './components/offer/offer.component';
 import { MenuListComponent } from './components/menu-list/menu-list.component';
+import { ViewImageComponent } from './components/chat/view-image/view-image.component';
 
 
 
@@ -37,6 +38,7 @@ import { MenuListComponent } from './components/menu-list/menu-list.component';
     ChatComponent,
     OfferComponent,
     MenuListComponent,
+    ViewImageComponent,
     
 
  

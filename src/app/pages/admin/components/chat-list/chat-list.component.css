@@ -72,3 +72,9 @@
   mat-icon {
     color: white;
   }
+  button .material-icons {
+    color: black;
+  }
+  span .material-icons {
+    color: black;
+  }

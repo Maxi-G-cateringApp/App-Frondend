@@ -7,6 +7,7 @@ import { MasterService } from '../../../../core/services/master.service';
 import { User } from '../../../auth/models/user.model';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { ViewImageComponent } from './view-image/view-image.component';
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   roomName?: string;
   newMessage: string = "";
   chatMessages: {
+    id: number;
     sender: string;
     content: string;
     imageUrl?: string;
@@ -70,6 +72,7 @@ export class ChatComponent implements OnInit, OnDestroy {
               .getMessagesBetweenUserAndAdmin(chatRoomName)
               .subscribe((data) => {
                 this.chatMessages = data.map((msg) => ({
+                  id: msg.id,
                   sender: msg.senderId,
                   content: msg.content,
                   timestamp: msg.t_stamp,
@@ -123,6 +126,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   sentMessage(message: any) {
     this.chatService.sentPrivateMessage(message);
     this.chatMessages.push({
+      id: message.id,
       sender: message.senderId,
       content: message.content,
       timestamp: "",
@@ -137,6 +141,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         const receivedMessage = JSON.parse(message);
         if (receivedMessage.senderId !== this.user.id) {
           this.chatMessages.push({
+            id: receivedMessage.id,
             sender: receivedMessage.senderId,
             content: receivedMessage.content,
             timestamp: receivedMessage.timestamp,
@@ -176,5 +181,19 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   isImageUrl(content: string): boolean {
     return content.match(/\.(jpeg|jpg|gif|png|webp)$/) !== null;
+}
+
+viewImage(id: number) {
+  this.openImageViewPopup(id);
+}
+
+openImageViewPopup(id: number) {
+  this.dialogue.open(ViewImageComponent, {
+    width: "60%",
+    height: "60%",
+    data: {
+      id: id,
+    },
+  });
 }
 }

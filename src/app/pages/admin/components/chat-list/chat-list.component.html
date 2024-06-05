@@ -15,7 +15,7 @@
               'receiver-message': message.sender !== admin.id}" class="chat-message p-2 m-1 rounded-lg">
               <ng-container *ngIf="isImageUrl(message.content)">
                   <div class="w-36 h-36">
-                   <img [src]="message.content" alt="Image" />
+                    <a (click)="viewImage(message.id)"><img [src]="message.content" alt="Image" /></a>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="!isImageUrl(message.content)">
