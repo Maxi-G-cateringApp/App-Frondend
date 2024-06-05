@@ -18,7 +18,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   user!: any;
   admin!: User;
   roomName?: string;
-  newMessage: string = "";
+  newMessage: string = '';
   chatMessages: {
     id: number;
     sender: string;
@@ -32,17 +32,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   private newMessageSubscription: Subscription | undefined;
   showEmojiPicker = false;
   unreadMessages: number = 0;
-  unreadMessagesCount = 0;
   sets = [
-    "native",
-    "google",
-    "twitter",
-    "facebook",
-    "emojione",
-    "apple",
-    "messenger",
+    'native',
+    'google',
+    'twitter',
+    'facebook',
+    'emojione',
+    'apple',
+    'messenger',
   ];
-  set: "google" | "twitter" | "facebook" | "apple" = "twitter";
+  set: 'google' | 'twitter' | 'facebook' | 'apple' = 'twitter';
   showChatIndicator = false;
   imageSent: boolean = false;
 
@@ -109,7 +108,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       if (this.file) {
         this.imageSent = true;
         const formData = new FormData();
-        formData.append("file", this.file);
+        formData.append('file', this.file);
         this.chatService.sentImage(formData).subscribe((res: any) => {
           message.content = res.imageUrl;
           this.file = null;
@@ -119,7 +118,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       } else {
         this.sentMessage(message);
       }
-      this.newMessage = "";
+      this.newMessage = '';
     }
   }
 
@@ -129,7 +128,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       id: message.id,
       sender: message.senderId,
       content: message.content,
-      timestamp: "",
+      timestamp: '',
       seen: false,
     });
     this.isImageUrl(message.content);
@@ -170,9 +169,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     this.imageSent = true;
-    this.sendMsg()
-
-    
+    this.sendMsg();
   }
 
   markAllMessagesAsRead() {
@@ -181,19 +178,19 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   isImageUrl(content: string): boolean {
     return content.match(/\.(jpeg|jpg|gif|png|webp)$/) !== null;
-}
+  }
 
-viewImage(id: number) {
-  this.openImageViewPopup(id);
-}
+  viewImage(id: number) {
+    this.openImageViewPopup(id);
+  }
 
-openImageViewPopup(id: number) {
-  this.dialogue.open(ViewImageComponent, {
-    width: "60%",
-    height: "60%",
-    data: {
-      id: id,
-    },
-  });
-}
+  openImageViewPopup(id: number) {
+    this.dialogue.open(ViewImageComponent, {
+      width: '60%',
+      height: '60%',
+      data: {
+        id: id,
+      },
+    });
+  }
 }

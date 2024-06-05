@@ -101,3 +101,6 @@ mat-icon {
 .material-icons {
   color: white;
 }
+a{
+  cursor: pointer;
+}

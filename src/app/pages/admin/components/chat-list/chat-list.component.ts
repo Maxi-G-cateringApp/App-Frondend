@@ -29,6 +29,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   private newMessageSubscription?: Subscription;
   showEmojiPicker = false;
   imageSent: boolean = false;
+  unreadMessages: number = 0;
   sets = [
     "native",
     "google",
@@ -65,9 +66,8 @@ export class ChatListComponent implements OnInit, OnDestroy {
   lisenerMessage() {
     this.newMessageSubscription = this.chatService.message$.subscribe(
       (message) => {
-        const receivedMessage = JSON.parse(message)
-         if (receivedMessage.senderId === this.selectedChatRoom.user.id) {
-
+        const receivedMessage = JSON.parse(message);
+        if (receivedMessage.senderId === this.selectedChatRoom.user.id) {
           this.chatMessages.push({
             id: receivedMessage.id,
             sender: receivedMessage.senderId,
@@ -76,6 +76,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
             seen: receivedMessage.seen,
           });
           this.chatService.markMessageAsSeen(receivedMessage.id);
+          this.unreadMessages++;
         } else {
           console.log("chatrooms not eqal");
         }
@@ -84,6 +85,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   }
 
   selectChatRoom(chat: any) {
+    this.markAllMessagesAsRead()
     this.selectedChatRoom = chat;
     this.chatService.initConectionSocket(this.selectedChatRoom.chatRoomName);
     this.chatService
@@ -145,7 +147,6 @@ export class ChatListComponent implements OnInit, OnDestroy {
       this.newMessage = "";
     }
   }
-  
 
   getRecipientId(userId: string) {
     let recId: string;
@@ -181,8 +182,9 @@ export class ChatListComponent implements OnInit, OnDestroy {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     this.imageSent = true;
-    this.sendMsg()
+    this.sendMsg();
   }
+
   viewImage(id: number) {
     this.openImageViewPopup(id);
   }
@@ -195,5 +197,8 @@ export class ChatListComponent implements OnInit, OnDestroy {
         id: id,
       },
     });
+  }
+  markAllMessagesAsRead() {
+    this.unreadMessages = 0;
   }
 }
