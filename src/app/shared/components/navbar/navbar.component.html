@@ -16,40 +16,40 @@
 			<ul
 				class="font-medium flex flex-col p-4 md:p-0 mt-4 border md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
 				<li *ngIf="!(isAuthenticated | async)">
-					<button [routerLink]="['/']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"
+					<button (click)="selectMenuItem()" [routerLink]="['/']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Home</button>
 				</li>
 				<li *ngIf="(isAuthenticated | async)">
-					<button [routerLink]="['/user/home']" [routerLinkActive]="'active'"
+					<button (click)="selectMenuItem()" [routerLink]="['/user/home']" [routerLinkActive]="'active'"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Home</button>
 				</li>
 				<li  *ngIf="(isAuthenticated | async)"> 
-					<button [routerLink]="['/user/menu']" [routerLinkActive]="'active'"
+					<button (click)="selectMenuItem()" [routerLink]="['/user/menu']" [routerLinkActive]="'active'"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Menu</button>
 				</li>
 				<li *ngIf="(isAuthenticated | async)">
-					<button [routerLink]="['/user/orders']" [routerLinkActive]="'active'"
+					<button (click)="selectMenuItem()" [routerLink]="['/user/orders']" [routerLinkActive]="'active'"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						orders</button>
 				</li>
 				<li *ngIf="(isAuthenticated | async)">
-					<button [routerLink]="['user/chat']" [routerLinkActive]="'active'"
+					<button (click)="selectMenuItem()" [routerLink]="['user/chat']" [routerLinkActive]="'active'"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Chats</button><div class="notification-badge">
 						  </div>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
-					<button [routerLink]="['/auth/register']" [routerLinkActive]="'active'"
+					<button (click)="selectMenuItem()" [routerLink]="['/auth/register']" [routerLinkActive]="'active'"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Signup</button>
 				</li>
 
 				<li *ngIf="!(isAuthenticated | async)">
-					<button [routerLink]="['/auth']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"
+					<button (click)="selectMenuItem()" [routerLink]="['/auth']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact: true}"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						Login</button>
 
@@ -61,7 +61,7 @@
 				</li>
 
 				<li *ngIf="(isAuthenticated | async)">
-					<button [routerLink]="['/user/user-profile']" [routerLinkActive]="'active'"
+					<button (click)="selectMenuItem()" [routerLink]="['/user/user-profile']" [routerLinkActive]="'active'"
 						class="relative inline-flex items-center justify-center text-white font-semibold hover:text-orange-300">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 							stroke="currentColor" class="w-6 h-6">

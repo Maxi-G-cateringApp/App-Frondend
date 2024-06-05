@@ -9,30 +9,36 @@ import { ChatService } from '../../../core/services/chat.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   isMenuOpen = false;
-  logo: string = "/assets/logo2.png";
+  logo: string = '/assets/logo2.png';
 
   isAuthenticated: Observable<boolean> | undefined;
   userName$: Observable<string | undefined> | null = null;
-  userName: string | undefined ="";
+  userName: string | undefined = '';
   unreadMessagesCount = 0;
-  constructor(private store: Store<AuthState>,private chatService: ChatService){}
+  constructor(
+    private store: Store<AuthState>,
+    private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
-      this.isAuthenticated = this.store.select(isAuthenticated);
-  
+    this.isAuthenticated = this.store.select(isAuthenticated);
   }
 
-  onLogout(event: Event){
+  onLogout(event: Event) {
+    this.isMenuOpen = false;
     event.preventDefault();
-    this.store.dispatch(logout())
+    this.store.dispatch(logout());
   }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  selectMenuItem() {
+    this.isMenuOpen = false;
+  }
 }
